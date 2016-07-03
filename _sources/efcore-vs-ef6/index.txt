@@ -1,0 +1,12 @@
+EF Core vs. EF6.x
+=================
+
+Доступны следующие статьи
+
+.. toctree::
+  :titlesonly:
+
+  choosing
+  features
+  porting/index
+  side-by-side

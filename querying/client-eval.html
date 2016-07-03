@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Клиентская или серверная валидация &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
+        <link rel="up" title="Запрос данных" href="index.html"/>
+        <link rel="next" title="Отслеживать или не отслеживать" href="tracking.html"/>
+        <link rel="prev" title="Загрузка связанных данных" href="related-data.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Запрос данных</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Основные запросы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-data.html">Загрузка связанных данных</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Клиентская или серверная валидация</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tracking.html">Отслеживать или не отслеживать</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-sql.html">Raw SQL Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html">How Query Works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Запрос данных</a> &raquo;</li>
+      
+    <li>Клиентская или серверная валидация</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="id1">
+<h1>Клиентская или серверная валидация<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Entity Framework Core поддерживает проверку части запроса на стороне клиента, а часть - при записи в базу данных. Остается на совести провайдера определять, какая часть запроса будет проверена в базе данных.</p>
+<div class="contents local topic" id="id2">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#id4" id="id6">Проверка на стороне клиента</a></li>
+<li><a class="reference internal" href="#id5" id="id7">Отключение проверки на стороне клиента</a></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вы можете посмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Querying">пример</a> этой статьи на GitHub.</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id6">Проверка на стороне клиента</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В следующем примере метод помощника использует для блога стандартизированный URL который возвращается из базы данных SQL Server. Так как провайдер SQL Server не имеет никакого понимания того, как реализован этот метод, не представляется возможным перевести его в SQL. Все остальные аспекты запроса оцениваются в базе данных, но передача возвращаемого этим методом <code class="docutils literal"><span class="pre">URL</span></code> выполнена на стороне клиенте.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">blogs</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Blogs</span>
+    <span class="p">.</span><span class="n">OrderByDescending</span><span class="p">(</span><span class="n">blog</span> <span class="p">=&gt;</span> <span class="n">blog</span><span class="p">.</span><span class="n">Rating</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">blog</span> <span class="p">=&gt;</span> <span class="k">new</span>
+    <span class="p">{</span>
+        <span class="n">Id</span> <span class="p">=</span> <span class="n">blog</span><span class="p">.</span><span class="n">BlogId</span><span class="p">,</span>
+<span class="hll">        <span class="n">Url</span> <span class="p">=</span> <span class="n">StandardizeUrl</span><span class="p">(</span><span class="n">blog</span><span class="p">.</span><span class="n">Url</span><span class="p">)</span>
+</span>    <span class="p">})</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">StandardizeUrl</span><span class="p">(</span><span class="kt">string</span> <span class="n">url</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">url</span> <span class="p">=</span> <span class="n">url</span><span class="p">.</span><span class="n">ToLower</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(!</span><span class="n">url</span><span class="p">.</span><span class="n">StartsWith</span><span class="p">(</span><span class="s">&quot;http://&quot;</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">url</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="s">&quot;http://&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">url</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id7">Отключение проверки на стороне клиента</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Несмотря на то, что оценка на стороне клиента может быть очень полезной, в некоторых случаях это может привести к снижению производительности. Рассмотрим следующий запрос, где вспомогательный метод в настоящее время используется в фильтре. Так как это не может быть выполнено в базе данных, то все данные записываются в память, а затем на стороне клиента применяется фильтр. В зависимости от объема данных, а также, сколько из этих данных отфильтровывается, то это может привести к снижению производительности.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">blogs</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Blogs</span>
+    <span class="p">.</span><span class="n">Where</span><span class="p">(</span><span class="n">blog</span> <span class="p">=&gt;</span> <span class="n">StandardizeUrl</span><span class="p">(</span><span class="n">blog</span><span class="p">.</span><span class="n">Url</span><span class="p">).</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;dotnet&quot;</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">ToList</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div>
+<p>По умолчанию EF Core будет логгировать предупреждение, когда выполняется оценка на стороне клиента. Для получения подробной информации о просмотре информации логгирования смотрите раздел <a class="reference internal" href="../miscellaneous/logging.html"><span class="doc">Логгирование</span></a>. Вы можете изменить поведение, когда выполняется оценка на стороне клиента - либо бросить исключение, либо ничего не делать. Это делается при настройке параметров для вашего контекста - обычно в <code class="docutils literal"><span class="pre">DbContext.OnConfiguring</span></code>, или в <code class="docutils literal"><span class="pre">Startup.cs</span></code> если вы используете ASP.NET Core.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">optionsBuilder</span>
+        <span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="s">@&quot;Server=(localdb)\mssqllocaldb;Database=EFQuerying;Trusted_Connection=True;&quot;</span><span class="p">)</span>
+<span class="hll">        <span class="p">.</span><span class="n">ConfigureWarnings</span><span class="p">(</span><span class="n">warnings</span> <span class="p">=&gt;</span> <span class="n">warnings</span><span class="p">.</span><span class="n">Throw</span><span class="p">(</span><span class="n">RelationalEventId</span><span class="p">.</span><span class="n">QueryClientEvaluationWarning</span><span class="p">));</span>
+</span><span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tracking.html" class="btn btn-neutral float-right" title="Отслеживать или не отслеживать" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="related-data.html" class="btn btn-neutral" title="Загрузка связанных данных" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/wedc.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

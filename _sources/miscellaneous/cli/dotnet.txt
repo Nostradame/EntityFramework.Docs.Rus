@@ -1,0 +1,342 @@
+.NET Core CLI
+=============
+
+Средства командной строки EF для интерфейса командной строки .NET Core (CLI).
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. note::
+    Известные проблемы для средства командной строки .NET Core CLI. See `Preview 2 Known Issues`_ for more details.
+
+Установка
+------------------
+
+Необходимые условия
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EF command-line tools requires .NET Core CLI Preview 2 or newer. Чтобы получить инструкции по установке, смотрите веб-сайт `.NET Core <https://www.microsoft.com/net/core>`_.
+
+Поддерживаемые каркасы
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EF поддерживает команды .NET Core CLI этих фреймворков:
+
+ - .NET Framework 4.5.1 и новее. ("net451", "net452", "net46", etc.)
+ - .NET Core App 1.0. ("netcoreapp1.0")
+
+Установка редактированием project.json
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Средства командной строки EF для .NET Core CLI устанавливаются вручную редактированием ``project.json``.
+
+1. Add ``Microsoft.EntityFrameworkCore.Tools`` as a "tool" and ``Microsoft.EntityFrameworkCore.Design`` as a build-only dependency under "dependencies". Смотрите пример project.json ниже.
+2. Выполните команду ``dotnet restore``. Если не удается восстановить, то может быть средства командной строки не установлены правильно.
+
+Полученный project.json должен включать эти элементы (помимо других зависимостей проекта).
+
+.. code-block:: json
+
+    {
+        "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+                "type": "build",
+                "version": "1.0.0-preview2-final"
+            }
+        },
+
+        "tools": {
+            "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final"
+        },
+
+        "frameworks": {
+            "netcoreapp1.0": { }
+        }
+    }
+
+.. tip::
+    build-only dependency (``"type": "build"``) означает, что эта зависимость является локальной для текущего проекта. Например, если в проекте A есть build only dependency, а проект B зависит от A, то команда ``dotnet restore`` не добавит build-only dependencies проекта А в проект B.
+
+Применение
+----------------
+Команды можно запускать из командной строки, перейдя в каталог проекта и выполнив ``dotnet ef [субкоманда]``. Чтобы посмотреть информацию об использовании, получить подробную информацию о параметрах и субкомандах, добавьте к любой команде ``--help``.
+
+dotnet-ef
+~~~~~~~~~
+.. code-block:: none
+
+    Применение: dotnet ef [опции] [команда]
+
+    Опции:
+      -h|--help                           Show help information
+      -p|--project <PROJECT>              The project to target (defaults to the project in the current directory). Can be a path to a project.json or a project directory.
+      -s|--startup-project <PROJECT>      The path to the project containing Startup (defaults to the target project). Can be a path to a project.json or a project directory.
+      -c|--configuration <CONFIGURATION>  Configuration under which to load (defaults to Debug)
+      -f|--framework <FRAMEWORK>          Target framework to load from the startup project (defaults to the framework most compatible with .NETCoreApp,Version=v1.0).
+      -b|--build-base-path <OUTPUT_DIR>   Directory in which to find temporary outputs.
+      -o|--output <OUTPUT_DIR>            Directory in which to find outputs
+
+    Команды:
+      database    Команды для управления базой данных
+      dbcontext   Команды для управления типами DbContext
+      migrations  Команды для управления миграциями
+
+dotnet-ef-database
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef database [опции] [команда]
+
+    Опции:
+      -h|--help     Показать справочную информацию
+      -v|--verbose  Включить подробный вывод
+
+    Команды:
+      drop    Сбросить базу данных для конкретной среды
+      update  Обновление базы данных до указанной миграции
+
+dotnet-ef-database-drop
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef database drop [опции]
+
+    Опции:
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -f|--force                      Сброс без подтверждения
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-database-update
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef database update [аргументы] [опции]
+
+    Аргументы:
+      [migration]  Выбранная миграция. Если '0', все миграции будут отменены. Если этот параметр опущен, будут применены все ожидающие миграции
+
+    Опции:
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-dbcontext
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef dbcontext [опции] [команда]
+
+    Опции:
+      -h|--help     Показать справочную информацию
+      -v|--verbose  Включить подробный вывод
+
+    Команды:
+      list      Вывести список типов DbContext
+      scaffold  Выполнить скаффолдинг DbContext и классов типов сущностей для указанной базы данных
+
+dotnet-ef-dbcontext-list
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef dbcontext list [опции]
+
+    Опции:
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-dbcontext-scaffold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef dbcontext scaffold [аргументы] [опции]
+
+    Аргументы:
+      [connection]  Строка подключения базы данных
+      [provider]    Используемый провайдер. For example, Microsoft.EntityFrameworkCore.SqlServer
+
+    Опции:
+      -a|--data-annotations           Использовать атрибуты DataAnnotation для настройки модели, где это возможно. Если опущены, выводимый код будет использовать только Fluent API.
+      -c|--context <name>             Имя генерируемого класса DbContext.
+      -f|--force                      Форсировать скаффолдинг для перезаписи существующих файлов. В противном случае, код будет выполняться только при условии, что выводимые файлы не будут перезаписаны.
+      -o|--output-dir <path>          Папка проекта, куда должны быть выведены классы. Если опущен, используется каталог верхнего уровня проекта.
+      --schema <schema>               Выбранная схема для генерируемых классов.
+      -t|--table <schema.table>       Выбранные таблицы для генерируемых классов.
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-migrations
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef migrations [опции] [команда]
+
+    Опции:
+      -h|--help     Показать справочную информацию
+      -v|--verbose  Включить подробный вывод
+
+    Команды:
+      add     Добавить добавить новую миграцию
+      list    Вывести список миграций
+      remove  Удалить последнюю миграцию
+      script  Сгенерировать из миграции SQL скрипт
+
+dotnet-ef-migrations-add
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef migrations add [аргументы] [опции]
+
+    Аргументы:
+      [name]  Имя миграции
+
+    Опции:
+      -o|--output-dir <path>          Используемая директория (под-директория) Если этот параметр опущен, используется "Миграции". Relative paths are relative the directory in which the command is executed.
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-migrations-list
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef migrations list [опции]
+
+    Опции:
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-migrations-remove
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef migrations remove [опции]
+
+    Опции:
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      -f|--force                      Удаляет последнюю миграцию без проверки базы данных. Если последняя миграция была применена к базе данных, вам нужно будет вручную отменить изменения, которые были применены.
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+dotnet-ef-migrations-script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    Применение: dotnet ef migrations script [аргументы] [опции]
+
+    Аргументы:
+      [from]  Начальная миграция Если опущен, используется '0' (инициирование базы данных).
+      [to]    Замыкающая миграция Если опущен, применяется последняя миграция
+
+    Опции:
+      -o|--output <file>              Файл для записи скрипта вместо стандартного вывода
+      -i|--idempotent                 Генерирует идемпотентный скрипт, который используется базой данных для любой миграции
+      -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
+      -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
+      -h|--help                       Показать справочную информацию
+      -v|--verbose                    Включить подробный вывод
+
+
+Распространенные ошибки
+---------------------------------
+
+.. include:: _common_errors.txt
+
+.. _dotnet_cli_issues:
+
+Preview 2 Known Issues
+----------------------
+
+Таргетинг библиотеки классов проекта не поддерживается
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.NET Core CLI does not support running commands on class libraries as of Preview 2.
+Несмотря на возможность установить инструменты EF, выполнение команд может вызвать следующую ошибку.
+
+.. code-block:: text
+
+  Could not invoke this command on the startup project '(your project name)'. This preview of Entity Framework tools does not support commands on class library projects in ASP.NET Core and .NET Core applications.
+
+Смотрите о проблемме https://github.com/dotnet/cli/issues/2645.
+
+Explanation
+^^^^^^^^^^^
+If ``dotnet run`` does not work in the startup project, then ``dotnet ef`` cannot run either.
+
+"dotnet ef" is invoked as an alternate entry point into an application. If the "startup" project
+is not an application, then it is not currently possible to run the project
+as an application with the "dotnet ef" alternate entry point.
+
+The "startup" project defaults to the current project, unless specified differently with the
+parameter ``--startup-project``.
+
+Workaround 1
+^^^^^^^^^^^^
+
+Specify a startup project that is a "runnable app".
+
+Пример:
+
+.. code-block:: console
+
+    dotnet ef --startup-project ../MyConsoleApplication/ migrations list
+
+Workaround 2
+^^^^^^^^^^^^
+Convert the class library project into an "app" project. Это может быть или приложение .NET Core или desktop .NET.
+
+Чтобы создать проект .NET Core App, добавьте каркас "netcoreapp1.0" в project.json вместе с другими параметрами как в примере ниже:
+
+.. code-block:: json
+
+    {
+        "buildOptions": {
+            "emitEntryPoint": true
+        },
+        "frameworks": {
+            "netcoreapp1.0": {
+                "dependencies": {
+                    "Microsoft.NETCore.App": {
+                        "type": "platform",
+                        "version": "1.0.0-*"
+                    }
+                }
+            }
+        }
+    }
+
+Чтобы создать desktop приложение .NET, убедитесь. что вы выбрали проект "net451" или новее (например "net461" тоже работает) и убедитесь, что опция построения ``"emitEntryPoint"`` установлена в "true".
+
+.. code-block:: json
+
+    {
+        "buildOptions": {
+            "emitEntryPoint": true
+        },
+        "frameworks": {
+            "net451": { }
+        }
+    }

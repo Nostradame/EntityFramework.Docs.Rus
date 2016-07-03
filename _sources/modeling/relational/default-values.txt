@@ -1,0 +1,35 @@
+.. include:: _shared/relational-specific-note.txt
+
+Значения по-умолчанию
+=======================
+
+Значение по умолчанию столбца это значение, которое будет вставлено, если вставляется новая строка, но значение для столбца не задано.
+
+Соглашения
+---------------
+
+По соглашению, значение по умолчанию не сконфигурировано.
+
+Аннотации данных
+------------------------
+
+Вы не можете установить значение по умолчанию при помощи аннотации данных.
+
+Fluent API
+-------------------
+
+Вы можете использовать Fluent API для определения значения по умолчанию.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/DefaultValue.cs
+        :language: c#
+        :lines: 5-22
+        :emphasize-lines: 9
+        :linenos:
+
+Также вы можете указать фрагмент SQL, который используется для расчета значения по умолчанию.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/DefaultValueSql.cs
+        :language: c#
+        :lines: 6-23
+        :emphasize-lines: 9
+        :linenos:

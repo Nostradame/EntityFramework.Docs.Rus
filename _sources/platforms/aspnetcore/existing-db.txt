@@ -1,0 +1,200 @@
+Приложение ASP.NET Core для существующей базы данных (Database First)
+==========================================================================
+
+В этом руководстве вы будете создавать MVC приложение ASP.NET Core, которое выполняет простой доступ к данным при помощи Entity Framework.  Для создания модели Entity Framework вы будете использовать обратное проектирование на основе существующей базы данных.
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Platforms/AspNetCore/AspNetCore.ExistingDb
+
+Необходимые условия
+---------------------------
+
+Для продолжения необходимы следующие условия:
+
+  * Visual Studio 2015 Update 2
+  * `.NET Core для Visual Studio <https://go.microsoft.com/fwlink/?LinkId=817245>`_
+  * `База данных Blogging`_
+
+База данных Blogging
+^^^^^^^^^^^^^^^^^^^^^
+
+Этот учебник в качестве текущей использует базу данных **Blogging** вашего экземпляра LocalDb.
+
+.. include:: /platforms/_shared/create-blogging-database-vs.txt
+
+Создание нового проекта
+-------------------------------
+
+* Откройте Visual Studio 2015
+	* :menuselection:`File --> New --> Project...`
+	* В левом столбце выберите: :menuselection:`Шаблоны --> Visual C# --> Веб`
+	* Выберите шаблон проекта **Веб приложение ASP.NET Core (.NET Core)**
+	* Введите в качестве имени **EFGetStarted.AspNetCore.ExistingDb** и нажмите **OK**
+	* Подождите, пока не появится диалог **Новое веб-приложение ASP.NET Core**
+	* Убедитесь, что **Проверка подлинности** установлена в **"без проверки подлинности"**
+	* Нажмите **OK**
+
+
+Установка Entity Framework
+---------------------------------
+
+Чтобы использовать EF Core, установите пакет провайдера базы данных, для которой вы хотите настроить таргетинг. Это пошаговое руководство использует SQL Server. Список доступных провайдеров :doc:`/providers/index`.
+
+* :menuselection:`Tools --> NuGet Package Manager --> Package Manager Console`
+* Run ``Install-Package Microsoft.EntityFrameworkCore.SqlServer``
+
+.. note::
+    В проекте ASP.NET Core команда ``Install-Package`` выполняется очень быстро, а установка пакета происходит в теневом режиме. Когда установка завершится, вы увидите надпись **(Restoring...)** в разделе **References** в **Solution Explorer**.
+
+Чтобы включить обратный инжиниринг из существующей базы данных нам так же нужно установить несколько других пакетов.
+
+  * Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.Tools –Pre``
+  * Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.SqlServer.Design``
+  * Откройте файл **project.json**
+  * Перейдите в раздел ``tools`` и добавьте выделенные строки, как показано ниже
+
+  .. includesamplefile:: Platforms/AspNetCore/AspNetCore.NewDb/project.json
+        :linenos:
+        :lines: 29-33
+        :emphasize-lines: 2
+
+Обратный инжиниринг вашей модели
+-----------------------------------------------
+
+Теперь пришло время для создания модели EF, основываясь на существующей базе данных.
+
+* :menuselection:`Tools –> NuGet Package Manager –> Package Manager Console`
+* Для того, чтобы создать модель из текущей базы данных, выполните следующую команду
+
+.. literalinclude:: _static/reverse-engineer-command.txt
+
+Процесс обратного инжиниринга создал классы сущностей и производный контекст, основанный на схеме существующей базы данных. Классы сущностей - это простые объекты C #, которые представляют данные, которые вы собираетесь запрашивать и сохранять.
+
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Models/Blog.cs
+        :language: c#
+        :linenos:
+
+Контекст представляет собой сеанс связи с базой данных и позволяет запрашивать и сохранять экземпляры классов сущностей.
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Models/BloggingContextUnmodified.txt
+        :language: c#
+        :linenos:
+
+Регистрация контекста при помощи внедрения зависимостей
+-------------------------------------------------------------------------
+
+Концепция внедрения зависимостей является центральной в ASP.NET Core. Сервисы (такие как ``BloggingContext``) регистрируются при запуске приложения при помощи механизма внедрения зависимостей. Компоненты, необходимые этим сервисам (такие как MVC контроллеры) предоставляются им через параметры конструктора или через свойства. Более подробную информацию о внедрении зависимостей смотрите в статье `Dependency Injection <http://docs.asp.net/en/latest/fundamentals/dependency-injection.html>`_ на сайте ASP.NET.
+
+Удаление встроенной конфигурации контекста
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+В ASP.NET Core, конфигурация в основном выполняется в **Startup.cs**. Что бы соответствовать этому шаблону, мы перенесем конфигурацию провайдера базы данных в **Startup.cs**.
+
+  * Откройте файл **Models\\BloggingContext.cs**
+  * Удалите строки кода выделеные ниже
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Models/BloggingContextUnmodified.txt
+        :language: c#
+        :lines: 6-13
+        :emphasize-lines: 3-7
+        :linenos:
+
+* Добавьте строки кода, выделеные ниже
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Models/BloggingContext.cs
+        :language: c#
+        :lines: 6-10
+        :emphasize-lines: 3-5
+        :linenos:
+
+Регистрация и конфигурация вашего контекста в Startup.cs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Для того, чтобы наши MVC контроллеры начали использовать ``BloggingContext``, мы должны зарегистрировать их как сервисы.
+
+	* Откройте файл **Startup.cs**
+	* В начало файла добавьте следующие операторы ``using``
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Startup.cs
+        :language: c#
+        :linenos:
+        :lines: 1-2
+
+Теперь мы можем использовать метод ``AddDbContext`` для регистрации его как сервиса.
+
+	* Найдите метод ``ConfigureServices``
+	* Добавьте строки, которые выделены в следующем коде
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Startup.cs
+        :language: c#
+        :linenos:
+        :lines: 30-34
+        :emphasize-lines: 3-4
+
+Создание контроллера
+----------------------------
+
+Далее, мы добавим MVC контроллер, который будет использовать EF для запроса и сохранения данных.
+
+	* Щелкните правой кнопкой мыши на папке **Controllers** в **Solution Explorer** и выберите: :menuselection:`Добавить --> Создать элемент...`
+	* В левом столбце выберите: :menuselection:`Установленные --> Code`
+	* Выберите шаблон элемента **Class**
+	* Назовите файл **BlogsController.cs** и нажмите **OK**
+	* Замените содержимое файла следующим кодом
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Controllers/BlogsController.cs
+        :language: c#
+        :linenos:
+
+Вы заметите, что контроллер принимает значение ``BloggingContext`` в качестве параметра конструктора. Механизм внедрения зависимостей ASP.NET позаботится о передачи экземпляра ``BloggingContext`` в ваш контроллер.
+
+В контроллере есть действие ``Index``, которое отображает все блоги в базе данных, а действие ``Create`` записывает в базу данных новый блог.
+
+Создание видов
+--------------------
+
+Теперь, когда у нас есть контроллер настало время добавить виды, которые определяют пользовательский интерфейс.
+
+Мы начнем с вида для нашего действия ``Index``, которое показывает все блоги.
+
+	* Щелкните правой кнопкой мыши на папке **Views** в **Solution Explorer** и выберите: :menuselection:`Добавить --> Создать папку`
+	* Назовите папку **Blogs**
+	* Щелкните правой кнопкой мыши на папке **Blogs** и выберите: :menuselection:`Добавить --> Создать элемент...`
+	* В левом столбце выберите: :menuselection:`Установленные --> ASP.NET`
+	* Выберите шаблон элемента **MVC View Page**
+	* Назовите файл **Index.cshtml** и нажмите **Добавить**
+	* Замените содержимое файла следующим кодом
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Views/Blogs/Index.cshtml
+        :linenos:
+
+Мы так же добавим вид для действия ``Create``, которое позволяет пользователю ввести данные для нового блога.
+
+	* Щелкните правой кнопкой мыши на папке **Blogs** и выберите: :menuselection:`Добавить --> Создать элемент...`
+	* В левом столбце выберите: :menuselection:`Установленные --> ASP.NET`
+	* Выберите шаблон элемента **MVC View Page**
+	* Назовите файл **Create.cshtml** и нажмите **Добавить**
+	* Замените содержимое файла следующим кодом
+
+.. includesamplefile:: Platforms/AspNetCore/AspNetCore.ExistingDb/Views/Blogs/Create.cshtml
+        :linenos:
+
+Запуск приложения
+------------------------
+
+Теперь вы можете запустить приложение, чтобы увидеть его в действии.
+
+	* :menuselection:`Отладка --> Запуск без отладки`
+	* Приложение будет построено и открыто в веб-браузере
+	* Перейдите в **/Blogs**
+	* Нажмите **Create New**
+	* Введите **Url** для нового блога и нажмите **Create**
+
+.. image:: _static/create.png
+
+.. image:: _static/index-existing-db.png

@@ -1,0 +1,163 @@
+.NET Core Application to New SQLite Database
+============================================
+
+In this walkthrough, you will build a .NET Core console application that performs basic data access using Entity Framework.
+Вы будете использовать миграции для создания базы данных из модели.
+
+.. contents:: `В этой статье:`
+    :depth: 1
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/docs/sample/NetCore/EFGetStarted.ConsoleApp.SQLite
+
+Необходимые условия
+---------------------------
+
+Минимальные системные требования
+ - An operating system that supports .NET Core
+ - `.NET Core SDK Preview 2 <https://www.microsoft.com/net/core>`_
+ - A text editor
+
+.. attention::
+    **Известные проблеммы**
+
+    - Миграции на SQLite не поддерживают более сложные изменения схемы из-за 
+      ограничений в самой СУБД SQLite. Смотрите :doc:`/providers/sqlite/limitations`
+
+Install the .NET Core SDK
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The .NET Core SDK provides the command-line tool ``dotnet`` which will be used to
+build and run our sample application.
+
+See the `.NET Core website <https://www.microsoft.com/net/core>`_ for instructions on installing the SDK
+on your operating system.
+
+Создание нового проекта
+-------------------------------
+
+ Создайте для своего проекта новую папку ``ConsoleApp/``. Все файлы для проекта будут в этой папке.
+
+    .. code-block:: bash
+
+        mkdir ConsoleApp
+        cd ConsoleApp/
+
+ - Execute the following .NET Core CLI commands to create a new console application, download dependencies, and run the .NET Core app.
+
+   .. code-block:: bash
+
+       dotnet new
+       dotnet restore
+       dotnet run
+
+Установка Entity Framework
+---------------------------------
+
+ - Для того, чтобы добавить EF в свой проект, измените ``project.json`` так, чтобы он соответствовал примеру ниже.
+
+    .. includesamplefile:: Platforms/NetCore/ConsoleApp.SQLite/project.json
+            :language: json
+            :linenos:
+            :emphasize-lines: 8-12,25-27
+
+ - Выполните ``dotnet restore`` снова, чтобы установить новые пакеты.
+
+    .. code-block:: bash
+
+        dotnet restore
+
+ - Убедитесь, что Entity Framework установлен, запустив ``dotnet ef --help``.
+
+    .. code-block:: bash
+
+        dotnet ef --help
+
+
+Создание модели
+---------------------
+
+С этим новым проектом вы готовы начать использование Entity Framework.
+Следующие шаги добавят код для настройки и получения доступа к файлу базы данных SQLite.
+
+ - Создайте новый файл под названием ``Model.cs``
+    Все классы в следующих шагах будут добавляться в этот файл.
+
+        .. includesamplefile:: Platforms/NetCore/ConsoleApp.SQLite/Model.cs
+            :language: c#
+            :linenos:
+            :lines: 1-6
+
+ - Добавьте новый класс для представления базы данных SQLite.
+    Мы назовем его ``BloggingContext``. Вызов метода ``UseSqlite()`` конфигурирует EF на использование \*.db файла.
+
+        .. includesamplefile:: Platforms/NetCore/ConsoleApp.SQLite/Model.cs
+            :language: c#
+            :linenos:
+            :lines: 7-17
+            :emphasize-lines: 1, 8
+            :dedent: 4
+
+ - Добавление классов для представления таблиц.
+    Обратите внимание, что мы будем использовать внешние ключи чтобы связать многие записи с одним блогом.
+
+        .. includesamplefile:: Platforms/NetCore/ConsoleApp.SQLite/Model.cs
+            :language: c#
+            :linenos:
+            :lines: 18-35
+            :dedent: 4
+
+ - Чтобы убедиться, что файлы корректны, можно скомпилировать проект, вызвав в командной строке ``dotnet build``
+
+    .. code-block:: bash
+
+        dotnet build
+
+Создание базы данных
+----------------------------
+
+Теперь мы можем использовать инструменты командной строки Entity Framework для создания и управления схемой базы данных.
+
+ - Создание первой миграции.
+    Выполните следующую команду для создания вашей первой миграции.
+    Она найдет наш контекст и модели и сгенерирует для нас миграции в папке с именем ``Migrations/``
+
+    .. code-block:: bash
+
+        dotnet ef migrations add MyFirstMigration
+
+ - Применение миграций.
+    Теперь вы можете начать применять существующие миграции для создания базы данных и таблиц.
+
+    .. code-block:: bash
+
+        dotnet ef database update
+
+    Она должна создать новый файл ``blog.db`` в пути вывода. Этот файл SQLite должен содержать две пустых таблицы.
+
+.. note::
+
+  При использовании в SQLite относительных путей, он будет относительно 
+  основной сборки приложения. В этом примере главная бинарная сборка это ``bin/Debug/netcoreapp1.0/ConsoleApp.dll``,
+  поэтому база данных SQLite будет находиться: ``bin/Debug/netcoreapp1.0/blog.db``
+
+Использование модели
+-----------------------------
+
+Теперь, когда мы настроили нашу модель и созданы схемы базы данных, мы можем использовать BloggingContext для создания, обновления и удаления объектов.
+
+.. includesamplefile:: Platforms/NetCore/ConsoleApp.SQLite/Program.cs
+    :language: c#
+    :linenos:
+
+Запуск приложения
+-------------------------
+
+Запустите приложение из командной строки.
+
+    .. code-block:: bash
+
+        dotnet run
+
+После добавления новой записи, вы можете убедиться, что данные были добавлены, проверив файл базы данных SQLite, ``bin/Debug/netcoreapp1.0/blog.db``.

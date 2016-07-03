@@ -1,0 +1,46 @@
+.. include:: _shared/relational-specific-note.txt
+
+Типы данных
+============
+
+Тип данных относится к определенному типу столбца базы данных, с которым сопоставляется свойство.
+
+.. contents:: В этой статье:
+    :depth: 3
+
+Соглашения
+---------------
+
+По соглашению, провайдер базы данных выбирает тип данных на основе CLR типа данного свойства. Он также принимает во внимание другие метаданные, такие как сконфигурированная :doc:`/modeling/max-length`, а так же является ли свойство частью первичного ключа, и т.д.
+
+Например, SQL Server использует ``datetime2(7)`` для свойств ``DateTime``, а ``nvarchar(max)`` для свойств ``string`` (или ``nvarchar(450)`` для свойств ``string`` которые используются как ключи).
+
+Аннотации данных
+------------------------
+
+Вы можете использовать Аннотации данных для указания точного типа данных для столбца.
+
+.. includesamplefile:: Modeling/DataAnnotations/Samples/Relational/DataType.cs
+        :language: c#
+        :lines: 11-16
+        :emphasize-lines: 4
+        :linenos:
+
+Fluent API
+-------------------
+
+Вы можете использовать Fluent API для указания точного типа данных для столбца.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/DataType.cs
+        :language: c#
+        :lines: 5-21
+        :emphasize-lines: 7-9
+        :linenos:
+
+Если вы ориентируетесь на более чем одного реляционного поставщика с той же моделью, то вы вероятно, захотите задать тип данных для каждого поставщика, а не глобальный, используемый для всех реляционных поставщиков.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/DataTypeForProvider.cs
+        :language: c#
+        :lines: 11-13
+        :emphasize-lines: 3
+        :linenos:

@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Приложение ASP.NET Core для новой базы данных &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
+        <link rel="up" title="Приступая к работе на ASP.NET Core" href="index.html"/>
+        <link rel="next" title="Приложение ASP.NET Core для существующей базы данных (Database First)" href="existing-db.html"/>
+        <link rel="prev" title="Приступая к работе на ASP.NET Core" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Приступая к работе</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../full-dotnet/index.html">Приступая к работе на Full .NET (Console, WinForms, WPF, etc.)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../netcore/index.html">Приступая к работе на .NET Core (Windows, OSX, Linux и т.д.)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Приступая к работе на ASP.NET Core</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Приложение ASP.NET Core для новой базы данных</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="existing-db.html">Приложение ASP.NET Core для существующей базы данных (Database First)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../uwp/index.html">Приступая к работе на Универсальной Платформе Windows (UWP)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Приступая к работе</a> &raquo;</li>
+      
+          <li><a href="index.html">Приступая к работе на ASP.NET Core</a> &raquo;</li>
+      
+    <li>Приложение ASP.NET Core для новой базы данных</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="asp-net-core">
+<h1>Приложение ASP.NET Core для новой базы данных<a class="headerlink" href="#asp-net-core" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В этом руководстве вы будете создавать MVC приложение ASP.NET Core, которое выполняет простой доступ к данным при помощи Entity Framework. Вы будете использовать миграции для создания базы данных из модели.</p>
+<div class="contents local topic" id="id1">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#id3" id="id11">Необходимые условия</a></li>
+<li><a class="reference internal" href="#id4" id="id12">Создание нового проекта</a></li>
+<li><a class="reference internal" href="#entity-framework" id="id13">Установка Entity Framework</a></li>
+<li><a class="reference internal" href="#id5" id="id14">Создание модели</a></li>
+<li><a class="reference internal" href="#id6" id="id15">Регистрация контекста при помощи внедрения зависимостей</a></li>
+<li><a class="reference internal" href="#id7" id="id16">Создание базы данных</a></li>
+<li><a class="reference internal" href="#id8" id="id17">Создание контроллера</a></li>
+<li><a class="reference internal" href="#id9" id="id18">Создание видов</a></li>
+<li><a class="reference internal" href="#id10" id="id19">Запуск приложения</a></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вы можете посмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Platforms/AspNetCore/AspNetCore.NewDb">пример</a> этой статьи на GitHub.</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">Необходимые условия</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для продолжения необходимы следующие условия:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Visual Studio 2015 Update 3</li>
+<li><a class="reference external" href="https://go.microsoft.com/fwlink/?LinkId=817245">.NET Core for Visual Studio</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id12">Создание нового проекта</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Откройте Visual Studio 2015</li>
+<li><span class="menuselection">File ‣ New ‣ Project...</span></li>
+<li>В левом столбце выберите: <span class="menuselection">Шаблоны ‣ Visual C# ‣ Веб</span></li>
+<li>Выберите шаблон проекта <strong>Веб приложение ASP.NET Core (.NET Core)</strong></li>
+<li>Введите в качестве имени <strong>EFGetStarted.AspNetCore.NewDb</strong> и нажмите <strong>OK</strong></li>
+<li>Подождите, пока не появится диалог <strong>Новое веб-приложение ASP.NET Core</strong></li>
+<li>Убедитесь, что <strong>Проверка подлинности</strong> установлена в <strong>&#8220;без проверки подлинности&#8221;</strong></li>
+<li>Нажмите <strong>OK</strong></li>
+</ul>
+</div></blockquote>
+<div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Если для <strong>Проверки подлинности</strong> вы вместо <strong>без проверки подлинности</strong> используете <strong>Индивидуальные записи отдельных пользователей</strong>, то в ваш проект будет добавлена модель Entity Framework <cite>Models\IdentityModel.cs</cite>. Используя техники этого руководства, вы узнаете, что нужно сделать, чтобы добавить вторую модель, или расширить существующую модель, чтобы она содержала классы сущностей.</p>
+</div>
+</div>
+<div class="section" id="entity-framework">
+<h2><a class="toc-backref" href="#id13">Установка Entity Framework</a><a class="headerlink" href="#entity-framework" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Чтобы использовать EF Core, установите пакет провайдера базы данных, для которой вы хотите настроить таргетинг. Это пошаговое руководство использует SQL Server. Список доступных провайдеров <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a>.</p>
+<ul class="simple">
+<li><span class="menuselection">Tools ‣ NuGet Package Manager ‣ Package Manager Console</span></li>
+<li>Run <code class="docutils literal"><span class="pre">Install-Package</span> <span class="pre">Microsoft.EntityFrameworkCore.SqlServer</span></code></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">В проекте ASP.NET Core команда <code class="docutils literal"><span class="pre">Install-Package</span></code> выполняется очень быстро, а установка пакета происходит в теневом режиме. Когда установка завершится, вы увидите надпись <strong>(Restoring...)</strong> в разделе <strong>References</strong> в <strong>Solution Explorer</strong>.</p>
+</div>
+<p>Позже в этом руководстве для поддержания базы данных мы будем также использовать некоторые команды Entity Framework. Итак, мы установили пакет команд.</p>
+<ul class="simple">
+<li>Выполните команду <code class="docutils literal"><span class="pre">Install-Package</span> <span class="pre">Microsoft.EntityFrameworkCore.Tools</span> <span class="pre">–Pre</span></code></li>
+<li>Откройте файл <strong>project.json</strong></li>
+<li>Перейдите в раздел <code class="docutils literal"><span class="pre">tools</span></code> и добавьте команду <code class="docutils literal"><span class="pre">ef</span></code> как показано ниже</li>
+</ul>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>  <span class="s2">&quot;tools&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">    <span class="s2">&quot;Microsoft.EntityFrameworkCore.Tools&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0-preview2-final&quot;</span><span class="p">,</span>
+</span>    <span class="s2">&quot;Microsoft.AspNetCore.Razor.Tools&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0-preview2-final&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Microsoft.AspNetCore.Server.IISIntegration.Tools&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0-preview2-final&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id14">Создание модели</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь пришло время определить контекст и классы сущностей, составляющих вашу модель.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Щелкните правой кнопкой мыши на <strong>Solution Explorer</strong> и выберите: <span class="menuselection">Добавить ‣ Создать папку</span></li>
+<li>Назовите папку <strong>Models</strong></li>
+<li>Щелкните правой кнопкой мыши на папке <strong>Models</strong> и выберите: <span class="menuselection">Добавить ‣ Создать элемент...</span></li>
+<li>В левом столбце выберите: <span class="menuselection">Установленные ‣ Code</span></li>
+<li>Выберите шаблон элемента <strong>Class</strong></li>
+<li>Назовите файл <strong>Model.cs</strong> и нажмите <strong>OK</strong></li>
+<li>Замените содержимое файла следующим кодом</li>
+</ul>
+</div></blockquote>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">EFGetStarted.AspNetCore.NewDb.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">BloggingContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="nf">BloggingContext</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+            <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="p">{</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Post</span><span class="p">&gt;</span> <span class="n">Posts</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Blog</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">BlogId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Url</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Post</span><span class="p">&gt;</span> <span class="n">Posts</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Post</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">PostId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Title</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Content</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">BlogId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">Blog</span> <span class="n">Blog</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">В реальном приложении вы должны помещать каждый класс вашей модели в отдельном файле. В этом уроке для упрощения, мы размещаем все классы в одном файле.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id15">Регистрация контекста при помощи внедрения зависимостей</a><a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Концепция внедрения зависимостей является центральной в ASP.NET Core. Сервисы (такие как <code class="docutils literal"><span class="pre">BloggingContext</span></code>) регистрируются при запуске приложения при помощи механизма внедрения зависимостей. Компоненты, необходимые этим сервисам (такие как MVC контроллеры) предоставляются им через параметры конструктора или через свойства. Более подробную информацию о внедрении зависимостей смотрите в статье <a class="reference external" href="http://docs.asp.net/en/latest/fundamentals/dependency-injection.html">Dependency Injection</a> на сайте ASP.NET.</p>
+<p>Для того, чтобы наши MVC контроллеры начали использовать <code class="docutils literal"><span class="pre">BloggingContext</span></code>, мы должны зарегистрировать их как сервисы.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Откройте файл <strong>Startup.cs</strong></li>
+<li>В начало файла добавьте следующие операторы <code class="docutils literal"><span class="pre">using</span></code></li>
+</ul>
+</div></blockquote>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">EFGetStarted.AspNetCore.NewDb.Models</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Теперь мы можем использовать метод <code class="docutils literal"><span class="pre">AddDbContext</span></code> для регистрации его как сервиса.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Найдите метод <code class="docutils literal"><span class="pre">ConfigureServices</span></code></li>
+<li>Добавьте строки, которые выделены в следующем коде</li>
+</ul>
+</div></blockquote>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>        <span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+        <span class="p">{</span>
+<span class="hll">            <span class="kt">var</span> <span class="n">connection</span> <span class="p">=</span> <span class="s">@&quot;Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;&quot;</span><span class="p">;</span>
+</span><span class="hll">            <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="n">connection</span><span class="p">));</span>
+</span></pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id16">Создание базы данных</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь, когда у вас есть модель, вы можете использовать миграции для создания базы данных.</p>
+<ul class="simple">
+<li><span class="menuselection">Tools –&gt; NuGet Package Manager –&gt; Package Manager Console</span></li>
+<li>Выполните команду <code class="docutils literal"><span class="pre">Add-Migration</span> <span class="pre">MyFirstMigration</span></code> для скафолдинга миграции, которая создаст первоначальный набор таблиц по вашей модели.</li>
+<li>Выполните команду <code class="docutils literal"><span class="pre">Update-Database</span></code> чтобы применить новую миграцию к вашей базе данных. Поскольку ваша база данных еще не существует, она будет создана для вас перед применением миграции.</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Если в будущем вы сделаете изменения в вашей модели, вы можете использовать команду <code class="docutils literal"><span class="pre">Add-Migration</span></code> чтобы выполнить скаффолдинг новой миграции для внесения соответствующих изменений в схему базы данных. После того, как вы проверили скаффолдированный код (и сделали все необходимые изменения), вы можете использовать команду <code class="docutils literal"><span class="pre">Update-Database</span></code>, чтобы внести изменения в базу данных.</p>
+<p class="last">В базе данных EF использует таблицу <code class="docutils literal"><span class="pre">__EFMigrationsHistory</span></code>, чтобы отслеживать, какие миграции уже применены к ней.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id17">Создание контроллера</a><a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Далее, мы добавим MVC контроллер, который будет использовать EF для запроса и сохранения данных.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Щелкните правой кнопкой мыши на папке <strong>Controllers</strong> в <strong>Solution Explorer</strong> и выберите: <span class="menuselection">Добавить ‣ Создать элемент...</span></li>
+<li>В левом столбце выберите: <span class="menuselection">Установленные ‣ Server-side</span></li>
+<li>Выберите шаблон элемента <strong>Class</strong></li>
+<li>Назовите файл <strong>BlogsController.cs</strong> и нажмите <strong>OK</strong></li>
+<li>Замените содержимое файла следующим кодом</li>
+</ul>
+</div></blockquote>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">EFGetStarted.AspNetCore.NewDb.Models</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Mvc</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">EFGetStarted.AspNetCore.NewDb.Controllers</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">BlogsController</span> <span class="p">:</span> <span class="n">Controller</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="n">BloggingContext</span> <span class="n">_context</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">BlogsController</span><span class="p">(</span><span class="n">BloggingContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_context</span> <span class="p">=</span> <span class="n">context</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Index</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">_context</span><span class="p">.</span><span class="n">Blogs</span><span class="p">.</span><span class="n">ToList</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Create</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
+        <span class="p">}</span>
+
+<span class="na">        [HttpPost]</span>
+<span class="na">        [ValidateAntiForgeryToken]</span>
+        <span class="k">public</span> <span class="n">IActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Blog</span> <span class="n">blog</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ModelState</span><span class="p">.</span><span class="n">IsValid</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">_context</span><span class="p">.</span><span class="n">Blogs</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">blog</span><span class="p">);</span>
+                <span class="n">_context</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+                <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">&quot;Index&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">blog</span><span class="p">);</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Вы заметите, что контроллер принимает значение <code class="docutils literal"><span class="pre">BloggingContext</span></code> в качестве параметра конструктора. Механизм внедрения зависимостей ASP.NET позаботится о передачи экземпляра <code class="docutils literal"><span class="pre">BloggingContext</span></code> в ваш контроллер.</p>
+<p>В контроллере есть действие <code class="docutils literal"><span class="pre">Index</span></code>, которое отображает все блоги в базе данных, а действие <code class="docutils literal"><span class="pre">Create</span></code> записывает в базу данных новый блог.</p>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id18">Создание видов</a><a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь, когда у нас есть контроллер настало время добавить виды, которые определяют пользовательский интерфейс.</p>
+<p>Мы начнем с вида для нашего действия <code class="docutils literal"><span class="pre">Index</span></code>, которое показывает все блоги.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Щелкните правой кнопкой мыши на папке <strong>Views</strong> в <strong>Solution Explorer</strong> и выберите: <span class="menuselection">Добавить ‣ Создать папку</span></li>
+<li>Назовите папку <strong>Blogs</strong></li>
+<li>Щелкните правой кнопкой мыши на папке <strong>Blogs</strong> и выберите: <span class="menuselection">Добавить ‣ Создать элемент...</span></li>
+<li>В левом столбце выберите: <span class="menuselection">Установленные ‣ ASP.NET</span></li>
+<li>Выберите шаблон элемента <strong>MVC View Page</strong></li>
+<li>Назовите файл <strong>Index.cshtml</strong> и нажмите <strong>Добавить</strong></li>
+<li>Замените содержимое файла следующим кодом</li>
+</ul>
+</div></blockquote>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@model</span> <span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">EFGetStarted</span><span class="o">.</span><span class="n">AspNetCore</span><span class="o">.</span><span class="n">NewDb</span><span class="o">.</span><span class="n">Models</span><span class="o">.</span><span class="n">Blog</span><span class="o">&gt;</span>
+
+<span class="o">@</span><span class="p">{</span>
+    <span class="n">ViewBag</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="s2">&quot;Blogs&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Blogs</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">asp</span><span class="o">-</span><span class="n">controller</span><span class="o">=</span><span class="s2">&quot;Blogs&quot;</span> <span class="n">asp</span><span class="o">-</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;Create&quot;</span><span class="o">&gt;</span><span class="n">Create</span> <span class="n">New</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">table</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="n">Id</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="n">Url</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+
+    <span class="nd">@foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">Model</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>
+                <span class="nd">@Html</span><span class="o">.</span><span class="n">DisplayFor</span><span class="p">(</span><span class="n">modelItem</span> <span class="o">=&gt;</span> <span class="n">item</span><span class="o">.</span><span class="n">BlogId</span><span class="p">)</span>
+            <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>
+                <span class="nd">@Html</span><span class="o">.</span><span class="n">DisplayFor</span><span class="p">(</span><span class="n">modelItem</span> <span class="o">=&gt;</span> <span class="n">item</span><span class="o">.</span><span class="n">Url</span><span class="p">)</span>
+            <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Мы так же добавим вид для действия <code class="docutils literal"><span class="pre">Create</span></code>, которое позволяет пользователю ввести данные для нового блога.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Щелкните правой кнопкой мыши на папке <strong>Blogs</strong> и выберите: <span class="menuselection">Добавить ‣ Создать элемент...</span></li>
+<li>В левом столбце выберите: <span class="menuselection">Установленные ‣ ASP.NET Core</span></li>
+<li>Выберите шаблон элемента <strong>MVC View Page</strong></li>
+<li>Назовите файл <strong>Create.cshtml</strong> и нажмите <strong>Добавить</strong></li>
+<li>Замените содержимое файла следующим кодом</li>
+</ul>
+</div></blockquote>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@model</span> <span class="n">EFGetStarted</span><span class="o">.</span><span class="n">AspNetCore</span><span class="o">.</span><span class="n">NewDb</span><span class="o">.</span><span class="n">Models</span><span class="o">.</span><span class="n">Blog</span>
+
+<span class="o">@</span><span class="p">{</span>
+    <span class="n">ViewBag</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="s2">&quot;New Blog&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="nd">@ViewData</span><span class="p">[</span><span class="s2">&quot;Title&quot;</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">form</span> <span class="n">asp</span><span class="o">-</span><span class="n">controller</span><span class="o">=</span><span class="s2">&quot;Blogs&quot;</span> <span class="n">asp</span><span class="o">-</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;Create&quot;</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;form-horizontal&quot;</span> <span class="n">role</span><span class="o">=</span><span class="s2">&quot;form&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;form-horizontal&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">asp</span><span class="o">-</span><span class="n">validation</span><span class="o">-</span><span class="n">summary</span><span class="o">=</span><span class="s2">&quot;All&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-danger&quot;</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;form-group&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">label</span> <span class="n">asp</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&quot;Url&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;col-md-2 control-label&quot;</span><span class="o">&gt;&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;col-md-10&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nb">input</span> <span class="n">asp</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&quot;Url&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;form-control&quot;</span> <span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="n">span</span> <span class="n">asp</span><span class="o">-</span><span class="n">validation</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&quot;Url&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;text-danger&quot;</span><span class="o">&gt;&lt;/</span><span class="n">span</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;form-group&quot;</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;col-md-offset-2 col-md-10&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Create&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;btn btn-default&quot;</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id19">Запуск приложения</a><a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь вы можете запустить приложение, чтобы увидеть его в действии.</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="menuselection">Отладка ‣ Запуск без отладки</span></li>
+<li>Приложение будет построено и открыто в веб-браузере</li>
+<li>Перейдите в <strong>/Blogs</strong></li>
+<li>Нажмите <strong>Create New</strong></li>
+<li>Введите <strong>Url</strong> для нового блога и нажмите <strong>Create</strong></li>
+</ul>
+</div></blockquote>
+<img alt="../../_images/create.png" src="../../_images/create.png" />
+<img alt="../../_images/index-new-db.png" src="../../_images/index-new-db.png" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="existing-db.html" class="btn btn-neutral float-right" title="Приложение ASP.NET Core для существующей базы данных (Database First)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Приступая к работе на ASP.NET Core" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/wedc.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

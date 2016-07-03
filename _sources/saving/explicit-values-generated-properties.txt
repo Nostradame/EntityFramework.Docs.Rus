@@ -1,0 +1,71 @@
+Установка явных значений для генерируемых свойств
+===============================================================
+
+Сгенерированный свойство — это свойство, значение которого генерируется (или EF, или базой данных) когда сущность добавлена или обновлена. Для получения дополнительной информации смотрите :doc:`/modeling/generated-properties`.
+
+Могут возникнуть ситуации, когда вы хотите установить явное значение для создаваемого свойства, а не генерируемое.
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Saving/Saving/ExplicitValuesGenerateProperties/
+
+Модель
+---------
+
+Модель, используемая в этой статье содержит одну сущность ``Employee`` .
+
+.. includesamplefile:: Saving/Saving/ExplicitValuesGenerateProperties/Employee.cs
+        :language: c#
+        :lines: 5-10
+        :linenos:
+
+Контекст настроен на SQL Server:
+ * По соглашению свойство ``Employee.EmployeeId`` будет храниться в генерируемом столбце ``IDENTITY`` 
+ * Свойство ``Employee.EmploymentStarted`` также настроено получать значения, созданные базой данных для новых сущностей
+
+.. includesamplefile:: Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs
+        :language: c#
+        :lines: 5-20
+        :linenos:
+
+Сохранение явного значения во время добавления
+----------------------------------------------------------------
+
+В следующем коде два сотрудника добавляются в базу данных
+ * Во-первых, значение не назначается свойству ``Employee.EmploymentStarted``, поэтому оно остается равным значению по умолчанию среды CLR для типа ``DateTime``.
+ * Во-вторых мы установили явное значение ``1-Jan-2000``.
+
+.. includesamplefile:: Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs
+        :language: c#
+        :lines: 16-26
+        :linenos:
+        :emphasize-lines: 4
+
+Результирующий код, приведенный ниже, показывает, что база данных генерирует значение для первого сотрудника, а наше явное значение было использовано для второго::
+
+  1: John Doe, 1/28/2016 12:00:00 AM
+  2: Jane Doe, 1/1/2000 12:00:00 AM
+
+
+Явные значения в столбцах IDENTITY SQL Server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+В большинстве ситуаций подход для ключевых свойств, показанный выше, будет работать. Однако чтобы вставлять явные значения в столбец ``IDENTITY`` SQL Server, необходимо вручную включить ``IDENTITY_INSERT`` до вызова ``SaveChanges()``.
+
+.. note::
+  У нас есть `запрос функциональности <https://github.com/aspnet/EntityFramework/issues/703>`_ на нашем бэклоге сделать это автоматически в провайдере SQL Server.
+
+.. includesamplefile:: Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs
+        :language: c#
+        :lines: 34-56
+        :linenos:
+        :emphasize-lines: 6-16
+
+Назначение явных значений во время обновления
+-------------------------------------------------------------
+
+.. attention::
+  Из-за различных ошибок этот сценарий не поддерживается должным образом в текущем предварительном релизе EF ядра. Для получения подробностей смотрите `документацию по проблемме #122 <https://github.com/aspnet/EntityFramework.Docs/issues/122>`_.

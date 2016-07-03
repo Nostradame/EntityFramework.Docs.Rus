@@ -1,0 +1,163 @@
+Обновление RC1 до RC2
+=========================
+
+Эта статья содержит руководство для для обновления приложения, построенного при помощи пакетов RC1 до RC2.
+
+.. contents:: `В этой статье:`
+    :local:
+
+Имена пакетов и версии
+-------------------------------
+
+Разница между RC1 и RC2 в том, что мы изменили "Entity Framework 7" на "Entity Framework Core". Вы можете прочитать больше о причинах изменения в `этом блоге Скотта Хансельмана <http://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx>`_. Вследствие этого изменения наши имена пакетов изменены с ``EntityFramework.*`` на ``Microsoft.EntityFrameworkCore.*`` и версии с ``7.0.0-rc1-final`` до ``1.0.0-rc2-final`` (или ``1.0.0-preview1-final`` для инструментария).
+
+**Вам будет нужно полностью удалить пакеты RC1 и установить RC2.** Здесь сопоставление для некоторых общих пакетов.
+
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| **RC1 Package**                                                 |  **RC2 Equivalent**                                                   |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.MicrosoftSqlServer        7.0.0-rc1-final       |  Microsoft.EntityFrameworkCore.SqlServer         1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.SQLite                    7.0.0-rc1-final       |  Microsoft.EntityFrameworkCore.SQLite            1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework7.Npgsql                   3.1.0-rc1-3           |  NpgSql.EntityFrameworkCore.Postgres             <to be advised>      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.SqlServerCompact35        7.0.0-rc1-final       |  EntityFrameworkCore.SqlServerCompact35          1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.SqlServerCompact40        7.0.0-rc1-final       |  EntityFrameworkCore.SqlServerCompact40          1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.InMemory                  7.0.0-rc1-final       |  Microsoft.EntityFrameworkCore.InMemory          1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.IBMDataServer             7.0.0-beta1           |  Not yet available for RC2                                            |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.Commands                  7.0.0-rc1-final       |  Microsoft.EntityFrameworkCore.Tools             1.0.0-preview1-final |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+| EntityFramework.MicrosoftSqlServer.Design 7.0.0-rc1-final       |  Microsoft.EntityFrameworkCore.SqlServer.Design  1.0.0-rc2-final      |
++-----------------------------------------------------------------+-----------------------------------------------------------------------+
+
+Пространства имен
+-----------------------
+
+Наряду с именами пакетов, изменились пространства имен с ``Microsoft.Data.Entity.*`` на ``Microsoft.EntityFrameworkCore.*``. Вы можете обработать это изменение поиском и заменой ``using Microsoft.Data.Entity`` на ``using Microsoft.EntityFrameworkCore``.
+
+Изменения соглашения именования таблиц
+-------------------------------------------------------
+
+Значительные функциональные изменения, которые мы приняли в RC2 - было использовать имя свойства ``DbSet<TEntity>`` для данной сущности как имя сопоставляемой таблицы, а не только имя класса. Вы можете прочитать больше об этом изменении `в соответствующем объявлении проблеммы <https://github.com/aspnet/Announcements/issues/167>`_.
+
+Для существующих приложений, RC1 мы рекомендуем, добавив следующий код в начало метода ``OnModelCreating`` чтобы придерживаться стратегии именования RC1::
+
+  foreach (var entity in modelBuilder.Model.GetEntityTypes())
+  {
+      entity.Relational().TableName = entity.DisplayName();
+  }
+
+
+Если вы хотите принять в новой стратегии именования, мы рекомендуем успешно завершить остальные шаги обновления и затем удаление кода и создания миграции для применения переименовывания таблицы.
+
+Изменения AddDbContext / Startup.cs (только для проектов ASP.NET Core)
+--------------------------------------------------------------------------------------------
+
+В RC1, вам пришлось бы добавлять сервисы Entity Framework в провайдер сервисов приложения - в ``Startup.ConfigureServices(...)``::
+
+  services.AddEntityFramework()
+    .AddSqlServer()
+    .AddDbContext<ApplicationDbContext>(options =>
+      options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
+В RC2, вы можете удалить вызовы ``AddEntityFramework()``, ``AddSqlServer()`` и т.д.::
+
+  services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
+Кроме того, необходимо добавить конструктор в ваш производный контекст, который принимает параметры контекста и передает их в базовый конструктор. Это необходимо, потому что мы удалили некоторую страшную магию, скрывающуюся за кулисами::
+
+  public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+      : base(options)
+  {
+  }
+
+Передача IServiceProvider
+---------------------------------
+
+Если у вас был код RC1 который передавал в контекст ``IServiceProvider``, то теперь он перемещен в ``DbContextOptions``, а не в отдельный параметр конструктора. Используйте для настройки провайдера служб ``DbContextOptionsBuilder.UseInternalServiceProvider(...)``.
+
+Тестирование
+^^^^^^^^^^^^^^^^^^^
+
+Для тестирования наиболее распространенным сценарием было контролировать области базы данных InMemory. Как это сделать с RC2 смотрите обновленную статью :doc:`testing`.
+
+Решение Internal Services для Application Service Provider (только для проектов ASP.NET Core)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Если у вас есть приложение ASP.NET Core и вы хотите разрешить EF внутренние службы из провайдера служб приложения, то есть перегруженный метод ``AddDbContext`` , который позволит вам это настроить::
+
+  services.AddEntityFrameworkSqlServer()
+    .AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+      options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+             .UseInternalServiceProvider(serviceProvider)); );
+
+.. attention::
+  Мы рекомендуем позволить EF внутреннее управление своими службами, если у вас есть причины объединять внутренние службы EF в вашем провайдере служб приложения. Основная причина, по которой может потребоваться сделать это является использование провайдера служб приложения для замены служб, которые EF использует внутренне
+
+Команды DNX => .NET CLI (только проекты ASP.NET Core)
+--------------------------------------------------------------------------
+
+Если вы ранее для проектов ASP.NET 5 использовали команды ``dnx ef``, то теперь они перемещены в команды ``dotnet ef``. По-прежнему применяется тот же синтаксис команды. Вы можете использовать ``dotnet ef --help`` для получения сведения о синтаксисе.
+
+Метод регистрации команд в RC2 изменился благодаря тому, что DNX был заменен на .NET CLI. Теперь команды регистрируются в разделе ``tools`` файла ``project.json``::
+
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools": {
+      "version": "1.0.0-preview1-final",
+      "imports": [
+        "portable-net45+win8+dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
+  }
+
+.. tip::
+  Если для проектов ASP.NET Core вы используете Visual Studio, то теперь для запуска команды EF можно использовать консоль диспетчера пакетов (это не поддерживается в RC1). Для этого вам все еще нужно зарегистрировать команды в разделе ``tools`` файла ``project.json``.
+
+Командам Package Manager требуется PowerShell 5
+-----------------------------------------------------------------
+
+Если вы используете команды Entity Framework в консоли диспетчера пакетов в Visual Studio, то вам нужно убедиться, что у вас установлена PowerShell 5. Это временное требование, которое будет удалено в следующем выпуске (для получения более подробной информации смотрите `issue #5327 <https://github.com/aspnet/EntityFramework/issues/5327>`_).
+
+Использование "imports" в project.json
+--------------------------------------
+
+Некоторые из основных зависимостей EF еще не поддерживают .NET Standard. EF Core в проектах .NET Standard и .NET Core может временно потребоваться добавить "imports" в project.json.
+
+Когда добавляется EF, восстановление NuGet будет отображаться такое сообщение об ошибке:
+
+.. code-block:: text
+
+    Package Ix-Async 1.2.5 is not compatible with netcoreapp1.0 (.NETCoreApp,Version=v1.0). Package Ix-Async 1.2.5 supports:
+      - net40 (.NETFramework,Version=v4.0)
+      - net45 (.NETFramework,Version=v4.5)
+      - portable-net45+win8+wp8 (.NETPortable,Version=v0.0,Profile=Profile78)
+    Package Remotion.Linq 2.0.2 is not compatible with netcoreapp1.0 (.NETCoreApp,Version=v1.0). Package Remotion.Linq 2.0.2 supports:
+      - net35 (.NETFramework,Version=v3.5)
+      - net40 (.NETFramework,Version=v4.0)
+      - net45 (.NETFramework,Version=v4.5)
+      - portable-net45+win8+wp8+wpa81 (.NETPortable,Version=v0.0,Profile=Profile259)
+      
+Чтобы устранить проблему, вручную импортируте профиль "portable-net451+win8".
+Это заставит NuGet исправить эти двоичные файлы которые соответствуют этому предоставляя в качестве совместимого с .NET Standard каркаса, даже если это не так. Хотя "portable-net451+win8" не является на 100% совместимым с .NET Standard, он достаточно совместим для перехода с PCL на .NET Standard.
+Импортирование может быть удалено, когда зависимости EF будут окончательно переведены на .NET Standard.
+
+В "imports" могут быть добавлены различные каркасы в стиле массива. Если вы добавляете дополнительные библиотеки в свой проект, могут понадобиться другие импортирования.
+
+.. code-block:: json
+
+    {
+      "frameworks": {
+        "netcoreapp1.0": {
+          "imports": ["dnxcore50", "portable-net451+win8"]
+        }
+    }
+
+
+See `Issue #5176 <https://github.com/aspnet/EntityFramework/issues/5176>`_.

@@ -1,0 +1,43 @@
+Основные запросы
+================
+
+Для запросов данных из базы данных Entity Framework Core использует Language Integrate Query (LINQ). LINQ позволяет использовать C# (или другой .NET язык) для записи строго типизирванных запросов, основываясь на вашем прозводном контексте и классах сущности.
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Querying
+
+101 пример LINQ
+---------------
+
+На этой странице приведены несколько примеров решения общих задач при помощи Entity Framework Core. Чтобы посмотреть больше примеров, показывающих возможности LINQ, смотрите `101 LINQ Samples <https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b>`_.
+
+Загрузка всех данных
+--------------------
+
+.. includesamplefile:: Querying/Querying/Basics/Sample.cs
+        :language: c#
+        :lines: 9-12
+        :dedent: 12
+        :linenos:
+
+Загрузка отдельной сущности
+---------------------------
+
+.. includesamplefile:: Querying/Querying/Basics/Sample.cs
+        :language: c#
+        :lines: 14-18
+        :dedent: 12
+        :linenos:
+
+Фильтрация
+----------
+
+.. includesamplefile:: Querying/Querying/Basics/Sample.cs
+        :language: c#
+        :lines: 20-25
+        :dedent: 12
+        :linenos:

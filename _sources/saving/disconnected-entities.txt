@@ -1,0 +1,6 @@
+|stub-icon| Несвязанные Сущности
+========================================
+
+.. include:: /_shared/stub-topic.txt
+.. include:: /_shared/stub-notice.txt
+.. _проблемы: https://github.com/aspnet/EntityFramework.Docs/issues/126

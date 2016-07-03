@@ -1,0 +1,22 @@
+.. include:: _shared/relational-specific-note.txt
+
+Моделирование Реляционной базы данных
+========================================
+
+Этот раздел охватывает аспекты моделирования, специфичный для реляционных баз данных.
+
+.. toctree::
+   :titlesonly:
+
+   tables
+   columns
+   data-types
+   primary-keys
+   default-schema
+   computed-columns
+   sequences
+   default-values
+   indexes
+   fk-constraints
+   unique-constraints
+   inheritance

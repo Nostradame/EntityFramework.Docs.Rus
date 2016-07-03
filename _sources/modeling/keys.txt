@@ -1,0 +1,54 @@
+Ключи (первичные)
+===================
+
+Ключ служит основным уникальным идентификатором для каждого экземпляра объекта. При использовании реляционной базы данных, это соотносится c концепцией *первичный ключ*. Можно также настроить уникальный идентификатор, который не является первичным ключом (для получения дополнительной информации смотрите :doc:`alternate-keys`).
+
+.. contents:: В этой статье:
+    :depth: 3
+
+Соглашения
+---------------
+
+По соглашению, свойство с именем ``Id`` или ``<имя типа>Id`` будет сконфигурировано в качестве ключа сущности.
+
+.. includesamplefile:: Modeling/Conventions/Samples/KeyId.cs
+        :language: c#
+        :lines: 11-17
+        :emphasize-lines: 3
+        :linenos:
+
+.. includesamplefile:: Modeling/Conventions/Samples/KeyTypeNameId.cs
+        :language: c#
+        :lines: 11-17
+        :emphasize-lines: 3
+        :linenos:
+
+Аннотации данных
+------------------------
+
+Вы можете использовать аннотации данных для настройки одного свойства как ключа субъекта.
+
+.. includesamplefile:: Modeling/DataAnnotations/Samples/KeySingle.cs
+        :language: c#
+        :lines: 11-18
+        :emphasize-lines: 3-4
+        :linenos:
+
+Fluent API
+-------------------
+
+Вы можете использовать Fluent API для настройки одного свойства как ключа сущности.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/KeySingle.cs
+        :language: c#
+        :lines: 5-22
+        :emphasize-lines: 7-8
+        :linenos:
+
+Вы можете использовать Fluent API для настройки нескольких свойств в качестве ключа сущности (известных как композитные ключи). Композитные ключи могут быть настроены только при помощи Fluent API - композитные ключи никогда не устанавливаются по соглашениям, и вы не можете использовать аннотации данных для их настройки.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/KeyComposite.cs
+        :language: c#
+        :lines: 5-23
+        :emphasize-lines: 7-8
+        :linenos:

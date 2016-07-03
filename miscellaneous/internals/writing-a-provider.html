@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Разработка провайдера базы данных &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
+        <link rel="up" title="Что внутри" href="index.html"/>
+        <link rel="next" title="Понимание сервисов EF" href="services.html"/>
+        <link rel="prev" title="Что внутри" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Разное</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../connection-strings.html">Connection Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Логгирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing.html">Тестирование InMemory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuring-dbcontext.html">Конфигурирование DbContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rc1-rc2-upgrade.html">Обновление RC1 до RC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rc2-rtm-upgrade.html">Upgrading from RC2 to RTM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">Command Line Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Что внутри</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Разработка провайдера базы данных</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="services.html">Понимание сервисов EF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Разное</a> &raquo;</li>
+      
+          <li><a href="index.html">Что внутри</a> &raquo;</li>
+      
+    <li>Разработка провайдера базы данных</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="id1">
+<h1>Разработка провайдера базы данных<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="contents local topic" id="id2">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#dbcontext" id="id10">Инициализация DbContext</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">Опции</a></li>
+<li><a class="reference internal" href="#id5" id="id12">Сервисы</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id13">Разработка плагинов для провайдера</a><ul>
+<li><a class="reference internal" href="#use" id="id14">Метод <cite>Use</cite></a></li>
+<li><a class="reference internal" href="#add" id="id15">Метод <cite>Add</cite></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9" id="id16">Следующие шаги</a></li>
+</ul>
+</div>
+<p>EF Core разрабатывался расширяемым. Он предоставляет компонеты, предназначенные для использования в нескольких провайдерах. Цель данной статьи состоит в том, чтобы обеспечить базовое руководство по созданию нового провайдера, совместимого с EF Core.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last"><a class="reference external" href="https://github.com/aspnet/EntityFramework">Исходный код EF Core это открытый ресурс</a>.
+Лучший источник информации - это сам код.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">This article shows snippets from an empty EF provider. Вы можете просмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Miscellaneous/Internals/WritingAProvider">полностью
+разработанный провайдер</a>
+на GitHub.</p>
+</div>
+<div class="section" id="dbcontext">
+<span id="entry-point"></span><h2><a class="toc-backref" href="#id10">Инициализация DbContext</a><a class="headerlink" href="#dbcontext" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Взаимодействие пользователя и EF начинается с конструктора <code class="docutils literal"><span class="pre">DbContext</span></code>. Перед тем как контекст становится доступен для использования, он инициализирует <strong>опции</strong> и <strong>сервисы</strong>.
+Мы посмотрим пример обоих из них, чтобы понять, что они представляют, и как они настраиваются на использование различных провайдеров.</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">Опции</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.Infrastructure.DbContextOptions</span></code> это API для конфигурирования <code class="docutils literal"><span class="pre">DbContext</span></code> <strong>пользователями</strong>. Разработчики провайдеров ответственны за создание API для конфигурирования опций и создание сервисов,
+соответствующих этим опциям. Например, большинству провайдеров необходима строка подключения. Эта опция обычно создается при помощи <code class="docutils literal"><span class="pre">DbContextOptionsBuilder</span></code>.</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">Сервисы</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">System.IServiceProvider</span></code> это основной интерфейс, используемый для взаимодействия с сервисами.
+EF интенсивно использует <a class="reference external" href="https://wikipedia.org/wiki/Dependency_injection">внедрение зависимостей (DI)</a>. <code class="docutils literal"><span class="pre">ServiceProvider</span></code> содержит коллекцию серисов, доступных для внедрения. Инициализация использует
+<code class="docutils literal"><span class="pre">DbContextOptions</span></code> чтобы добавить дополнительные сервисы, если это необходимо, и выбрать коллекцию сервисов, которые будут использовать все операции EF во время выполнения.</p>
+<p>Так же смотрите <a class="reference internal" href="services.html"><span class="doc">Понимание сервисов EF</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">EF использует <a class="reference external" href="https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/">Microsoft.Extensions.DependencyInjection</a>
+для реализации внедрения зависимостей. Документация для этого проекта
+<a class="reference external" href="https://docs.asp.net/en/latest/fundamentals/dependency-injection.html">доступна на docs.asp.net</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id13">Разработка плагинов для провайдера</a><a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как объяснялось выше, EF использует опции и сервисы. Каждый провайдер должен создать API
+которые используются для добавления опций и сервисов, специфичных для провайдера. Такие API лучше создавать
+используя методы расширения.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">При определении метода расширения, определите его в пространстве имен
+расширяемого объекта, так, авто завершение Visual Studio будет содержать
+метод расширения как возможное решение.</p>
+</div>
+<div class="section" id="use">
+<h3><a class="toc-backref" href="#id14">Метод <cite>Use</cite></a><a class="headerlink" href="#use" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По соглашению, провайдеры определяют расширение <code class="docutils literal"><span class="pre">UseX()</span></code> в <code class="docutils literal"><span class="pre">DbContextOptionsBuilder</span></code>.
+Оно конфигурирует <strong>опции</strong>, которые обычно передает в метод как аргументы.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">optionsBuilder</span><span class="o">.</span><span class="n">UseMyProvider</span><span class="p">(</span><span class="s2">&quot;Server=contoso.com&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Метод расширения <code class="docutils literal"><span class="pre">UseX()</span></code> создает специфичную для провайдера реализацию
+<code class="docutils literal"><span class="pre">IDbContextOptionsExtension</span></code>, которая добавляется в коллекцию расширений,
+хранящихся в <code class="docutils literal"><span class="pre">DbContextOptions</span></code>. Это делается путем вызова скрытых API
+<code class="docutils literal"><span class="pre">IDbContextOptionsBuilderInfrastructure.AddOrUpdateExtension</span></code>.</p>
+<div class="literal-block-wrapper container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Пример реализации метода &#8220;Use&#8221;</span><a class="headerlink" href="#id7" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">MyProviderDbContextOptionsExtensions</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="n">DbContextOptionsBuilder</span> <span class="nf">UseMyProvider</span><span class="p">(</span><span class="k">this</span> <span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">,</span>
+            <span class="kt">string</span> <span class="n">connectionString</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="p">((</span><span class="n">IDbContextOptionsBuilderInfrastructure</span><span class="p">)</span> <span class="n">optionsBuilder</span><span class="p">).</span><span class="n">AddOrUpdateExtension</span><span class="p">(</span>
+                <span class="k">new</span> <span class="n">MyProviderOptionsExtension</span>
+                <span class="p">{</span>
+                    <span class="n">ConnectionString</span> <span class="p">=</span> <span class="n">connectionString</span>
+                <span class="p">});</span>
+
+            <span class="k">return</span> <span class="n">optionsBuilder</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Метод <code class="docutils literal"><span class="pre">UseX()</span></code> так же может быть использован для возвращения специальной обертки вокруг
+<code class="docutils literal"><span class="pre">DbContextOptionsBuilder</span></code>, которая позволяет пользователям конфигурировать несколько опций
+методом поточного вызова. Смотрите <code class="docutils literal"><span class="pre">SqlServerDbContextOptionsBuilder</span></code> в качестве примера.</p>
+</div>
+</div>
+<div class="section" id="add">
+<h3><a class="toc-backref" href="#id15">Метод <cite>Add</cite></a><a class="headerlink" href="#add" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По соглашению, провайдер определяет расширение <code class="docutils literal"><span class="pre">AddX()</span></code> объекта <code class="docutils literal"><span class="pre">EntityFrameworkServicesBuilder</span></code>. Он конфигурирует <strong>сервисы</strong> и не принимает аргументы.</p>
+<p><code class="docutils literal"><span class="pre">EntityFrameworkServicesBuilder</span></code> является оберткой <code class="docutils literal"><span class="pre">ServiceCollection</span></code>, который доступен через вызов <code class="docutils literal"><span class="pre">GetInfrastructure()</span></code>. Метод <code class="docutils literal"><span class="pre">AddX()</span></code> должен регистрировать сервисы в этой коллекции чтобы они стали доступны для внедрения зависимостей.</p>
+<p>В некоторых случаях пользователи могут непосредственно вызвать метод <cite>Add</cite>. Это делается, когда пользователи конфигурируют провайдера сервисов вручную и используют этого провайдера сервисов, чтобы решить экземпляр <code class="docutils literal"><span class="pre">DbContext</span></code>. В других случаях, EF вызывает метод <cite>Add</cite> при инициализации сервиса. Для получения более подробной информации об инициализации сервиса смотрите раздел <a class="reference internal" href="services.html"><span class="doc">Понимание сервисов EF</span></a>.</p>
+<p>Провайдер <strong>должен зарегистрировать</strong> реализацию <code class="docutils literal"><span class="pre">IDatabaseProvider</span></code>.
+Его реализация по очереди потребует настройки еще нескольких необходимых сервисов.
+Подробнее о работе с сервисами читайте в разделе <a class="reference internal" href="services.html"><span class="doc">Понимание сервисов EF</span></a>.</p>
+<p>EF предоставляет много полных или частичных реализаций необходимых сервисов, чтобы разработчики провайдеров могли делать это проще. Например, EF включает в себя класс <code class="docutils literal"><span class="pre">DatabaseProvider&lt;TProviderServices,</span> <span class="pre">TOptionsExtension&gt;</span></code>, который может быть использован в регистрации сервисов для подключения провайдера.</p>
+<div class="literal-block-wrapper container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Пример реализации метода &#8220;Add&#8221;</span><a class="headerlink" href="#id8" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">MyProviderServiceCollectionExtensions</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="nf">AddEntityFrameworkMyProvider</span><span class="p">(</span><span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">services</span><span class="p">.</span><span class="n">AddEntityFramework</span><span class="p">();</span>
+
+            <span class="n">services</span><span class="p">.</span><span class="n">TryAddEnumerable</span><span class="p">(</span><span class="n">ServiceDescriptor</span>
+                <span class="p">.</span><span class="n">Singleton</span><span class="p">&lt;</span><span class="n">IDatabaseProvider</span><span class="p">,</span> <span class="n">DatabaseProvider</span><span class="p">&lt;</span><span class="n">MyDatabaseProviderServices</span><span class="p">,</span> <span class="n">MyProviderOptionsExtension</span><span class="p">&gt;&gt;());</span>
+
+            <span class="n">services</span><span class="p">.</span><span class="n">TryAdd</span><span class="p">(</span><span class="k">new</span> <span class="n">ServiceCollection</span><span class="p">()</span>
+                <span class="c1">// singleton services</span>
+                <span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">MyModelSource</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">MyValueGeneratorCache</span><span class="p">&gt;()</span>
+                <span class="c1">// scoped services</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyDatabaseProviderServices</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyDatabaseCreator</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyDatabase</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyEntityQueryableExpressionVisitorFactory</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyEntityQueryModelVisitorFactory</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyQueryContextFactory</span><span class="p">&gt;()</span>
+                <span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">MyTransactionManager</span><span class="p">&gt;());</span>
+
+            <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id16">Следующие шаги</a><a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сейчас с этими двумя определенными API расширяемости, пользователи могут конфигурировать &#8220;DbContext&#8221; для использования вашего провайдера. Для того, чтобы ваш провайдер функционировал, вам необходимо будет реализовать другие сервисы.</p>
+<p>Чтение исходного кода других провайдеров является отличным способом узнать, как создать нового провайдера EF. Список существующих провайдеров EF и ссылки на их исходный код (если они доступны) смотрите в разделе <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a>.</p>
+<p><code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.Relational</span></code> включает в себя обширную библиотеку сервисов, предназначенных для реляционных провайдеров. Во многих случаях эти сервисы требуют небольшой или вообще никакой модификации для работы нескольких реляционных баз данных.</p>
+<p>Для получения более подробной информации о других внутренних частях EF, смотрите в разделе <a class="reference internal" href="index.html"><span class="doc">Что внутри</span></a></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="services.html" class="btn btn-neutral float-right" title="Понимание сервисов EF" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Что внутри" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/wedc.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

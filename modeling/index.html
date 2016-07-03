@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Создание модели &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
+        <link rel="next" title="Включение &amp; исключение типов" href="included-types.html"/>
+        <link rel="prev" title="Локальная SQLite на UWP" href="../platforms/uwp/getting-started.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Создание модели</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="included-types.html">Включение &amp; исключение типов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="included-properties.html">Включение &amp; исключение свойств</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">Ключи (первичные)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated-properties.html">Генерирование свойств</a></li>
+<li class="toctree-l2"><a class="reference internal" href="required-optional.html">Обязательные/необязательные свойства</a></li>
+<li class="toctree-l2"><a class="reference internal" href="max-length.html">Максимальная длина</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concurrency.html">Маркеры параллелизма (Concurrency Tokens)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shadow-properties.html">Скрытые свойства</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relationships.html">Отношения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indexes.html">Индексы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternate-keys.html">Альтернативные ключи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inheritance.html">Наследование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backing-field.html">Резервные поля</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational/index.html">Моделирование Реляционной базы данных</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Создание модели</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="id1">
+<h1>Создание модели<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Для создания модели, сформированной на основе классов сущностей, Entity Framework использует ряд соглашений. Для того, чтобы дополнить и/или переопределить созданную в соответствии с соглашением модель, можно указать дополнительные настройки.</p>
+<p>В данной статье рассматриваются конфигурации, которые могут быть применены к модели, ориентированные на любые хранилища данных и те, которые могут быть применены при ориентации на любую реляционную базу данных. Провайдеры могут также включать конфигурацию, которая относится к конкретному хранилищу данных. Для получения документации по конкретной конфигурации поставщика смотрите раздел <a class="reference internal" href="../providers/index.html"><span class="doc">Провайдеры баз данных</span></a>.</p>
+<p>В этом разделе вы можете найти информацию о соглашениях и конфигурации для следующих действий:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="included-types.html">Включение &amp; исключение типов</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="included-properties.html">Включение &amp; исключение свойств</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keys.html">Ключи (первичные)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated-properties.html">Генерирование свойств</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="required-optional.html">Обязательные/необязательные свойства</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="max-length.html">Максимальная длина</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concurrency.html">Маркеры параллелизма (Concurrency Tokens)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shadow-properties.html">Скрытые свойства</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="relationships.html">Отношения</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="indexes.html">Индексы</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alternate-keys.html">Альтернативные ключи</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inheritance.html">Наследование</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backing-field.html">Резервные поля</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="relational/index.html">Моделирование Реляционной базы данных</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="relational/tables.html">Сопоставление таблиц</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/columns.html">Сопоставление столбцов</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/data-types.html">Типы данных</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/primary-keys.html">Первичные ключи</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/default-schema.html">Схема по-умолчанию</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/computed-columns.html">Вычисляемые столбцы</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/sequences.html">Последовательности</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/default-values.html">Значения по-умолчанию</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/indexes.html">Индексы</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/fk-constraints.html">Ограничения внешних ключей</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/unique-constraints.html">Альтернативные ключи (уникальные ограничения)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="relational/inheritance.html">Наследование (реляционной базы данных)</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вы можете посмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/docs/samples">пример</a> этой статьи на GitHub.</p>
+</div>
+<div class="section" id="id3">
+<h2>Методы конфигурации<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="fluent-api">
+<h3>Fluent API<a class="headerlink" href="#fluent-api" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вы можете переопределить <code class="docutils literal"><span class="pre">OnModelCreating</span></code> в производном контексте и использовать API <code class="docutils literal"><span class="pre">ModelBuilder</span></code> для настройки вашей модели. Это самый мощный метод конфигурации, который позволяет определять конфигурацию без изменения классов сущностей. Конфигурация Fluent API имеет наивысший приоритет и отменяет соглашения и аннотации данных.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="k">class</span> <span class="nc">MyContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="hll">        <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnModelCreating</span><span class="p">(</span><span class="n">ModelBuilder</span> <span class="n">modelBuilder</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">{</span>
+</span><span class="hll">            <span class="n">modelBuilder</span><span class="p">.</span><span class="n">Entity</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;()</span>
+</span><span class="hll">                <span class="p">.</span><span class="n">Property</span><span class="p">(</span><span class="n">b</span> <span class="p">=&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">Url</span><span class="p">)</span>
+</span><span class="hll">                <span class="p">.</span><span class="n">IsRequired</span><span class="p">();</span>
+</span><span class="hll">        <span class="p">}</span>
+</span>    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id4">
+<h3>Аннотации данных<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>К вашим классам и свойствам можно также применить атрибуты (известные как Аннотации данных). Аннотации данных переопределят соглашения, но будут перезаписаны конфигурацией Fluent API.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">Blog</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">BlogId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="hll"><span class="na">        [Required]</span>
+</span>        <span class="k">public</span> <span class="kt">string</span> <span class="n">Url</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="included-types.html" class="btn btn-neutral float-right" title="Включение &amp; исключение типов" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../platforms/uwp/getting-started.html" class="btn btn-neutral" title="Локальная SQLite на UWP" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/wedc.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

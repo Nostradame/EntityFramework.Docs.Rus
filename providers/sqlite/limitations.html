@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ограничения SQLite &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
+        <link rel="up" title="SQLite" href="index.html"/>
+        <link rel="next" title="Npgsql (PostgreSQL)" href="../npgsql/index.html"/>
+        <link rel="prev" title="SQLite" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Провайдеры баз данных</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../sql-server/index.html">Microsoft SQL Server</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">SQLite</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Ограничения SQLite</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../npgsql/index.html">Npgsql (PostgreSQL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sql-compact/index.html">Microsoft SQL Server Compact Edition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ibm/index.html">Серверы данных IBM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../in-memory/index.html">InMemory (for Testing)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../devart/index.html">Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mysql/index.html">MySQL (скоро)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oracle/index.html">Oracle (Coming Soon)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Провайдеры баз данных</a> &raquo;</li>
+      
+          <li><a href="index.html">SQLite</a> &raquo;</li>
+      
+    <li>Ограничения SQLite</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="sqlite">
+<h1>Ограничения SQLite<a class="headerlink" href="#sqlite" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Когда используется провайдер SQLite, есть целый ряд ограничений, о которых вы должны быть в курсе. Большинство из них являются результатом ограничений в основном движке базы данных SQLite и не являются специфическими для EF.</p>
+<div class="section" id="id1">
+<h2>Ограничения моделирования<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Общая реляционная библиотека (распространяемая поставщиками реляционных баз данных Entity Framework) определяет API-интерфейсы для концепций моделирования, которые являются общими для большинства реляционных СУБД. Некоторые из этих концепций не поддерживается поставщиком SQLite.</p>
+<ul class="simple">
+<li>Схемы</li>
+<li>Последовательности</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>Ограничения миграций<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Ядро СУБД SQLite не поддерживает ряд операций схемы, которые поддерживаются большинством других реляционных баз данных. Если вы попытаетесь применить одну из неподдерживаемых операций в базе данных SQLite, то будет выброшено <code class="docutils literal"><span class="pre">NotSupportedException</span></code>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="68%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Операция</th>
+<th class="head">Поддер-ся?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>AddColumn</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>AddForeignKey</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>AddPrimaryKey</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td>AddUniqueConstraint</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>AlterColumn</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td>AlterSequence</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td><strong>CreateIndex</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>CreateSchema</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>CreateSequence</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td><strong>CreateTable</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>DropColumn</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td>DropForiegnKey</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td><strong>DropIndex</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>DropPrimaryKey</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>DropSchema</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td>DropSequence</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td><strong>DropTable</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-odd"><td>DropUniqueConstraint</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>RenameColumn</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td>RenameIndex</td>
+<td>✗</td>
+</tr>
+<tr class="row-even"><td>RenameSequence</td>
+<td>✗</td>
+</tr>
+<tr class="row-odd"><td><strong>RenameTable</strong></td>
+<td>✔</td>
+</tr>
+<tr class="row-even"><td>RestartSequence</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Вы можете обойти некоторые из этих ограничений написав код в миграции в ручную, чтобы заполнить таблицу восстановления. Таблица восстановления включает в себя переименование существующей таблицы, создание новой таблицы, копирование данных в новую таблицу, и удаление старой таблицы. Вам нужно будет использовать метод <code class="docutils literal"><span class="pre">Sql</span> <span class="pre">(string)</span></code>, чтобы выполнить некоторые из этих шагов.</p>
+<p>Более подробно смотрите <cite>Создание других видов схем изменения таблиц</cite> в документации SQLite.</p>
+<p class="last">В будущем OF может поддерживать некоторые из этих операций при помощи таблицы восстановления из под капота. Вы можете <a class="reference external" href="https://github.com/aspnet/EntityFramework/issues/329">отслеживать эту функцию на нашем проекте GitHub</a>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../npgsql/index.html" class="btn btn-neutral float-right" title="Npgsql (PostgreSQL)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="SQLite" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/wedc.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

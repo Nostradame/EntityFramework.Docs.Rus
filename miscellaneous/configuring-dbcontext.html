@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Конфигурирование DbContext &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
+        <link rel="up" title="Разное" href="index.html"/>
+        <link rel="next" title="Обновление RC1 до RC2" href="rc1-rc2-upgrade.html"/>
+        <link rel="prev" title="Тестирование InMemory" href="testing.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Разное</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="connection-strings.html">Connection Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Логгирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Тестирование InMemory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Конфигурирование DbContext</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rc1-rc2-upgrade.html">Обновление RC1 до RC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rc2-rtm-upgrade.html">Upgrading from RC2 to RTM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html">Command Line Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals/index.html">Что внутри</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Разное</a> &raquo;</li>
+      
+    <li>Конфигурирование DbContext</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="dbcontext">
+<h1>Конфигурирование DbContext<a class="headerlink" href="#dbcontext" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В этой статье показаны шаблоны настройки <code class="docutils literal"><span class="pre">DbContext</span></code> с опциями <code class="docutils literal"><span class="pre">DbContextOptions</span></code>. Опции в основном используются для выбора и настройки хранилища данных.</p>
+<div class="contents local topic" id="id1">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#dbcontextoptions" id="id11">Конфигурирование DbContextOptions</a><ul>
+<li><a class="reference internal" href="#id2" id="id12">Аргументы конструктора</a></li>
+<li><a class="reference internal" href="#onconfiguring" id="id13">OnConfiguring</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7" id="id14">Использование DbContext с внедрением зависимостей</a></li>
+<li><a class="reference internal" href="#use-idbcontextfactory" id="id15">Использование <code class="docutils literal"><span class="pre">IDbContextFactory&lt;TContext&gt;</span></code></a></li>
+<li><a class="reference internal" href="#id10" id="id16">Что еще прочитать</a></li>
+</ul>
+</div>
+<div class="section" id="dbcontextoptions">
+<h2><a class="toc-backref" href="#id11">Конфигурирование DbContextOptions</a><a class="headerlink" href="#dbcontextoptions" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для того, чтобы выполниться, в <code class="docutils literal"><span class="pre">DbContext</span></code> должен быть экземпляр <code class="docutils literal"><span class="pre">DbContextOptions</span></code>. Он может быть предоставлен <code class="docutils literal"><span class="pre">DbContext</span></code> двумя способами.</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="#id2">Аргументы конструктора</a></li>
+<li><a class="reference internal" href="#onconfiguring">OnConfiguring</a></li>
+</ol>
+<p>Если используются оба, более высокий приоритет имеет &#8220;OnConfiguring&#8221;, что означает, что он может перезаписать или изменить параметры, предоставляемые аргументами конструктора.</p>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id12">Аргументы конструктора</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="literal-block-wrapper container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Код контекста с конструктором</span><a class="headerlink" href="#id3" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">BloggingContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">BloggingContext</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+        <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Базовый конструктор DbContext также принимает негрупповую версию <code class="docutils literal"><span class="pre">DbContextOptions</span></code>. Не рекомендуется использовать негрупповую версию для приложений с несколькими типами связи.</p>
+</div>
+<div class="literal-block-wrapper container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Код приложения для инициализации с аргументами конструктора</span><a class="headerlink" href="#id4" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="kt">var</span> <span class="n">optionsBuilder</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DbContextOptionsBuilder</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;();</span>
+<span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlite</span><span class="p">(</span><span class="s">&quot;Filename=./blog.db&quot;</span><span class="p">);</span>
+
+<span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BloggingContext</span><span class="p">(</span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">Options</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// do stuff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="onconfiguring">
+<h3><a class="toc-backref" href="#id13">OnConfiguring</a><a class="headerlink" href="#onconfiguring" title="Ссылка на этот заголовок">¶</a></h3>
+<div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last"><code class="docutils literal"><span class="pre">OnConfiguring</span></code> вызывается последним и может перезаписать параметры, полученные из DI или .
+конструктора Этот подход не поддается тестирования (если только вы
+не выбрали full database).</p>
+</div>
+<div class="literal-block-wrapper container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Код контекста с OnConfiguring</span><a class="headerlink" href="#id5" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">BloggingContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span> <span class="n">optionsBuilder</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlite</span><span class="p">(</span><span class="s">&quot;Filename=./blog.db&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Код приложения для инициализации с &#8220;OnConfiguring&#8221;</span><a class="headerlink" href="#id6" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BloggingContext</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="c1">// do stuff</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id14">Использование DbContext с внедрением зависимостей</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>EF поддерживает использование <code class="docutils literal"><span class="pre">DbContext</span></code> с контейнером внедрения зависимостей. Ваш тип DbContext может быть добавлен в контейнер служб при помощи <code class="docutils literal"><span class="pre">AddDbContext&lt;TContext&gt;</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">AddDbContext</span></code> создаст как тип DbContext, <code class="docutils literal"><span class="pre">TContext</span></code>, так и <code class="docutils literal"><span class="pre">DbContextOptions&lt;TContext&gt;</span></code> для возможности внедрения из контейнера служб.</p>
+<p>Смотрите <a class="reference internal" href="#id10">Что еще прочитать</a> ниже для получения информации о внедрения зависимостей.</p>
+<div class="literal-block-wrapper container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Добавление DbContext к внедрению зависимостей</span><a class="headerlink" href="#id8" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">void</span> <span class="nf">ConfigureServices</span><span class="p">(</span><span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">AddDbContext</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;(</span><span class="n">options</span> <span class="p">=&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">UseSqlite</span><span class="p">(</span><span class="s">&quot;Filename=./blog.db&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Здесь вашему типу DbContext требуется добавить <a class="reference internal" href="#id2">Аргументы конструктора</a> которые могут принять <code class="docutils literal"><span class="pre">DbContextOptions</span></code>.</p>
+<div class="literal-block-wrapper container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Код контекста</span><a class="headerlink" href="#id9" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">BloggingContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">BloggingContext</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">)</span>
+      <span class="p">:</span><span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="p">{</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Blog</span><span class="p">&gt;</span> <span class="n">Blogs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="asp-net-core">
+<div class="code-block-caption"><span class="caption-text">Код приложения (в ASP.NET Core)</span><a class="headerlink" href="#asp-net-core" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nf">MyController</span><span class="p">(</span><span class="n">BloggingContext</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper container" id="serviceprovider">
+<div class="code-block-caption"><span class="caption-text">Код приложения (с использованием непосредственно ServiceProvider, применяется реже обычного)</span><a class="headerlink" href="#serviceprovider" title="Постоянная ссылка на код">¶</a></div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetService</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;())</span>
+<span class="p">{</span>
+  <span class="c1">// do stuff</span>
+<span class="p">}</span>
+
+<span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetService</span><span class="p">&lt;</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;&gt;();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="use-idbcontextfactory">
+<span id="idbcontextfactory-tcontext"></span><h2><a class="toc-backref" href="#id15">Использование <code class="docutils literal"><span class="pre">IDbContextFactory&lt;TContext&gt;</span></code></a><a class="headerlink" href="#use-idbcontextfactory" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В качестве альтернативы опциям выше, вы также можете обеспечить реализацию <code class="docutils literal"><span class="pre">IDbContextFactory</span> <span class="pre">&lt;TContext&gt;</span></code>.
+Инструменты командной строки EF и инъекции зависимостей могут использовать эту фабрику, чтобы создать экземпляр вашего DbContext. Это может потребоваться для того, чтобы дать определенный опыт во время разработки, такой как миграции.</p>
+<p>Реализуйте этот интерфейс для включения служб времени разработки для типов контекстов, которые не имеют конструктор по умолчанию. Службы стадии проектирования будут автоматически обнаруживать реализации этого интерфейса, которые находятся в той же сборке, что и производный контекст.</p>
+<p>Пример:</p>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.EntityFrameworkCore.Infrastructure</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyProject</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">BloggingContextFactory</span> <span class="p">:</span> <span class="n">IDbContextFactory</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">BloggingContext</span> <span class="nf">Create</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">optionsBuilder</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DbContextOptionsBuilder</span><span class="p">&lt;</span><span class="n">BloggingContext</span><span class="p">&gt;();</span>
+            <span class="n">optionsBuilder</span><span class="p">.</span><span class="n">UseSqlite</span><span class="p">(</span><span class="s">&quot;Filename=./blog.db&quot;</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">BloggingContext</span><span class="p">(</span><span class="n">optionsBuilder</span><span class="p">.</span><span class="n">Options</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id16">Что еще прочитать</a><a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li>Прочтите <a class="reference internal" href="../platforms/aspnetcore/index.html"><span class="doc">Приступая к работе на ASP.NET Core</span></a> чтобы получить дополнительную информацию об
+использовании EF с ASP.NET Core.</li>
+<li>Прочтите <a class="reference external" href="https://docs.asp.net/en/latest/fundamentals/dependency-injection.html">Dependency Injection</a> для
+дальнейшего изучения использования DI.</li>
+<li>Прочтите <a class="reference internal" href="testing.html"><span class="doc">Тестирование InMemory</span></a> чтобы получить дополнительную информацию.</li>
+<li>Прочтите <a class="reference internal" href="internals/services.html"><span class="doc">Понимание сервисов EF</span></a> чтобы узнать больше деталей о том, как EF внутренне использует внедрение зависимостей.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rc1-rc2-upgrade.html" class="btn btn-neutral float-right" title="Обновление RC1 до RC2" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="testing.html" class="btn btn-neutral" title="Тестирование InMemory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/wedc.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

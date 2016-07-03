@@ -1,0 +1,52 @@
+.. include:: _shared/relational-specific-note.txt
+
+Сопоставление таблиц
+=====================
+
+Сопоставление таблиц определяет, какую таблицу данных следует запрашивать при запросе из и сохранении в базу данных.
+
+.. contents:: В этой статье:
+    :depth: 3
+
+Соглашения
+---------------
+
+По соглашению, каждая (любая) сущность будет настроена на сопоставление с таблицей с тем же самым именем, что и свойство ``DbSet<TEntity>``, которое представляет сущность в производном контексте. Если нет никакого ``DbSet<TEntity>``, включенного для данной сущности, то используется имя класса.
+
+Аннотации данных
+------------------------
+
+Вы можете использовать Аннотации данных для настройки таблиц сопостовляемых типам.
+
+.. includesamplefile:: Modeling/DataAnnotations/Samples/Relational/Table.cs
+        :language: c#
+        :lines: 11-16
+        :emphasize-lines: 1
+        :linenos:
+
+Так же вы можете определять схемы, к которым принадлежат таблицы.
+
+.. includesamplefile:: Modeling/DataAnnotations/Samples/Relational/TableAndSchema.cs
+        :language: c#
+        :lines: 11-16
+        :emphasize-lines: 1
+        :linenos:
+
+Fluent API
+-------------------
+
+Вы можете использовать Fluent API для настройки таблиц, которым сопоставляются типы.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/Table.cs
+        :language: c#
+        :lines: 5-20
+        :emphasize-lines: 7-8
+        :linenos:
+
+Так же вы можете определять схемы, к которым принадлежат таблицы.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/TableAndSchema.cs
+        :language: c#
+        :lines: 11-12
+        :emphasize-lines: 2
+        :linenos:

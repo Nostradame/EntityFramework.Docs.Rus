@@ -1,0 +1,164 @@
+Конфигурирование DbContext
+===============================
+
+В этой статье показаны шаблоны настройки ``DbContext`` с опциями ``DbContextOptions``. Опции в основном используются для выбора и настройки хранилища данных.
+
+.. contents:: `В этой статье:`
+  :local:
+
+Конфигурирование DbContextOptions
+--------------------------------------------
+
+Для того, чтобы выполниться, в ``DbContext`` должен быть экземпляр ``DbContextOptions``. Он может быть предоставлен ``DbContext`` двумя способами.
+
+1. `Аргументы конструктора`_
+2. `OnConfiguring`_
+
+Если используются оба, более высокий приоритет имеет "OnConfiguring", что означает, что он может перезаписать или изменить параметры, предоставляемые аргументами конструктора.
+
+Аргументы конструктора
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: csharp
+  :caption: Код контекста с конструктором
+
+  public class BloggingContext : DbContext
+  {
+      public BloggingContext(DbContextOptions<BloggingContext> options)
+          : base(options)
+      { }
+
+      public DbSet<Blog> Blogs { get; set; }
+  }
+
+.. tip::
+
+  Базовый конструктор DbContext также принимает негрупповую версию ``DbContextOptions``. Не рекомендуется использовать негрупповую версию для приложений с несколькими типами связи.
+
+.. code-block:: csharp
+  :caption: Код приложения для инициализации с аргументами конструктора
+
+  var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
+  optionsBuilder.UseSqlite("Filename=./blog.db");
+
+  using (var context = new BloggingContext(optionsBuilder.Options))
+  {
+      // do stuff
+  }
+
+OnConfiguring
+~~~~~~~~~~~~~
+
+.. attention::
+  ``OnConfiguring`` вызывается последним и может перезаписать параметры, полученные из DI или .
+  конструктора Этот подход не поддается тестирования (если только вы
+  не выбрали full database).
+
+.. code-block:: csharp
+  :caption: Код контекста с OnConfiguring
+
+  public class BloggingContext : DbContext
+  {
+      public DbSet<Blog> Blogs { get; set; }
+
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      {
+          optionsBuilder.UseSqlite("Filename=./blog.db");
+      }
+  }
+
+.. code-block:: csharp
+  :caption: Код приложения для инициализации с "OnConfiguring"
+
+  using (var context = new BloggingContext())
+  {
+      // do stuff
+  }
+
+Использование DbContext с внедрением зависимостей
+---------------------------------------------------------------------
+
+EF поддерживает использование ``DbContext`` с контейнером внедрения зависимостей. Ваш тип DbContext может быть добавлен в контейнер служб при помощи ``AddDbContext<TContext>``.
+
+``AddDbContext`` создаст как тип DbContext, ``TContext``, так и ``DbContextOptions<TContext>`` для возможности внедрения из контейнера служб.
+
+Смотрите `Что еще прочитать`_ ниже для получения информации о внедрения зависимостей.
+
+.. code-block:: csharp
+  :caption: Добавление DbContext к внедрению зависимостей
+
+  public void ConfigureServices(IServiceCollection services)
+  {
+      services.AddDbContext<BloggingContext>(options => options.UseSqlite("Filename=./blog.db"));
+  }
+
+Здесь вашему типу DbContext требуется добавить `Аргументы конструктора`_ которые могут принять ``DbContextOptions``.
+
+.. code-block:: csharp
+  :caption: Код контекста
+
+  public class BloggingContext : DbContext
+  {
+      public BloggingContext(DbContextOptions<BloggingContext> options)
+        :base(options)
+      { }
+
+      public DbSet<Blog> Blogs { get; set; }
+  }
+
+
+.. code-block:: csharp
+  :caption: Код приложения (в ASP.NET Core)
+
+  public MyController(BloggingContext context)
+
+.. code-block:: csharp
+  :caption: Код приложения (с использованием непосредственно ServiceProvider, применяется реже обычного)
+
+  using (var context = serviceProvider.GetService<BloggingContext>())
+  {
+    // do stuff
+  }
+
+  var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
+
+.. _use_idbcontextfactory:
+
+Использование ``IDbContextFactory<TContext>``
+---------------------------------------------------------------
+
+В качестве альтернативы опциям выше, вы также можете обеспечить реализацию ``IDbContextFactory <TContext>``.
+Инструменты командной строки EF и инъекции зависимостей могут использовать эту фабрику, чтобы создать экземпляр вашего DbContext. Это может потребоваться для того, чтобы дать определенный опыт во время разработки, такой как миграции.
+
+Реализуйте этот интерфейс для включения служб времени разработки для типов контекстов, которые не имеют конструктор по умолчанию. Службы стадии проектирования будут автоматически обнаруживать реализации этого интерфейса, которые находятся в той же сборке, что и производный контекст.
+
+Пример:
+
+.. code-block:: csharp
+
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
+
+    namespace MyProject
+    {
+        public class BloggingContextFactory : IDbContextFactory<BloggingContext>
+        {
+            public BloggingContext Create()
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
+                optionsBuilder.UseSqlite("Filename=./blog.db");
+
+                return new BloggingContext(optionsBuilder.Options);
+            }
+        }
+    }
+
+Что еще прочитать
+------------------------
+
+- Прочтите :doc:`/platforms/aspnetcore/index` чтобы получить дополнительную информацию об
+  использовании EF с ASP.NET Core.
+- Прочтите `Dependency Injection <https://docs.asp.net/en/latest/fundamentals/dependency-injection.html>`_ для
+  дальнейшего изучения использования DI.
+- Прочтите :doc:`testing` чтобы получить дополнительную информацию.
+- Прочтите :doc:`internals/services` чтобы узнать больше деталей о том, как EF внутренне использует внедрение зависимостей.

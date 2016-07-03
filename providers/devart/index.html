@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more) &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
+        <link rel="up" title="Провайдеры баз данных" href="../index.html"/>
+        <link rel="next" title="MySQL (скоро)" href="../mysql/index.html"/>
+        <link rel="prev" title="InMemory (for Testing)" href="../in-memory/index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Провайдеры баз данных</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../sql-server/index.html">Microsoft SQL Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sqlite/index.html">SQLite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../npgsql/index.html">Npgsql (PostgreSQL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sql-compact/index.html">Microsoft SQL Server Compact Edition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ibm/index.html">Серверы данных IBM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../in-memory/index.html">InMemory (for Testing)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mysql/index.html">MySQL (скоро)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oracle/index.html">Oracle (Coming Soon)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Провайдеры баз данных</a> &raquo;</li>
+      
+    <li>Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="devart-mysql-oracle-postgresql-sqlite-db2-sql-server-and-more">
+<h1>Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)<a class="headerlink" href="#devart-mysql-oracle-postgresql-sqlite-db2-sql-server-and-more" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Devart is a third party provider writer that offers database providers for a wide range of databases. Find out more at <a class="reference external" href="https://www.devart.com/dotconnect/">devart.com/dotconnect</a>.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Devart dotConnect currently only supports the Entity Framework Core RC2 pre-release.</p>
+</div>
+<div class="contents local topic" id="id1">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#paid-versions-only" id="id4">Paid Versions Only</a></li>
+<li><a class="reference internal" href="#install" id="id5">Install</a></li>
+<li><a class="reference internal" href="#get-started" id="id6">Get Started</a></li>
+<li><a class="reference internal" href="#id2" id="id7">Поддерживаемые движки баз данных</a></li>
+<li><a class="reference internal" href="#id3" id="id8">Поддерживаемые платформы</a></li>
+</ul>
+</div>
+<div class="section" id="paid-versions-only">
+<h2><a class="toc-backref" href="#id4">Paid Versions Only</a><a class="headerlink" href="#paid-versions-only" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Devart dotConnect is a commercial third party provider. Entity Framework support is only available in paid versions of dotConnect.</p>
+</div>
+<div class="section" id="install">
+<h2><a class="toc-backref" href="#id5">Install</a><a class="headerlink" href="#install" title="Ссылка на этот заголовок">¶</a></h2>
+<p>See the <a class="reference external" href="https://www.devart.com/dotconnect/">Devart dotConnect documentation</a> for installation instructions.</p>
+</div>
+<div class="section" id="get-started">
+<h2><a class="toc-backref" href="#id6">Get Started</a><a class="headerlink" href="#get-started" title="Ссылка на этот заголовок">¶</a></h2>
+<p>See the <a class="reference external" href="https://www.devart.com/dotconnect/entityframework.html">Devart dotConnect Entity Framework documentation</a> to get started.</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">Поддерживаемые движки баз данных</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>MySQL</li>
+<li>Oracle</li>
+<li>PostgreSQL</li>
+<li>SQLite</li>
+<li>DB2</li>
+<li>SQL Server</li>
+<li>and more...</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">Поддерживаемые платформы</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Full .NET (4.5.1 и далее)</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../mysql/index.html" class="btn btn-neutral float-right" title="MySQL (скоро)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../in-memory/index.html" class="btn btn-neutral" title="InMemory (for Testing)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/wedc.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

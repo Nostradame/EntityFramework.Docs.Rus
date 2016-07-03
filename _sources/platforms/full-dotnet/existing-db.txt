@@ -1,0 +1,91 @@
+Консольное приложение для существующей базы данных (Database First)
+========================================================================
+
+В этом пошаговом руководстве вы создадите консольное приложение, которое совершает базовый доступ к данным в базе данных Microsoft SQL Server, с помощью Entity Framework. Для создания модели Entity Framework вы будете использовать обратное проектирование на основе существующей базы данных.
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Platforms/FullNet/ConsoleApp.ExistingDb
+
+Необходимые условия
+---------------------------
+
+Для продолжения необходимы следующие условия:
+
+* Visual Studio 2015 Update 3
+* `Последняя версия NuGet Package Manager <https://visualstudiogallery.msdn.microsoft.com/5d345edc-2e2d-4a9c-b73b-d53956dc458d>`_
+* `Последняя версия Windows PowerShell <https://www.microsoft.com/en-us/download/details.aspx?id=40855>`_
+* `База данных Blogging`_
+
+База данных Blogging
+^^^^^^^^^^^^^^^^^^^^^
+
+Этот учебник в качестве текущей использует базу данных **Blogging** вашего экземпляра LocalDb.
+
+.. include:: /platforms/_shared/create-blogging-database-vs.txt
+
+Создание нового проекта
+-------------------------------
+
+* Откройте Visual Studio 2015
+* :menuselection:`File --> New --> Project...`
+* В левом столбце выберите: :menuselection:`Templates --> Visual C# --> Windows`
+* Выберите шаблон проекта **Console Application**
+* Убедитесь, что выбрана версия **.NET Framework 4.5.1** или выше
+* Дайте проекту имя и нажмите кнопку **OK**
+
+Установка Entity Framework
+---------------------------------
+
+Чтобы использовать EF Core, установите пакет провайдера базы данных, для которой вы хотите настроить таргетинг. Это пошаговое руководство использует SQL Server. Список доступных провайдеров :doc:`/providers/index`.
+
+* :menuselection:`Tools --> NuGet Package Manager --> Package Manager Console`
+* Run ``Install-Package Microsoft.EntityFrameworkCore.SqlServer``
+
+Чтобы включить обратный инжиниринг из существующей базы данных нам так же нужно установить несколько других пакетов.
+
+* Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.Tools –Pre``
+* Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.SqlServer.Design``
+
+Обратный инжиниринг вашей модели
+-----------------------------------------------
+
+Теперь пришло время для создания модели EF, основываясь на существующей базе данных.
+
+* :menuselection:`Tools –> NuGet Package Manager –> Package Manager Console`
+* Для того, чтобы создать модель из текущей базы данных, выполните следующую команду
+
+.. literalinclude:: _static/reverse-engineer-command.txt
+
+Процесс обратного инжиниринга создал классы сущностей и производный контекст, основанный на схеме существующей базы данных. Классы сущностей - это простые объекты C #, которые представляют данные, которые вы собираетесь запрашивать и сохранять.
+
+.. includesamplefile:: Platforms/FullNet/ConsoleApp.ExistingDb/Blog.cs
+        :language: c#
+        :linenos:
+
+Контекст представляет собой сеанс связи с базой данных и позволяет запрашивать и сохранять экземпляры классов сущностей.
+
+.. includesamplefile:: Platforms/FullNet/ConsoleApp.ExistingDb/BloggingContext.cs
+        :language: c#
+        :linenos:
+
+Использование модели
+-----------------------------
+
+Теперь можно использовать модели для выполнения доступа к данным.
+
+* Откройте файл *Program.cs*
+* Замените содержимое файла следующим кодом
+
+.. includesamplefile:: Platforms/FullNet/ConsoleApp.ExistingDb/Program.cs
+        :language: c#
+        :linenos:
+
+* :menuselection:`Отладка --> Старт без отладки`
+
+Вы увидите, что один блог сохраняется в базе данных и затем детали всех блогов выводятся на консоль.
+
+.. image:: _static/output-existing-db.png

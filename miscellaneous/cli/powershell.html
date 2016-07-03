@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Консоль Package Manager (Visual Studio) &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
+        <link rel="up" title="Command Line Reference" href="index.html"/>
+        <link rel="next" title=".NET Core CLI" href="dotnet.html"/>
+        <link rel="prev" title="Command Line Reference" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Разное</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../connection-strings.html">Connection Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging.html">Логгирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing.html">Тестирование InMemory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuring-dbcontext.html">Конфигурирование DbContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rc1-rc2-upgrade.html">Обновление RC1 до RC2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rc2-rtm-upgrade.html">Upgrading from RC2 to RTM</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Command Line Reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Консоль Package Manager (Visual Studio)</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dotnet.html">.NET Core CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internals/index.html">Что внутри</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Разное</a> &raquo;</li>
+      
+          <li><a href="index.html">Command Line Reference</a> &raquo;</li>
+      
+    <li>Консоль Package Manager (Visual Studio)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="package-manager-visual-studio">
+<h1>Консоль Package Manager (Visual Studio)<a class="headerlink" href="#package-manager-visual-studio" title="Ссылка на этот заголовок">¶</a></h1>
+<p>EF инструменты командной строки для окна консоли Visual Studio, Package Manager (PMC).</p>
+<div class="contents local topic" id="id1">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#id2" id="id6">Установка</a><ul>
+<li><a class="reference internal" href="#net-core-asp-net-core" id="id7">.NET Core и проекты ASP.NET Core</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3" id="id8">Применение</a><ul>
+<li><a class="reference internal" href="#add-migration" id="id9">Add-Migration</a></li>
+<li><a class="reference internal" href="#remove-migration" id="id10">Remove-Migration</a></li>
+<li><a class="reference internal" href="#scaffold-dbcontext" id="id11">Scaffold-DbContext</a></li>
+<li><a class="reference internal" href="#script-migration" id="id12">Script-Migration</a></li>
+<li><a class="reference internal" href="#update-database" id="id13">Update-Database</a></li>
+<li><a class="reference internal" href="#use-dbcontext" id="id14">Use-DbContext</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-ef-core-commands-and-ef-6-commands-side-by-side" id="id15">Using EF Core commands and EF 6 commands side-by-side</a></li>
+<li><a class="reference internal" href="#id4" id="id16">Распространенные ошибки</a><ul>
+<li><a class="reference internal" href="#id5" id="id17">Ошибка: &#8220;Не было найдено ни одого конструктора без параметров&#8221;</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Для выполнения команд необходима <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=50395">последняя версия Windows PowerShell</a></p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id6">Установка</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Команды консоли Package Manager установливаются с пакетом <em>Microsoft.EntityFrameworkCore.Tools</em>.</p>
+<p>Чтобы открыть консоль, выполните следующие действия.</p>
+<ul class="simple">
+<li>Откройте Visual Studio 2015</li>
+<li><span class="menuselection">Tools ‣ Nuget Package Manager ‣ Package Manager Console</span></li>
+<li>Выполните команду <code class="docutils literal"><span class="pre">Install-Package</span> <span class="pre">Microsoft.EntityFrameworkCore.Tools</span> <span class="pre">-Pre</span></code></li>
+</ul>
+<div class="section" id="net-core-asp-net-core">
+<h3><a class="toc-backref" href="#id7">.NET Core и проекты ASP.NET Core</a><a class="headerlink" href="#net-core-asp-net-core" title="Ссылка на этот заголовок">¶</a></h3>
+<p>.NET Core и проекты ASP.NET Core так же требуют установленной .NET Core CLI. Для получения дополнительной информации об этой установке смотрите <a class="reference internal" href="dotnet.html"><span class="doc">.NET Core CLI</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Ядро CLI .NET имеет проблемы в Preview 1. Поскольку PMC команды вызывают команды CLI ядра .NET, эти известные проблемы, также применимы к командам PMC. Смотрите <a class="reference internal" href="dotnet.html#dotnet-cli-issues"><span class="std std-ref">Preview 2 Known Issues</span></a>.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">В проектах .NET Core и ASP.NET Core, добавьте <code class="docutils literal"><span class="pre">-Verbose</span></code> к любой консольной команде Package Manager для просмотра команды .NET Core CLI , эквивалентной вызванной команде.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">Применение</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Все команды поддерживают общие параметры: <code class="docutils literal"><span class="pre">-Verbose</span></code>, <code class="docutils literal"><span class="pre">-Debug</span></code>,
+<code class="docutils literal"><span class="pre">-ErrorAction</span></code>, <code class="docutils literal"><span class="pre">-ErrorVariable</span></code>, <code class="docutils literal"><span class="pre">-WarningAction</span></code>, <code class="docutils literal"><span class="pre">-WarningVariable</span></code>,
+<code class="docutils literal"><span class="pre">-OutBuffer</span></code>, <code class="docutils literal"><span class="pre">-PipelineVariable</span></code>, and <code class="docutils literal"><span class="pre">-OutVariable</span></code>. Для получения дополнительной информации смотрите
+<a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=113216">about_CommonParameters</a>.</p>
+</div>
+<div class="section" id="add-migration">
+<h3><a class="toc-backref" href="#id9">Add-Migration</a><a class="headerlink" href="#add-migration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Добавление новой миграции.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Add-Migration [-Name] &lt;String&gt; [-OutputDir &lt;String&gt;] [-Context &lt;String&gt;] [-Project &lt;String&gt;]
+     [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;] [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -Name &lt;String&gt;
+        Задает имя миграции.
+
+    -OutputDir &lt;String&gt;
+        Каталог (и подпространство имен) для использования. Если этот параметр опущен, используется &quot;Миграции&quot;. Relative paths are relative to project directory.
+
+    -Context &lt;String&gt;
+        Задает DbContext для использования. Если этот параметр опущен, используется DbContext по умолчанию.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-migration">
+<h3><a class="toc-backref" href="#id10">Remove-Migration</a><a class="headerlink" href="#remove-migration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Удаление последней миграции.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Remove-Migration [-Context &lt;String&gt;] [-Project &lt;String&gt;] [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;]
+     [-Force] [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -Context &lt;String&gt;
+        Задает DbContext для использования. Если этот параметр опущен, используется DbContext по умолчанию.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+
+    -Force [&lt;SwitchParameter&gt;]
+        Удаляет последнюю миграцию без проверки базы данных. Если последняя миграция была применена к базе данных, вам нужно будет вручную отменить изменения, которые были применены.
+</pre></div>
+</div>
+</div>
+<div class="section" id="scaffold-dbcontext">
+<h3><a class="toc-backref" href="#id11">Scaffold-DbContext</a><a class="headerlink" href="#scaffold-dbcontext" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Выполнение скаффолдинга DbContext и классов типов сущностей для указанной базы данных</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Scaffold-DbContext [-Connection] &lt;String&gt; [-Provider] &lt;String&gt; [-OutputDir &lt;String&gt;] [-Context &lt;String&gt;]
+      [-Schemas &lt;String&gt;] [-Tables &lt;String&gt;] [-DataAnnotations] [-Force] [-Project &lt;String&gt;]
+      [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;] [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -Connection &lt;String&gt;
+        Указывает строку подключения базы данных.
+
+    -Provider &lt;String&gt;
+        Определяет используемого провайдера. Например Microsoft.EntityFrameworkCore.SqlServer.
+
+    -OutputDir &lt;String&gt;
+        Задает каталог, используемый для вывода классов. Если опущен, используется каталог верхнего уровня проекта.
+
+    -Context &lt;String&gt;
+        Определяет имя генерируемого класса DbContext.
+
+    -Schemas &lt;String&gt;
+        Определяет схему, для которой генерируются классы.
+
+    -Tables &lt;String&gt;
+        Определяет таблицы, для которых генерируются классы.
+
+    -DataAnnotations [&lt;SwitchParameter&gt;]
+        Использует аттрибуты DataAnnotation для настройки модели, где это возможно. Если опущены, выводимый код будет использовать только Fluent API.
+
+    -Force [&lt;SwitchParameter&gt;]
+        Заставляет скаффолдинг перезаписывать существующие файлы. В противном случае, код будет выполняться только при условии, что выводимые файлы не будут перезаписаны.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+</pre></div>
+</div>
+</div>
+<div class="section" id="script-migration">
+<h3><a class="toc-backref" href="#id12">Script-Migration</a><a class="headerlink" href="#script-migration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Генерирование скрипта SQL из миграции</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Script-Migration -From &lt;String&gt; -To &lt;String&gt; [-Idempotent] [-Context &lt;String&gt;] [-Project &lt;String&gt;]
+      [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;] [&lt;CommonParameters&gt;]
+
+    Script-Migration [-From &lt;String&gt;] [-Idempotent] [-Context &lt;String&gt;] [-Project &lt;String&gt;]
+      [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;] [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -From &lt;String&gt;
+        Определяет начальную миграцию. Если опущен, используется &#39;0&#39; (инициирование базы данных).
+
+    -To &lt;String&gt;
+        Определяет конечную миграцию. Если опущен, применяется последняя миграция.
+
+    -Idempotent [&lt;SwitchParameter&gt;]
+        Формирует идемпотентный скрипт, который можно использовать в базе данных в любой миграции.
+
+    -Context &lt;String&gt;
+        Задает DbContext для использования. Если этот параметр опущен, используется DbContext по умолчанию.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-database">
+<h3><a class="toc-backref" href="#id13">Update-Database</a><a class="headerlink" href="#update-database" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Обновление базы данных до указанной миграции.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Update-Database [[-Migration] &lt;String&gt;] [-Context &lt;String&gt;] [-Project &lt;String&gt;] [-StartupProject &lt;String&gt;]
+      [-Environment &lt;String&gt;] [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -Migration &lt;String&gt;
+        Определяет цель миграции. Если &#39;0&#39;, все миграции будут отменены. Если этот параметр опущен, будут применены все ожидающие миграции.
+
+    -Context &lt;String&gt;
+        Задает DbContext для использования. Если этот параметр опущен, используется DbContext по умолчанию.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-dbcontext">
+<h3><a class="toc-backref" href="#id14">Use-DbContext</a><a class="headerlink" href="#use-dbcontext" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Sets the default DbContext to use.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>SYNTAX
+    Use-DbContext [-Context] &lt;String&gt; [-Project &lt;String&gt;] [-StartupProject &lt;String&gt;] [-Environment &lt;String&gt;]
+      [&lt;CommonParameters&gt;]
+
+PARAMETERS
+    -Context &lt;String&gt;
+        Задает DbContext для использования.
+
+    -Project &lt;String&gt;
+        Указывает проект для использования. Если этот параметр опущен, используется проект по умолчанию.
+
+    -StartupProject &lt;String&gt;
+        Указывает используемый проект запуска. Если этот параметр опущен, используется проект запуска решения.
+
+    -Environment &lt;String&gt;
+        Задает среду для использования. Если этот параметр опущен, используется &quot;Development&quot;.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-ef-core-commands-and-ef-6-commands-side-by-side">
+<h2><a class="toc-backref" href="#id15">Using EF Core commands and EF 6 commands side-by-side</a><a class="headerlink" href="#using-ef-core-commands-and-ef-6-commands-side-by-side" title="Ссылка на этот заголовок">¶</a></h2>
+<p>EF Core commands do not work on EF 6 or earlier version of EF. However, EF Core re-uses some of the same
+command names from these earlier versions. These commands can be installed side-by-side, however, EF does
+not automatically know which version of the command to use. This is solved by prefixing the command
+with the module name. The EF 6 commands PowerShell module is named &#8220;EntityFramework&#8221;, and the EF Core module
+is named &#8220;EntityFrameworkCore&#8221;. Without the prefix, PowerShell may call the wrong version of the command.</p>
+<div class="highlight-PowerShell"><div class="highlight"><pre><span></span><span class="c"># Invokes the EF Core command</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="n">EntityFrameworkCore</span><span class="p">\</span><span class="nb">Add-Migration</span>
+
+<span class="c"># Invokes the EF 6 command</span>
+<span class="n">PS</span><span class="p">&gt;</span> <span class="n">EntityFramework</span><span class="p">\</span><span class="nb">Add-Migration</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">Распространенные ошибки</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id17">Ошибка: &#8220;Не было найдено ни одого конструктора без параметров&#8221;</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Инструменты дизайна пытаются автоматически найти, как ваше приложение создает экземпляры вашего типа DbContext. Если EF не может найти подходящий путь для инициализации вашего DbContext, Вы можете столкнуться с этой ошибкой.</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>No parameterless constructor was found on &#39;TContext&#39;. Either add a parameterless constructor to
+&#39;TContext&#39; or add an implementation of &#39;IDbContextFactory&lt;TContext&gt;&#39; in the same assembly as
+&#39;TContext&#39;.
+</pre></div>
+</div>
+<p>Как следует из сообщения об ошибке, единственное решение - это добавить к текущему проекту реализацию <code class="docutils literal"><span class="pre">IDbContextFactory&lt;TContext&gt;</span></code>. В качестве примера создания такой фабрики смотрите <a class="reference internal" href="../configuring-dbcontext.html#use-idbcontextfactory"><span class="std std-ref">Использование IDbContextFactory&lt;TContext&gt;</span></a>.</p>
+<p>Смотрите так же <a class="reference internal" href="dotnet.html#dotnet-cli-issues"><span class="std std-ref">Preview 2 Known Issues</span></a> для команд .NET Core CLI.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dotnet.html" class="btn btn-neutral float-right" title=".NET Core CLI" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Command Line Reference" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/wedc.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

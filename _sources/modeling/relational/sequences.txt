@@ -1,0 +1,43 @@
+.. include:: _shared/relational-specific-note.txt
+
+Последовательности
+===================
+
+Последовательность генерирует последовательные числовые значения в базе данных. Последовательности не ассоциируются с определенными таблицами
+
+Соглашения
+---------------
+
+По соглашению, последовательности не вводятся в модель.
+
+Аннотации данных
+------------------------
+
+Вы не можете конфигурировать последовательности при помощи аннотации данных.
+
+Fluent API
+-------------------
+
+Вы можете использовать Fluent API для создания последовательностей в модели.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/Sequence.cs
+        :language: c#
+        :lines: 5-15
+        :emphasize-lines: 7
+        :linenos:
+
+Вы так же можете сконфигурировать дополнительные аспекты последовательностей, такие как их схема, начальное значение, и инкримент.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/SequenceConfigured.cs
+        :language: c#
+        :lines: 5-15
+        :emphasize-lines: 7-9
+        :linenos:
+
+Как только последовательность определена, вы можете использовать ее для генерирования значений свойств в вашей модели. Например, вы можете использовать :doc:`default-values` чтобы вставлять следующее значение в последовательность.
+
+.. includesamplefile:: Modeling/FluentAPI/Samples/Relational/SequenceUsed.cs
+        :language: c#
+        :lines: 5-26
+        :emphasize-lines: 11-13
+        :linenos:

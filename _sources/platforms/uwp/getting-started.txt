@@ -1,0 +1,179 @@
+Локальная SQLite на UWP
+========================
+
+В этом пошаговом руководстве вы создадите приложение универсальной платформы Windows (UWP), которое выполняет базовый доступ к данным локальной базы данных SQLite с помощью Entity Framework.
+
+.. attention::
+    **Избегайте использования анонимных типов в LINQ запросах на UWP**.
+    Развертывание UWP приложения в app store требует, чтобы ваше приложение было скомпилировано с .NET Native. Запросы с анонимными типами имеют низкую производительность на .NET Native или могут аварийно завершить работу приложения.
+
+.. contents:: `В этой статье:`
+    :depth: 2
+    :local:
+
+.. include:: /_shared/sample.txt
+.. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Platforms/UWP/UWP.SQLite
+
+Необходимые условия
+---------------------------
+
+Для выполнения данного пошагового руководства требуются следующие элементы:
+    - Windows 10
+    - Visual Studio 2015 Update 3
+    - Последняя версия `Windows 10 Developer Tools <https://dev.windows.com/en-us/downloads>`_
+
+Создание нового проекта
+-------------------------------
+
+* Откройте Visual Studio 2015
+* :menuselection:`File --> New --> Project...`
+* В левом столбце выберите: :menuselection:`Templates --> Visual C# --> Windows--> Universal`
+* Выберите шаблон проекта **Blank App (Universal Windows)**
+* Дайте проекту имя и нажмите кнопку **OK**
+
+Обновление Microsoft.NETCore.UniversalWindowsPlatform
+-----------------------------------------------------
+
+.. warning::
+
+    **Известные проблемы UWP 5.2.0**
+
+    Использование ``Microsoft.NETCore.UniversalWindowsPlatform`` 5.2.0 вызовет провал UWP app store представлений.
+    Пока эта проблема не будет решена, добавьте следующие строки в "dependencies" в файле project.json.
+
+    .. code-block:: javascript
+
+        "dependencies": {
+
+            "runtime.native.System.IO.Compression": "4.1.0",
+            "runtime.win7.System.Private.Uri": {
+              "version": "4.0.1",
+              "exclude": "runtime"
+            },
+            "System.Private.Uri": "4.0.0"
+
+        }
+
+    Для получения более подробной информации смотрите .NET Core Issues `#9711 <https://github.com/dotnet/corefx/issues/9711>`_ и `#9743 <https://github.com/dotnet/corefx/issues/9743>`_.
+
+В зависимости от версии вашей Visual Studio, шаблон может сгененрировать вам проект со старой версией .NET Core для UWP. EF Core требуется ``Microsoft.NETCore.UniversalWindowsPlatform`` версии **5.2.0** или выше.
+
+* :menuselection:`Tools --> NuGet Package Manager --> Package Manager Console`
+* Run ``Install-Package Microsoft.NETCore.UniversalWindowsPlatform -Version 5.2.0``
+
+Установка Entity Framework
+---------------------------------
+
+Чтобы использовать EF Core, установите пакет провайдера базы данных, для которой вы хотите настроить таргетинг. Это пошаговое руководство использует SQL Server. Список доступных провайдеров :doc:`/providers/index`.
+
+* :menuselection:`Tools --> NuGet Package Manager --> Package Manager Console`
+* Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.Sqlite``
+
+Позже в этом руководстве для поддержания базы данных мы будем также использовать некоторые команды Entity Framework. Итак, мы установили пакет команд.
+
+* Выполните команду ``Install-Package Microsoft.EntityFrameworkCore.Tools –Pre``
+
+Создание модели
+---------------------
+
+Теперь пришло время определить контекст и классы сущностей, составляющих вашу модель.
+
+* :menuselection:`Project --> Add Class...`
+* Введите *Model.cs* в качестве имени и нажмите **OK**
+* Замените содержимое файла следующим кодом
+
+.. includesamplefile:: Platforms/UWP/UWP.SQLite/Model.cs
+    :language: csharp
+    :linenos:
+
+.. tip::
+    В реальном приложении вы будете размещать каждый класс в отдельном файле а строку подключения размещать в файле ``App.Config`` и читать ее с помощью ``ConfigurationManager``. В этом учебнике для простоты мы ставим все в одном файле кода.
+
+Создание базы данных
+----------------------------
+
+.. warning::
+    **Известна проблема в Preview 2**
+
+    Использование EF Tools для проектов UWP не работает без добавленного вручную перенаправления связывания.
+
+    * :menuselection:`File –> New –> File...`
+    * В меню слева выберите :menuselection:`Visual C# -> General -> Text File`
+    * Дайте файлу имя "App.config"
+    * Добавьте в файл следующее содержание
+
+    .. includesamplefile:: Platforms/UWP/UWP.SQLite/App.config
+        :language: xml
+
+    Для получения более подробной информации смотрите `Issue #5471 <https://github.com/aspnet/EntityFramework/issues/5471>`_.
+
+Теперь, когда у вас есть модель, вы можете использовать миграции для создания базы данных.
+
+* :menuselection:`Tools –> NuGet Package Manager –> Package Manager Console`
+* Выполните команду ``Add-Migration MyFirstMigration`` для скафолдинга миграции, которая создаст первоначальный набор таблиц по вашей модели.
+
+Поскольку мы хотим создать базу данных на устройстве, на котором работает приложение, мы добавим некоторый код, чтобы при запуске приложения применить любые ожидающие миграции к локальной базе данных. При первом запуске приложения, он позаботится о создании локальной базы данных для нас.
+
+* Щелкните правой кнопкой мыши на **App.xaml** в **Solution Explorer** и выберите **View Code**
+* Добавьте выделенные директивы **using** в начало файла
+
+.. includesamplefile:: Platforms/UWP/UWP.SQLite/App.xaml.cs
+        :language: c#
+        :linenos:
+        :lines: 1-6
+        :emphasize-lines: 1
+
+* Добавьте выделенный код для применения всех ожидающих миграций
+
+.. includesamplefile:: Platforms/UWP/UWP.SQLite/App.xaml.cs
+        :language: c#
+        :linenos:
+        :lines: 30-39
+        :emphasize-lines: 6-9
+
+.. tip::
+    Если вы в будущем сделаете изменения в модели, можно использовать команду ``Add-Migration`` для скаффолдинга новой миграции, чтобы применить соответствующие изменения в базе данных. При запуске приложения, любые ожидающие миграции будет применяться к локальной базе данных на каждом устройстве.
+
+    В базе данных EF использует таблицу ``__EFMigrationsHistory``, чтобы отслеживать, какие миграции уже применены к ней.
+
+
+Использование модели
+-----------------------------
+
+Теперь можно использовать модели для выполнения доступа к данным.
+
+* Откройте файл *MainPage.xaml*
+* Добавьте обработчик загрузчика страницы и контент UI, выделенный ниже.
+
+.. includesamplefile:: Platforms/UWP/UWP.SQLite/MainPage.xaml
+        :language: c#
+        :linenos:
+        :emphasize-lines: 9,12-22
+
+Теперь мы добавим код, чтобы связать UI с базой данных
+
+* Щелкните правой кнопкой мыши на **MainPage.xaml** в **Solution Explorer** и выберите **View Code**
+* Доьавьте выделенный код из следующего листинга
+
+.. includesamplefile:: Platforms/UWP/UWP.SQLite/MainPage.xaml.cs
+        :language: c#
+        :linenos:
+        :lines: 23-49
+        :emphasize-lines: 8-26
+
+Теперь вы можете запустить приложение, чтобы увидеть его в действии.
+
+* :menuselection:`Отладка --> Старт без отладки`
+* Приложение будет построено и запущено
+* Введите URL и кликните кнопку **Add**
+
+.. image:: _static/create.png
+
+.. image:: _static/list.png
+
+Следующие шаги
+---------------------
+
+Tada! Теперь у вас есть простое UWP приложение работающее на Entity Framework.
+
+Изучите многочисленные статьи в этой документации, чтобы узнать больше о функционале Entity Framework.

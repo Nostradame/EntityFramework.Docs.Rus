@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Каскадное удаление &mdash; Документация Entity Framework Core 1.0.0</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
+        <link rel="up" title="Сохранение данных" href="index.html"/>
+        <link rel="next" title="Concurrency Conflicts" href="concurrency.html"/>
+        <link rel="prev" title="Связанные данные" href="related-data.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Entity Framework Core
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Entity Framework Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../platforms/index.html">Приступая к работе</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modeling/index.html">Создание модели</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../querying/index.html">Запрос данных</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Сохранение данных</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Основы сохранения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="related-data.html">Связанные данные</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Каскадное удаление</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="concurrency.html">Concurrency Conflicts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="disconnected-entities.html">🔧 Несвязанные Сущности</a></li>
+<li class="toctree-l2"><a class="reference internal" href="explicit-values-generated-properties.html">Установка явных значений для генерируемых свойств</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Провайдеры баз данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/index.html">Разное</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Entity Framework Core</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Сохранение данных</a> &raquo;</li>
+      
+    <li>Каскадное удаление</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition attention">
+<p class="first admonition-title">Внимание</p>
+<p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
+</div>
+<div class="section" id="id1">
+<h1>Каскадное удаление<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Каскадное удаление позволяет при удалении основных/родительских сущностей получить такой же эффект для зависимых/потомственных сущностей.</p>
+<dl class="docutils">
+<dt>Есть три модели поведения каскадного удаления:</dt>
+<dd><ul class="first last simple">
+<li><strong>Cascade:</strong> Зависимые сущности также будут удалены.</li>
+<li><strong>SetNull:</strong> Свойства внешнего ключа в зависимых сущностях устанавливаются в значение null.</li>
+<li><strong>Restrict:</strong> Операция удаления не применяется к зависимой сущности. Зависимые сущности остаются неизменными.</li>
+</ul>
+</dd>
+</dl>
+<p>Более подробную информацию о соглашениях и конфигурации каскадного удаления смотрите в <a class="reference internal" href="../modeling/relationships.html"><span class="doc">Отношения</span></a>.</p>
+<div class="contents local topic" id="id2">
+<p class="topic-title first"><cite>В этой статье:</cite></p>
+<ul class="simple">
+<li><a class="reference internal" href="#id4" id="id6">Каскадные операции для отслеживаемых сущностей</a></li>
+<li><a class="reference internal" href="#id5" id="id7">Каскадные операции для неотслеживаемых сущностей</a></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вы можете посмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Saving/Saving/CascadeDelete/">пример</a> этой статьи на GitHub.</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id6">Каскадные операции для отслеживаемых сущностей</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда вы вызываете <cite>SaveChanges</cite>, правила каскадного удаления могут быть применены к любым сущностям, которые отслеживаются контекстом.</p>
+<p>Рассмотрим простую модель <cite>Blog</cite> и <cite>Post</cite>, где требуются отношения между двумя сущностями. По соглашениям. каскадное поведение для этих отношений установлено в <cite>Cascade</cite>.</p>
+<p>Следующий код загружает Blog и все его зависимые Posts из базы данных (используя метод <cite>Include</cite>). Затем код удаляет Blog.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BloggingContext</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">blog</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Blogs</span><span class="p">.</span><span class="n">Include</span><span class="p">(</span><span class="n">b</span> <span class="p">=&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">Posts</span><span class="p">).</span><span class="n">First</span><span class="p">();</span>
+                <span class="n">db</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">blog</span><span class="p">);</span>
+                <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+            <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Из-за того, что Posts отслеживается контекстом, каскадное поведение применяется к ним после сохранения базы данных. Поэтому EF выдает команду <cite>DELETE</cite> для каждого объекта.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DELETE</span> <span class="n">FROM</span> <span class="p">[</span><span class="n">Post</span><span class="p">]</span>
+<span class="n">WHERE</span> <span class="p">[</span><span class="n">PostId</span><span class="p">]</span> <span class="o">=</span> <span class="nd">@p0</span><span class="p">;</span>
+<span class="n">DELETE</span> <span class="n">FROM</span> <span class="p">[</span><span class="n">Post</span><span class="p">]</span>
+<span class="n">WHERE</span> <span class="p">[</span><span class="n">PostId</span><span class="p">]</span> <span class="o">=</span> <span class="nd">@p1</span><span class="p">;</span>
+<span class="n">DELETE</span> <span class="n">FROM</span> <span class="p">[</span><span class="n">Blog</span><span class="p">]</span>
+<span class="n">WHERE</span> <span class="p">[</span><span class="n">BlogId</span><span class="p">]</span> <span class="o">=</span> <span class="nd">@p2</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id7">Каскадные операции для неотслеживаемых сущностей</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Следующий код является почти таким же, как наш предыдущий пример, за исключением того, она не загружает соответствующие Posts из базы данных.</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span>            <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BloggingContext</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">blog</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Blogs</span><span class="p">.</span><span class="n">First</span><span class="p">();</span>
+                <span class="n">db</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">blog</span><span class="p">);</span>
+                <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+            <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Так как Posts не отслеживаются контекстом, оператор <cite>DELETE</cite> выдается только для <cite>Blog</cite>. Это зависит от соответствующего каскадного поведения, присутствующего в базе данных, чтобы убедиться, что данные, которые не отслеживается контекстом также удаляются. Если для создания базы данных вы используете EF, то для вас будет установлено такое каскадное поведение.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DELETE</span> <span class="n">FROM</span> <span class="p">[</span><span class="n">Blog</span><span class="p">]</span>
+<span class="n">WHERE</span> <span class="p">[</span><span class="n">BlogId</span><span class="p">]</span> <span class="o">=</span> <span class="nd">@p0</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="concurrency.html" class="btn btn-neutral float-right" title="Concurrency Conflicts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="related-data.html" class="btn btn-neutral" title="Связанные данные" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016 Microsoft.
+      Обновлено: июл. 04, 2016.
+
+    </p>
+  </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/wedc.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
