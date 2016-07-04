@@ -1,7 +1,7 @@
-Raw SQL Queries
-===============
+Необработанные запросы SQL
+==========================
 
-Entity Framework Core allows you to drop down to raw SQL queries when working with a relational database. This can be useful if the query you want to perform can't be expressed using LINQ, or if using a LINQ query is resulting in inefficient SQL being sent to the database.
+При работе с реляционной базой данных, Entity Framework Core позволяет дойти до необработанных запросов SQL. Это может быть полезно, если запрос, который вы хотите выполнить, не может быть выражен с помощью LINQ или в результате использования запроса LINQ в базу данных будет записан некачественный SQL.
 
 .. contents:: `В этой статье:`
     :depth: 2
@@ -13,16 +13,16 @@ Entity Framework Core allows you to drop down to raw SQL queries when working wi
 Ограничения
 -----------------
 
-There are a couple of limitations to be aware of when using raw SQL queries:
- * SQL queries can only be used to return entity types that are part of your model. There is an enhancement on our backlog to `enable returning ad-hoc types from raw SQL queries <https://github.com/aspnet/EntityFramework/issues/1862>`_.
- * The SQL query must return data for all properties of the entity type.
- * The column names in the result set must match the column names that properties are mapped to. Note this is different from EF6.x where property/column mapping was ignored for raw SQL queries and result set column names had to match the property names.
- * The SQL query cannot contain related data. However, in many cases you can compose on top of the query using the ``Include`` operator to return related data (see `Including related data`_).
+Существует несколько ограничений, которые необходимо помнить при использовании необработанных SQL-запросов:
+ * SQL запросы могут быть использованы только для возвращения типов сущностей, которые являются частью вашей модели. У нас на нашем бэклоге есть запрос на улучшение - `разрешить возвращение любых типов из необработанных SQL запросов <https://github.com/aspnet/EntityFramework/issues/1862>`_.
+ * SQL запрос должен возвращать данные для всех свойств типа сущности.
+ * Имена столбцов в результирующем наборе должны соответствовать тем именам столбцов, чьи свойства сопоставляются. Обратите внимание, что это отличается от EF6.x, где сопоставление столбца/свойства игнорируется для необработанных запросов SQL и результирующий набор имен столбцов должен был соответствовать именам свойств.
+ * SQL запрос не может содержать связанные данные. Однако, во многих случаях вы можете составить смешанный запрос, используя оператор ``Include`` чтобы вернуть связанные данные (смотрите раздел `Including related data`_).
 
-Basic raw SQL queries
----------------------
+Основные необработанные SQL запросы
+-----------------------------------
 
-You can use the `FromSql` extension method to begin a LINQ query based on a raw SQL query.
+Вы можете использовать расширение метода `FromSql` чтобы выполнить LINQ запрос, основанный на необработанном SQL запросе.
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
@@ -30,7 +30,7 @@ You can use the `FromSql` extension method to begin a LINQ query based on a raw 
         :dedent: 16
         :linenos:
 
-Raw SQL queries can be used to execute a stored procedure.
+Необработанные запросы SQL могут использоваться для выполнения хранимой процедуры.
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
@@ -38,12 +38,12 @@ Raw SQL queries can be used to execute a stored procedure.
         :dedent: 16
         :linenos:
 
-Passing parameters
-------------------
+Передача параметров
+-------------------
 
-As with any API that accepts SQL, it is important to parameterize any user input to protect against a SQL injection attack. You can include parameter place holders in the SQL query string and then supply parameter values as additional arguments. Any parameter values you supply will automatically be converted to a ``DbParameter``.
+Как и в любом другом API, который принимает SQL, важно параметризировать любой пользовательский ввод для защиты от атак SQL внедрения. Вы можете включить параметр заполнитель в строку SQL запроса, а затем задать значения параметров в качестве дополнительных аргументов. Любые значения параметров, которые вы предоставляете, будут автоматически конвертированы в ``DbParameter``.
 
-The following example passes a single parameter to a stored procedure. While this may look like ``String.Format`` syntax, the supplied value is wrapped in a parameter and the generated parameter name inserted where the ``{0}`` placeholder was specified.
+Следующий пример передает один параметр в хранимую процедуру. Хотя это может выглядеть как синтаксис типа ``String.Format``, предоставленное значение обертывается в параметре и созданное имя параметра вставляется там, где был указан заполнитель ``{0}``.
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
@@ -51,7 +51,7 @@ The following example passes a single parameter to a stored procedure. While thi
         :dedent: 16
         :linenos:
 
-You can also construct a DbParameter and supply it as a parameter value. This allows you to use named parameters in the SQL query string
+Можно также создать DbParameter и предоставить его в качестве значения параметра. Это позволяет использовать именованные параметры в строке SQL запроса
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
@@ -59,12 +59,12 @@ You can also construct a DbParameter and supply it as a parameter value. This al
         :dedent: 16
         :linenos:
 
-Composing with LINQ
--------------------
+Объединение запросов LINQ
+------------------------
 
-If the SQL query can be composed on in the database, then you can compose on top of the initial raw SQL query using LINQ operators. SQL queries that can be composed on being with the ``SELECT`` keyword.
+Если в базе данных SQL запрос может быть объединен, то вы можете объединить его поверх начального необработанного SQL запроса при помощи LINQ операторов. SQL запросы могут быть совмещены на время с ключевым словом ``SELECT``.
 
-The following example uses a raw SQL query that selects from a Table-Valued Function (TVF) and then composes on it using LINQ to perform filtering and sorting.
+В следующем примере используется необработанный SQL запрос, который выбирает из Table-Valued Function (TVF), а затем совмещает их при помощи LINQ для выполнения фильтрации и сортировки.
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
@@ -72,10 +72,10 @@ The following example uses a raw SQL query that selects from a Table-Valued Func
         :dedent: 16
         :linenos:
 
-Including related data
-^^^^^^^^^^^^^^^^^^^^^^
+Включение связанных данных
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Composing with LINQ operators can be used to include related data in the query.
+Композиции с LINQ операторами могут использоваться для включения в запрос связанных данных.
 
 .. includesamplefile:: Querying/Querying/RawSQL/Sample.cs
         :language: c#
