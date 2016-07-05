@@ -1,5 +1,5 @@
-How Query Works
-===============
+Как работают запросы
+====================
 
 Для запросов данных из базы данных Entity Framework Core использует Language Integrate Query (LINQ). LINQ позволяет использовать C# (или другой .NET язык) для записи строго типизирванных запросов, основываясь на вашем прозводном контексте и классах сущности.
 
@@ -7,39 +7,39 @@ How Query Works
     :depth: 2
     :local:
 
-The life of a query
--------------------
+Жизненный цикл запроса
+----------------------
 
-The following is a high level overview of the process each query goes through.
+Ниже приведен высокоуровневый обзор процесса, который проходит каждый запрос.
 
-1. The LINQ query is processed by Entity Framework Core to build a representation that is ready to be processed by the database provider
+1. LINQ-запрос обрабатывается ядром Entity Framework для создания представления, готового к обработке провайдером базы данных
 
-  a. The result is cached so that this processing does not need to be done every time the query is executed
+  a. Результат кэшируется, так что эту обработку не нужно делать каждый раз, когда выполняется запрос
 
-2. The result is passed to the database provider
+2. Результат передается провайдеру базы данных
 
-  a. The database provider identifies which parts of the query can be evaluated in the database
-  b. These parts of the query are translated to database specific query language (e.g. SQL for a relational database)
-  c. One or more queries are sent to the database and the result set returned (results are values from the database, not entity instances)
+  a. Провайдер базы данных определяет, какие части запроса могут быть проверены в базе данных
+  b. Эти части запроса будут переведены на язык конкретных запросов базы данных (например SQL для реляционных баз данных)
+  c. Один или несколько запросов, отправляются в базу данных и возращается результирующий набор (эти результаты являются значениями из базы данных, а не экземплярами сущностей)
 
-3. For each item in the result set
+3. Для каждого элемента в результирующем наборе
 
-  a. If this is a tracking query, EF checks if the data represents an entity already in the change tracker for the context instance
+  a. Если это трекинг-запрос, EF проверяет экземпляр контекста: данные, представляющие сущность уже есть в треккере изменений или нет
 
-    * If so, the existing entity is returned
-    * If not, a new entity is created, change tracking is setup, and the new entity is returned
+    * Если есть, возвращается существующая сущность
+    * Если нет, то создается новая сущность, настраивается треккер изменений, и  новая сущностьвозвращается
 
-  b. If this is a no-tracking query, EF checks if the data represents an entity already in the result set for this query
+  b. Если это не трекинг-запрос, EF проверяет, данные, представляющие сущность, уже есть в результирующем наборе этого запроса или нет
 
-    * If so, the existing entity is returned
-    * If not, a new entity is created and returned
+    * Если есть, возвращается существующая сущность
+    * Если нет, создается и возвращается новая сущность
 
-When queries are executed
--------------------------
+Во время выполнения запроса
+---------------------------
 
-When you call LINQ operators, you are simply building up an in-memory representation of the query. The query is only sent to the database when the results are consumed.
+Когда вы выполняете LINQ операторы, то вы просто создаете представление запроса в памяти. Запрос отправляется в базу данных, только когда результаты востребуются.
 
-The most common operations that result in the query being sent to the database are:
- * Iterating the results in a ``for`` loop
- * Using an operator such as ``ToList``, ``ToArray``, ``Single``, ``Count``
- * Databinding the results of a query to a UI
+Наиболее распространенные операции, которые приводят к отправке запроса в базу данных являются:
+ * Итерации результатов в цикле ``for``
+ * Использование таких операторов как ``ToList``, ``ToArray``, ``Single``, ``Count``
+ * Привязка данных результаты запроса к пользовательскому интерфейсу
