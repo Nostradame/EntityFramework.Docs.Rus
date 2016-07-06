@@ -1,7 +1,7 @@
-Transactions
-============
+Транзакции
+==========
 
-Transactions allow several database operations to be processed in an atomic manner. If the transaction is committed, all of the operations are successfully applied to the database. If the transaction is rolled back, none of the operations are applied to the database.
+Транзакции позволяют разным базам данных обрабатывать операции атомарного типа. Если транзакция совершается, все операции успешно применяются к базе данных. Если выполняется откат транзакции, ни одна из операций не применяется к базе данных.
 
 .. contents:: `В этой статье:`
     :depth: 2
@@ -10,19 +10,19 @@ Transactions allow several database operations to be processed in an atomic mann
 .. include:: /_shared/sample.txt
 .. _пример: https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Saving/Saving/Transactions/
 
-Default transaction behavior
-----------------------------
+Поведение транзакций по умолчанию
+---------------------------------
 
-By default, if the database provider supports transactions, all changes in a single call to ``SaveChanges()`` are applied in a transaction. If any of the changes fail, then the transaction is rolled back and none of the changes are applied to the database. This means that ``SaveChanges()`` is guaranteed to either completely succeed, or leave the database unmodified if an error occurs.
+По умолчанию, если поставщик базы данных поддерживает транзакции, все изменения в одном вызове ``SaveChanges()`` применяются в транзакции. Если какое-либо из изменений не получилось, то выполняется откат транзакции и ни одно из изменений не применяется к базе данных. Это означает, что ``SaveChanges()`` гарантирует либо полный успех, либо при возникновении ошибки базы данных оставить все без изменений.
 
-For most applications, this default behavior is sufficient. You should only manually control transactions if your application requirements deem it necessary.
+Для большинства приложений такого поведения по умолчанию вполне достаточно. Вы должны контролировать транзакции вручную только если это требуется приложению.
 
-Controlling transactions
-------------------------
+Управление транзакциями
+-----------------------
 
-You can use the ``DbContext.Database`` API to begin, commit, and rollback transactions. The following example shows two ``SaveChanges()`` operations and a LINQ query being executed in a single transaction.
+Вы можете использовать ``DbContext.Database`` API для начала, совершения, и отката транзакций. В следующем примере показаны две операции ``SaveChanges()`` и LINQ запрос, выполненные в одной транзакции.
 
-Not all database providers support transactions. Some providers may throw or no-op when transaction APIs are called.
+Не все провайдеры баз данных поддерживают транзакции. Некоторые провайдеры могут генерировать исключения или игнорировать операцию при вызове API транзакций.
 
 .. includesamplefile:: Saving/Saving/Transactions/ControllingTransaction/Sample.cs
         :language: c#
@@ -30,22 +30,22 @@ Not all database providers support transactions. Some providers may throw or no-
         :emphasize-lines: 3, 17-19
         :linenos:
 
-Cross-context transaction (relational databases only)
------------------------------------------------------
+Кросс-контекстные транзакции (только реляционные базы данных)
+-------------------------------------------------------------
 
-You can also share a transaction across multiple context instances. This functionality is only available when using a relational database provider because it requires the use of ``DbTransaction`` and ``DbConnection``, which are specific to relational databases.
+Вы можете также разделить транзакции между несколькими экземплярами контекста. Эта функциональность доступна только при использовании провайдера реляционной базы данных, поскольку она требует использования ``DbTransaction`` и ``DbConnection``, которые являются специфическими для реляционных баз данных.
 
-To share a transaction, the contexts must share both a ``DbConnection`` and a ``DbTransaction``.
+Для того, чтобы разделить транзакцию, контексты должны разделять как ``DbConnection`` так и ``DbTransaction``.
 
-Allow connection to be externally provided
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Разрешение внешне предоставляемого подключения
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sharing a ``DbConnection`` requires the ability to pass a connection into a context when constructing it.
+Разделение ``DbConnection`` требует возможности передать подключение в контекст при его создании.
 
-The easiest way to allow ``DbConnection`` to be externally provided, is to stop using the ``DbContext.OnConfiguring`` method to configure the context and externally create ``DbContextOptions`` and pass them to the context constructor.
+Простейший путь позволить ``DbConnection`` быть внешне обеспеченным, это перестать использовать метод ``DbContext.OnConfiguring`` для настройки контекста, а внешне создать ``DbContextOptions`` и передать его в конструктор контекста.
 
 .. tip::
-  ``DbContextOptionsBuilder`` is the API you used in ``DbContext.OnConfiguring`` to configure the context, you are now going to use it externally to create ``DbContextOptions``.
+  ``DbContextOptionsBuilder`` это API, которые вы использовали в ``DbContext.OnConfiguring`` для настройки контекста, теперь вы собираетесь использовать его внешне, для создания``DbContextOptions``.
 
 .. includesamplefile:: Saving/Saving/Transactions/SharingTransaction/Sample.cs
         :language: c#
@@ -53,7 +53,7 @@ The easiest way to allow ``DbConnection`` to be externally provided, is to stop 
         :emphasize-lines: 3-5
         :linenos:
 
-An alternative is to keep using ``DbContext.OnConfiguring``, but accept a ``DbConnection`` that is saved and then used in ``DbContext.OnConfiguring``.
+Альтернативой является продолжать использовать ``DbContext.OnConfiguring``, принять сохраненный ``DbConnection`` и использовать в ``DbContext.OnConfiguring``.
 
 .. code-block:: c#
 
@@ -74,10 +74,10 @@ An alternative is to keep using ``DbContext.OnConfiguring``, but accept a ``DbCo
       }
   }
 
-Share connection and transaction
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Разделение соединения и транзакций
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can now create multiple context instances that share the same connection. Then use the ``DbContext.Database.UseTransaction(DbTransaction)`` API to enlist both contexts in the same transaction.
+Вы можете создавать сложные экземпляры контекста, которые разделяют одно и то же соединение. Затем используйте ``DbContext.Database.UseTransaction(DbTransaction)`` API чтобы задействовать оба контекста в одной и той же транзакции.
 
 .. includesamplefile:: Saving/Saving/Transactions/SharingTransaction/Sample.cs
         :language: c#
@@ -85,12 +85,12 @@ You can now create multiple context instances that share the same connection. Th
         :emphasize-lines: 1-3, 7, 16, 23-25
         :linenos:
 
-Using external DbTransactions (relational databases only)
+Использование внешнего DbTransactions (только реляционые базы данных)
 ---------------------------------------------------------
 
-If you are using multiple data access technologies to access a relational database, you may want to share a transaction between operations performed by these different technologies.
+Если вы используете несколько технологий доступа к данным для доступа к реляционной базе данных, вы можете разделить транзакции между операциями, выполняемыми этими различными технологиями.
 
-The following example, shows how to perform an ADO.NET SqlClient operation and an Entity Framework Core operation in the same transaction.
+Следующем примере показано, как выполнить операции ADO.NET SqlClient и Entity Framework Core в одной и той же транзакции.
 
 .. includesamplefile:: Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs
         :language: c#

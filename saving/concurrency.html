@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Concurrency Conflicts &mdash; Документация Entity Framework Core 1.0.0</title>
+  <title>Конфликты параллелизма &mdash; Документация Entity Framework Core 1.0.0</title>
   
 
   
@@ -36,7 +36,7 @@
   
     <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
         <link rel="up" title="Сохранение данных" href="index.html"/>
-        <link rel="next" title="Transactions" href="transactions.html"/>
+        <link rel="next" title="Транзакции" href="transactions.html"/>
         <link rel="prev" title="Каскадное удаление" href="cascade-delete.html"/> 
 
   
@@ -95,10 +95,10 @@
 <li class="toctree-l2"><a class="reference internal" href="basic.html">Основы сохранения</a></li>
 <li class="toctree-l2"><a class="reference internal" href="related-data.html">Связанные данные</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cascade-delete.html">Каскадное удаление</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Concurrency Conflicts</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Конфликты параллелизма</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transactions.html">Транзакции</a></li>
 <li class="toctree-l2"><a class="reference internal" href="disconnected-entities.html">🔧 Несвязанные Сущности</a></li>
 <li class="toctree-l2"><a class="reference internal" href="explicit-values-generated-properties.html">Установка явных значений для генерируемых свойств</a></li>
 </ul>
@@ -138,7 +138,7 @@
       
           <li><a href="index.html">Сохранение данных</a> &raquo;</li>
       
-    <li>Concurrency Conflicts</li>
+    <li>Конфликты параллелизма</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -154,38 +154,38 @@
 <p class="first admonition-title">Внимание</p>
 <p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
 </div>
-<div class="section" id="concurrency-conflicts">
-<h1>Concurrency Conflicts<a class="headerlink" href="#concurrency-conflicts" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id1">
+<h1>Конфликты параллелизма<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Если свойство отмечено как маркер параллелизма, то EF будет проверять, что другие пользователи не будут изменять это значение в базе данных в момент сохранения измененной записи.</p>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id2">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#how-concurrency-works-in-ef" id="id3">How concurrency works in EF</a></li>
-<li><a class="reference internal" href="#resolving-concurrency-conflicts" id="id4">Resolving concurrency conflicts</a></li>
+<li><a class="reference internal" href="#ef" id="id5">Как параллелизм работает в EF</a></li>
+<li><a class="reference internal" href="#id4" id="id6">Решение конфликтов параллелизма</a></li>
 </ul>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Совет</p>
 <p class="last">Вы можете посмотреть <a class="reference external" href="https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/Saving/Saving/Concurrency/">пример</a> для этой статьи на GitHub.</p>
 </div>
-<div class="section" id="how-concurrency-works-in-ef">
-<h2><a class="toc-backref" href="#id3">How concurrency works in EF</a><a class="headerlink" href="#how-concurrency-works-in-ef" title="Ссылка на этот заголовок">¶</a></h2>
-<p>For a detailed description of how concurrency works in Entity Framework Core, see <a class="reference internal" href="../modeling/concurrency.html"><span class="doc">Маркеры параллелизма (Concurrency Tokens)</span></a>.</p>
+<div class="section" id="ef">
+<h2><a class="toc-backref" href="#id5">Как параллелизм работает в EF</a><a class="headerlink" href="#ef" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Подробное описание работы параллелизма в Entity Framework смотрите в разделе <a class="reference internal" href="../modeling/concurrency.html"><span class="doc">Маркеры параллелизма (Concurrency Tokens)</span></a>.</p>
 </div>
-<div class="section" id="resolving-concurrency-conflicts">
-<h2><a class="toc-backref" href="#id4">Resolving concurrency conflicts</a><a class="headerlink" href="#resolving-concurrency-conflicts" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Resolving a concurrency conflict involves using an algorithm to merge the pending changes from the current user with the changes made in the database. The exact approach will vary based on your application, but a common approach is to display the values to the user and have them decide the correct values to be stored in the database.</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id6">Решение конфликтов параллелизма</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Решение конфликтов параллелизма включает в себя использование алгоритма для слияния ожидающих изменений от имени текущего пользователя с изменениями, сделанными в базе данных. Точный подход будет меняться в зависимости от приложения, но общий подход это показывать значения пользователю, а их решенные правильные значения должны сохраняться в базе данных.</p>
 <dl class="docutils">
-<dt>There are three sets of values available to help resolve a concurrency conflict.</dt>
+<dt>Есть три набора значений, которые помогают решить конфликт параллелизма.</dt>
 <dd><ul class="first last simple">
-<li><strong>Current values</strong> are the values that the application was attempting to write to the database.</li>
-<li><strong>Original values</strong> are the values that were originally retrieved from the database, before any edits were made.</li>
-<li><strong>Database values</strong> are the values currently stored in the database.</li>
+<li><strong>Текущие значения</strong> это значения, которые приложение пытается записать в базу данных.</li>
+<li><strong>Оригинальные значения</strong> это значения, которые первоначально были извлечены из базы данных, прежде чем были сделаны какие-либо изменения.</li>
+<li><strong>Значения базы данных</strong> это значения, которые в настоящее время хранятся в базе данных.</li>
 </ul>
 </dd>
 </dl>
-<p>To handle a concurrency conflict, catch a <code class="docutils literal"><span class="pre">DbUpdateConcurrencyException</span></code> during <code class="docutils literal"><span class="pre">SaveChanges()</span></code>, use <code class="docutils literal"><span class="pre">DbUpdateConcurrencyException.Entries</span></code> to prepare a new set of changes for the affected entities, and then retry the <code class="docutils literal"><span class="pre">SaveChanges()</span></code> operation.</p>
-<p>In the following example, <code class="docutils literal"><span class="pre">Person.FirstName</span></code> and <code class="docutils literal"><span class="pre">Person.LastName</span></code> are setup as concurrency token. There is a <code class="docutils literal"><span class="pre">//</span> <span class="pre">TODO:</span></code> comment in the location where you would include application specific logic to chose the value to be saved to the database.</p>
+<p>Для обработки конфликтов параллелизма, необходимо во время <code class="docutils literal"><span class="pre">SaveChanges()</span></code> поймать <code class="docutils literal"><span class="pre">DbUpdateConcurrencyException</span></code>, для подготовки нового набора изменений для поврежденных сущностей используйте <code class="docutils literal"><span class="pre">DbUpdateConcurrencyException.Entries</span></code>, а затем попробуйте снова выполнить операцию <code class="docutils literal"><span class="pre">SaveChanges()</span></code>.</p>
+<p>В следующем примере <code class="docutils literal"><span class="pre">Person.FirstName</span></code> и <code class="docutils literal"><span class="pre">Person.LastName</span></code> установлены как маркеры параллелизма. В том месте, где вы должны вставить логику приложения для определения правильного значения, которое будет записано в базу данных стоит комментарий <code class="docutils literal"><span class="pre">//</span> <span class="pre">TODO:</span></code>.</p>
 <div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -389,7 +389,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="transactions.html" class="btn btn-neutral float-right" title="Transactions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="transactions.html" class="btn btn-neutral float-right" title="Транзакции" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cascade-delete.html" class="btn btn-neutral" title="Каскадное удаление" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -402,7 +402,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 04, 2016.
+      Обновлено: июл. 06, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
