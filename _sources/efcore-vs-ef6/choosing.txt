@@ -17,26 +17,26 @@ Entity Framework 6.x (EF6.x) это опробованная и протести
 Что такое EF Core
 -----------------
 
-Entity Framework Core (EF Core) это легкая, расширяемая и кросс-платформенная версия Entity Framework. EF Core introduces many improvements and new features when compared with EF6.x. At the same time, EF Core is a new code base and very much a v1 product.
+Entity Framework Core (EF Core) это легкая, расширяемая и кросс-платформенная версия Entity Framework. EF Core вводит много улучшений и новых функций по сравнению с EF6.x. В то же время EF Core разрабатывался заново и это очень новый продукт.
 
-EF Core keeps the developer experience from EF6.x, and most of the top-level APIs remain the same too, so EF Core will feel very familiar to folks who have used EF6.x. At the same time, EF Core is built over a completely new set of core components. This means EF Core doesn't automatically inherit all the features from EF6.x. Some of these features will show up in future releases (such as lazy loading and connection resiliency), other less commonly used features will not be implemented in EF Core.
+EF Core сохранил опыт разработки EF6.x, и большинство высокоуровневых API остались те же самые, так что те люди, кто использовал EF6.x, будут чувствовать себя с EF Core очень комфортно. В то же время EF Core разработан под совершенно новый набор ключевых компонентов. Это означает, что EF Core не наследует автоматически все возможности EF6.x. Некоторые из этих функций появяться в будущих выпусках (например, ленивая загрузка и отказоустойчивость подключения), другие менее часто используемые функции не будут реализованы в EF Core.
 
-The new, extensible, and lightweight core has also allowed us to add some features to EF Core that will not be implemented in EF6.x (such as alternate keys and mixed client/database evaluation in LINQ queries).
+Новое, расширяемое и легкое ядро также позволило нам добавить некоторые функции в EF Core, которые не будут реализовываться в EF6.x (например, альтернативные ключи и смешанные валидации "клиент/база данных" в запросах LINQ).
 
-See :doc:`features` for a detailed comparison of how the feature set in EF Core compares to EF6.x.
+Подробное обзор того, как набор функций в EF Core можно сравнить с EF6.x смотрите раздел :doc:`features`.
 
-Guidance for new applications
------------------------------
+Руководство для новых приложений
+--------------------------------
 
-Because EF Core is a new product, and still lacks some critical O/RM features, EF6.x will still be the most suitable choice for many applications.
+Поскольку EF ядро представляет собой новый продукт и до сих пор не хватает некоторых важных функций O/RM, EF6.x по-прежнему будет наиболее подходящим выбором для многих приложений.
 
-These are the types of applications we would recommend using EF Core for.
- * New applications that do not require features that are not yet implemented in EF Core. Review :doc:`features` to see if EF Core may be a suitable choice for your application.
- * Applications that target .NET Core, such as Universal Windows Platform (UWP) and ASP.NET Core applications. These applications can not use EF6.x as it requires the Full .NET Framework (i.e. .NET Framework 4.5).
+Вот типы приложений, для которых мы рекомендуем использовать EF Core.
+ * Новые приложения, не требующие возможности, которые еще не реализованы в EF Core. Чтобы увидеть, может ли EF Core быть подходящим выбором для вашего приложения, посмотрте раздел :doc:`features`.
+ * Приложения, использующие .NET Core, такие как Universal Windows Platform (UWP) и ASP.NET Core. Эти приложения не могут использовать EF6.x, так как он требует полной версии .NET Framework (например, .NET Framework 4.5).
 
-Guidance for existing EF6.x applications
-----------------------------------------
+Руководство для существующих приложений EF6.x
+---------------------------------------------
 
-Because of the fundamental changes in EF Core we do not recommend attempting to move an EF6.x application to EF Core unless you have a compelling reason to make the change. If you want to move to EF Core to make use of new features, then make sure you are aware of its limitations before you start. Review :doc:`features` to see if EF Core may be a suitable choice for your application.
+Из-за фундаментальных изменений в EF Core, не рекомендуется пытаться портировать приложение EF6.x на EF Core, если у вас нет веской причины делать такие изменения. Если вы хотите, чтобы перейти на EF Core чтобы использовать новые возможности, то прежде чем начнете сначала убедитесь, что вы знаете о его ограничениях. Чтобы увидеть, может ли EF Core быть подходящим выбором для вашего приложения, посмотрте раздел :doc:`features`.
 
-**You should view the move from EF6.x to EF Core as a port rather than an upgrade.** See :doc:`porting/index` for more information.
+**Вы должны рассматривать переход от EF6.x на EF Core как портирование, а не как обновление.** Подробнее смотрите в разделе :doc:`porting/index`.
