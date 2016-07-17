@@ -1,38 +1,38 @@
-Ensure EF Core Will Work for Your Application
-=============================================
+Убедитесь, что EF Core будет работать с вашим приложением
+=========================================================
 
-Before you start the porting process it is important to validate that EF Core meets the data access requirements for your application.
+Перед тем, как начать процесс портирования важно проверить, что EF Core отвечает требованиям доступа к данным вашего приложения.
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Missing features
-----------------
+Недостающие функции
+-------------------
 
-Make sure that EF Core has all the features you need to use in your application. See :doc:`/efcore-vs-ef6/features` for a detailed comparison of how the feature set in EF Core compares to EF6.x. If any required features are missing, ensure that you can compensate for the lack of these features before porting to EF Core.
+Убедитесь, что в EF Core есть все функции, необходимые для использования в приложении. Для детального сравнения набора функций EF Core и EF6.x. смотрите раздел :doc:`/efcore-vs-ef6/features`. Если какие-либо необходимые функции отсутствуют, убедитесь, что вы можете компенсировать отсутствие этих функций, прежде чем портировать на EF Core.
 
 
-Behavior changes
-----------------
+Изменения поведения
+-------------------
 
-This is a non-exhaustive list of some changes in behavior between EF6.x and EF Core. It is important to keep these in mind as your port your application as they may change the way your application behaves, but will not show up as compilation errors after swapping to EF Core.
+Это не исчерпывающий перечень некоторых изменений в поведении между EF6.x и EF Core. Важно иметь это в виду при портировании вашего приложения, поскольку после замены на EF Core поведение приложения может измениться, но ошибки компиляции отображаться не будут.
 
-DbSet.Add/Attach and graph behavior
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In EF6.x, calling ``DbSet.Add()`` on an entity results in a recursive search for all entities referenced in its navigation properties. Any entities that are found, and are not already tracked by the context, are also be marked as added. ``DbSet.Attach()`` behaves the same, except all entities are marked as unchanged.
-
-EF Core performs a similar recursive search, but with some slightly different rules.
-  * The root entity is always in the requested state (added for ``DbSet.Add`` and unchanged for ``DbSet.Attach``).
-  * For entities that are found during the recursive search of navigation properties:
-      * If the primary key of the entity is store generated
-          * If the primary key is not set to a value, the state is set to added. The primary key value is considered "not set" if it is assigned the CLR default value for the property type (i.e. ``0`` for ``int``, ``null`` for ``string``, etc.).
-          * If the primary key is set to a value, the state is set to unchanged.
-      * If the primary key is not database generated, the entity is put in the same state as the root.
-
-Code First database initialization
+DbSet.Add/Attach и поведения графа
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+В EF6.x, в результате вызова метода ``DbSet.Add()`` сущности, происходит рекурсивный поиск всех сущностей, на которые ссылаются ее навигационные свойства. Любые найденные, но уже не отслеживаемые контекстом сущности, так же будут помечены как добавленные. ``DbSet.Attach()`` ведет себя так же, за исключением того, что все объекты помечаются как без изменений..
+
+EF Core выполняет аналогичный рекурсивный поиск, но с некоторыми немного различными правилами.
+  * Основная сущность всегда в состоянии запроса (добавляет по ``DbSet.Add`` и не изменяет по ``DbSet.Attach``).
+  * Для сущностей, которые найдены во время рекурсивного поиска по навигационным свойствам:
+      * Если первичный ключ сущности сгенерирован в хранилище
+          * Если в первичном ключе не установлено значение, состояние изменяется на "добавлено". Значение первичного ключа считается "не установлено" если ему назначено значение свойства по умолчанию соответствующего типа CLR (например ``0`` для ``int``, ``null`` для ``string``, и т.д.).
+          * Если значение первичного ключа установлено, то состояние устанавливается в "неизменяемое".
+      * Если первичный ключ сгенерирован не в базе данных, то сущность записывается в том же самом состоянии, как и основная.
+
+Инициализация базы данных Code First
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 EF6.x has a significant amount of magic it performs around selecting the database connection and initializing the database. Some of these rules include:
   * If no configuration is performed, EF6.x will select a database on SQL Express or LocalDb.

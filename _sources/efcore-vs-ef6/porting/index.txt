@@ -1,7 +1,7 @@
-Porting from EF6.x to EF Core
-=============================
+Портирование с EF6.x на EF Core
+===============================
 
-The following articles cover porting from EF6.x to EF Core
+Следующие статьи охватывают портирование с EF6.x на EF Core
 
 .. toctree::
     :titlesonly:

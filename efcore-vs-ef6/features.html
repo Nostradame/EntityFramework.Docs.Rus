@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Feature Comparison &mdash; Документация Entity Framework Core 1.0.0</title>
+  <title>Сравнение функций &mdash; Документация Entity Framework Core 1.0.0</title>
   
 
   
@@ -36,7 +36,7 @@
   
     <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../index.html"/>
         <link rel="up" title="EF Core vs. EF6.x" href="index.html"/>
-        <link rel="next" title="Porting from EF6.x to EF Core" href="porting/index.html"/>
+        <link rel="next" title="Портирование с EF6.x на EF Core" href="porting/index.html"/>
         <link rel="prev" title="Что из этого больше подходит для вас" href="choosing.html"/> 
 
   
@@ -94,10 +94,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../saving/index.html">Сохранение данных</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EF Core vs. EF6.x</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="choosing.html">Что из этого больше подходит для вас</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Feature Comparison</a><ul class="simple">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Сравнение функций</a><ul class="simple">
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="porting/index.html">Porting from EF6.x to EF Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="porting/index.html">Портирование с EF6.x на EF Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="side-by-side.html">EF6.x and EF Core in the Same Application</a></li>
 </ul>
 </li>
@@ -135,7 +135,7 @@
       
           <li><a href="index.html">EF Core vs. EF6.x</a> &raquo;</li>
       
-    <li>Feature Comparison</li>
+    <li>Сравнение функций</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -151,397 +151,397 @@
 <p class="first admonition-title">Внимание</p>
 <p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
 </div>
-<div class="section" id="feature-comparison">
-<h1>Feature Comparison<a class="headerlink" href="#feature-comparison" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id1">
+<h1>Сравнение функций<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
 <p>Следующая информация поможет вам выбрать между Entity Framework Core и Entity Framework 6.x.</p>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id2">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#features-not-in-ef-core" id="id2">Features not in EF Core</a></li>
-<li><a class="reference internal" href="#side-by-side-comparison" id="id3">Side-by-side comparison</a></li>
+<li><a class="reference internal" href="#ef-core" id="id4">Функции, которых нет в EF Core</a></li>
+<li><a class="reference internal" href="#id3" id="id5">Таблица сравнения</a></li>
 </ul>
 </div>
-<div class="section" id="features-not-in-ef-core">
-<h2><a class="toc-backref" href="#id2">Features not in EF Core</a><a class="headerlink" href="#features-not-in-ef-core" title="Ссылка на этот заголовок">¶</a></h2>
-<p>This is a list of features not currently implemented in EF Core that are likely to impact your ability to use it in a given application. This is by no means an exhaustive list of possible O/RM features, but the features that we feel have the highest impact on developers.</p>
+<div class="section" id="ef-core">
+<h2><a class="toc-backref" href="#id4">Функции, которых нет в EF Core</a><a class="headerlink" href="#ef-core" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Это список функций, в настоящее время не реализованых в EF Core , которые могут повлиять на вашу возможность использовать его в отдельном приложении. Это отнюдь не исчерпывающий перечень возможных функций O/RM, но это функции, которые, как мы считаем, имеют самое значительное влияние на разработчиков.</p>
 <ul>
 <li><dl class="first docutils">
-<dt>Creating a Model</dt>
+<dt>Создание модели</dt>
 <dd><ul class="first last simple">
-<li><strong>Complex/value types</strong> are types that do not have a primary key and are used to represent a set of properties on an entity type.</li>
-<li><strong>Visualizing a model</strong> to see a graphical representation of the code-based model.</li>
-<li><strong>Simple type conversions</strong> such as string =&gt; xml.</li>
-<li><strong>Spatial data types</strong> such as SQL Server&#8217;s <cite>geography</cite> &amp; <cite>geometry</cite>.</li>
-<li><strong>Many-to-many relationships</strong> without join entity. You can already model a many-to-many relationship with a join entity, see <a class="reference internal" href="../modeling/relationships.html"><span class="doc">Отношения</span></a> for details.</li>
-<li><strong>Alternate inheritance mapping patterns</strong> for relational databases, such as table per type (TPT) and table per concrete type (TPC). Table per hierarchy (TPH) is already supported.</li>
+<li><strong>Сложные типы/типы значения</strong> это типы, у которых нет первичных ключей, и они используются для представления наборов свойств типа сущности.</li>
+<li><strong>Визуализации модели</strong> для просмотра графического представления модели, основанной на коде.</li>
+<li><strong>Преобразования простых типов</strong> такие как string =&gt; xml.</li>
+<li><strong>Пространственные типы данных</strong> такие как SQL Server <cite>geography</cite> &amp; <cite>geometry</cite>.</li>
+<li><strong>Отношения многие-ко-многим</strong> без объединения сущностей. У вас уже может быть модель с отношениями многие-ко-многим и с объединением сущностей, подробнее смотрите раздел <a class="reference internal" href="../modeling/relationships.html"><span class="doc">Отношения</span></a>.</li>
+<li><strong>Альтернативные шаблоны сопоставления наследования</strong> для реляционных баз данных, такие как: таблица для каждого типа (TPT) и таблица для каждого конкретного типа (TPC). Таблицы для иерархии (TPH) уже поддерживаются.</li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Querying Data</dt>
+<dt>Запрос данных</dt>
 <dd><ul class="first last simple">
-<li><strong>Improved translation</strong> to enable more queries to successfully execute, with more logic being evaluated in the database (rather than in-memory).</li>
-<li><strong>GroupBy translation</strong> in particular will move translation of the LINQ GroupBy operator to the database, rather than in-memory.</li>
-<li><strong>Lazy loading</strong> enables navigation properties to be automatically populated from the database when they are accessed.</li>
-<li><strong>Explicit Loading</strong> allows you to trigger population of a navigation property on an entity that was previously loaded from the database.</li>
-<li><strong>Raw SQL queries for non-model types</strong> allows a raw SQL query to be used to populate types that are not part of the model (typically for denormalized view-model data).</li>
+<li><strong>Улучшенный перевод</strong> для возможности выполнять больше успешных запросов, с увеличением логики валидации в базе данных, а не в памяти.</li>
+<li><strong>Перевод GroupBy</strong> в частности перевод LINQ оператора GroupBy будет перемещен в базу данных, а не в память.</li>
+<li><strong>Ленивая загрузка</strong> позволяет автоматически заполнять свойства навигации из базы данных, если они доступны.</li>
+<li><strong>Явная загрузка</strong> позволит заполнять все значения навигационных свойств сущности, предварительно загруженной из базы данных.</li>
+<li><strong>Необработанные SQL запросы типов не из модели</strong> позволяет использовать необработанные SQL запросы для заполнения типов, которые не являются частью модели (обычно для ненормализованной модели представления данных).</li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Saving Data</dt>
+<dt>Сохранение данных</dt>
 <dd><ul class="first last simple">
-<li><strong>Simple command interception</strong> provides an easy way to read/write commands before/after they are sent to the database.</li>
-<li><strong>Missing EntityEntry APIs from EF6.x</strong> such as <code class="docutils literal"><span class="pre">Reload</span></code>, <code class="docutils literal"><span class="pre">GetModifiedProperties</span></code>, <code class="docutils literal"><span class="pre">GetDatabaseValues</span></code> etc.</li>
-<li><strong>Stored procedure mapping</strong> allows EF to use stored procedures to persist changes to the database (<code class="docutils literal"><span class="pre">FromSql</span></code> already provides good support for using a stored procedure to query, see <a class="reference internal" href="../querying/raw-sql.html"><span class="doc">Необработанные запросы SQL</span></a> for details).</li>
-<li><strong>Connection resiliency</strong> automatically retries failed database commands. This is especially useful when connection to SQL Azure, where transient failures are common.</li>
+<li><strong>Простой перехват команд</strong> предоставляет простой метод чтения/записи команд перед/после их записи в базу данных.</li>
+<li><strong>Отсутствующие EntityEntry API из EF6.x</strong> такие как <code class="docutils literal"><span class="pre">Reload</span></code>, <code class="docutils literal"><span class="pre">GetModifiedProperties</span></code>, <code class="docutils literal"><span class="pre">GetDatabaseValues</span></code> и т.д.</li>
+<li><strong>Сопоставление хранимых процедур</strong> позволяет EF использовать хранимые процедуры для сохранения изменений в базе данных  (<code class="docutils literal"><span class="pre">FromSql</span></code> уже обеспечивает хорошую поддержку использования хранимых процедур для запросов, подробнее смотрите раздел <a class="reference internal" href="../querying/raw-sql.html"><span class="doc">Необработанные запросы SQL</span></a>).</li>
+<li><strong>Отказоустойчивость подключения</strong> автоматический повтор сбойных команд базы данных. Это особенно полезно при подключении к SQL Azure, где распространены временные сбои.</li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Database Schema Management</dt>
+<dt>Управление схемой базы данных</dt>
 <dd><ul class="first last simple">
-<li><strong>Visual Studio wizard for reverse engineer</strong> that allows you to visually configure connection, select tables, etc. when creating a model from an existing database.</li>
-<li><strong>Update model from database</strong> allows a model that was previously reverse engineered from the database to be refreshed with changes made to the schema.</li>
-<li><strong>Seed data</strong> allows a set of data to be easily upserted to the database.</li>
+<li><strong>Матер VisualStudio для обратного инжиниринга</strong> который позволяет вам визуализировать настройку подключения, выбирать таблицы, и т.д. когда создается модель из существующей базы данных.</li>
+<li><strong>Обновление модели из базы данных</strong> разрешает модели, которая была получена обратным инжинирингом из базы данных, обновляться при изменениях в схеме.</li>
+<li><strong>Источник данных</strong> позволяет набору данных легко обновляться в базу данных.</li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
 </div>
-<div class="section" id="side-by-side-comparison">
-<h2><a class="toc-backref" href="#id3">Side-by-side comparison</a><a class="headerlink" href="#side-by-side-comparison" title="Ссылка на этот заголовок">¶</a></h2>
-<p>The following table compares the features available in EF Core and EF6.x. It is intended to give a high level comparison and does not list every feature, or attempt to give details on possible differences between how the same feature works.</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id5">Таблица сравнения</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В следующей таблице сравниваются функции, доступные в EF Core и EF6.x. Она даст вам высокоуровневое сравнение, а не перечисление всех функций или попытка дать детали о возможных различиях работы этих функций.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="45%" />
-<col width="19%" />
+<col width="53%" />
+<col width="10%" />
 <col width="36%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><strong>Creating a Model</strong></td>
+<tr class="row-odd"><td><strong>Создание модели</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
-<tr class="row-even"><td>Basic modelling (classes, properties, etc.)</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-even"><td>Базовое моделирование (классы, свойства, и т.д.)</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Conventions</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Соглашения</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Custom conventions</td>
-<td>Yes</td>
-<td>Partial</td>
+<tr class="row-even"><td>Пользователььские соглашения</td>
+<td>Да</td>
+<td>Частично</td>
 </tr>
-<tr class="row-odd"><td>Data annotations</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Аннотации данных</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-even"><td>Fluent API</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Inheritance: Table per hierarchy (TPH)</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Наследование: Таблица на иерархию (TPH)</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Inheritance: Table per type (TPT)</td>
-<td>Yes</td>
+<tr class="row-even"><td>Наследование: Таблица на тип (TPT)</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Inheritance: Table per concrete class (TPC)</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Наследование: Таблица на конкретный класс (TPC)</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Shadow state properties</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Alternate keys</td>
+<tr class="row-odd"><td>Альтернативные ключи</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Many-to-many: With join entity</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-even"><td>Многие-ко-многим: Со слиянием сущностей</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Many-to-many: Without join entity</td>
-<td>Yes</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>Key generation: Database</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="row-odd"><td>Key generation: Client</td>
-<td>&nbsp;</td>
-<td>Yes</td>
-</tr>
-<tr class="row-even"><td>Complex/value types</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Многие-ко-многим: Без слияния сущностей</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Spatial data</td>
-<td>Yes</td>
+<tr class="row-even"><td>Генерирование ключей: База данных</td>
+<td>Да</td>
+<td>Да</td>
+</tr>
+<tr class="row-odd"><td>Генерирование ключей: Клиент</td>
+<td>&nbsp;</td>
+<td>Да</td>
+</tr>
+<tr class="row-even"><td>Сложные типы/типы значений</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Graphical visualization of model</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Данные о пространстве (гео)</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Graphical drag/drop editor</td>
-<td>Yes</td>
+<tr class="row-even"><td>Графическая визуализация модели</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Model format: Code</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="row-odd"><td>Model format: EDMX (XML)</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Графический drag/drop редактор</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Reverse engineer model from database: Command line</td>
-<td>&nbsp;</td>
-<td>Yes</td>
+<tr class="row-even"><td>Формат модели: Код</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Reverse engineer model from database: VS wizard</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Формат модели: EDMX (XML)</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Incremental update model from database</td>
-<td>Yes</td>
+<tr class="row-even"><td>Обратный инжиниринг модели из БД: Командная строка</td>
+<td>&nbsp;</td>
+<td>Да</td>
+</tr>
+<tr class="row-odd"><td>Обратный инжиниринг модели из БД: мастер VS</td>
+<td>Да</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Дополнительное обновление модели из БД</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><strong>Querying Data</strong></td>
+<tr class="row-even"><td><strong>Запрашивание данных</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
-<tr class="row-odd"><td>LINQ: Simple queries</td>
-<td>Stable</td>
-<td>Stable</td>
+<tr class="row-odd"><td>LINQ: Простые запросы</td>
+<td>Стабильны</td>
+<td>Стабильны</td>
 </tr>
 <tr class="row-even"><td>LINQ: Moderate queries</td>
-<td>Stable</td>
-<td>Stabilizing</td>
+<td>Стабильны</td>
+<td>Стабилизируются</td>
 </tr>
 <tr class="row-odd"><td>LINQ: Complex queries</td>
-<td>Stable</td>
-<td>In-Progress</td>
+<td>Стабильны</td>
+<td>В разработке</td>
 </tr>
 <tr class="row-even"><td>LINQ: Queries using navigation properties</td>
-<td>Stable</td>
-<td>In-Progress</td>
+<td>Стабильны</td>
+<td>В разработке</td>
 </tr>
-<tr class="row-odd"><td>&#8220;Pretty&#8221; SQL generation</td>
-<td>Poor</td>
-<td>Yes</td>
+<tr class="row-odd"><td>&#8220;Pretty&#8221; генерирование SQL</td>
+<td>Слабое</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Mixed client/server evaluation</td>
+<tr class="row-even"><td>Смешанная клиент/сервер проверка</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Loading related data: Eager</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Загрузка связнных данных: :Жадная</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Loading related data: Lazy</td>
-<td>Yes</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>Loading related data: Explicit</td>
-<td>Yes</td>
+<tr class="row-even"><td>Загрузка связнных данных: Ленивая</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Raw SQL queries: Model types</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="row-odd"><td>Raw SQL queries: Un-mapped types</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Загрузка связнных данных: Явная</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Raw SQL queries: Composing with LINQ</td>
+<tr class="row-even"><td>Необрабобтанные запросы SQL: Типы модели</td>
+<td>Да</td>
+<td>Да</td>
+</tr>
+<tr class="row-odd"><td>Необрабобтанные запросы SQL: Несвязанные типы</td>
+<td>Да</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Необрабобтанные запросы SQL: Смешанные с LINQ</td>
+<td>&nbsp;</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><strong>Saving Data</strong></td>
+<tr class="row-even"><td><strong>Соханение данных</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
 <tr class="row-odd"><td>SaveChanges</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Change tracking: Snapshot</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-even"><td>Отслеживание изменений: Снимок</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Change tracking: Notification</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Отслеживание изменений: Оповещение</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Accessing tracked state</td>
-<td>Yes</td>
-<td>Partial</td>
+<tr class="row-even"><td>Доступ к состоянию треккера</td>
+<td>Да</td>
+<td>Частично</td>
 </tr>
-<tr class="row-odd"><td>Optimistic concurrency</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Оптимистический параллелизм</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Transactions</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-even"><td>Транзакции</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Batching of statements</td>
+<tr class="row-odd"><td>Группирование операторов</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Stored procedure</td>
-<td>Yes</td>
+<tr class="row-even"><td>Хранимые процедуры</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Detached graph support (N-Tier): Low level APIs</td>
-<td>Poor</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Поддержка обособленных графов (N-Уровня): API низкого уровня</td>
+<td>Слабая</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Detached graph support (N-Tier): End-to-end</td>
+<tr class="row-even"><td>Поддержка обособленных графов (N-Уровня): Сквозная</td>
 <td>&nbsp;</td>
-<td>Poor</td>
+<td>Слабая</td>
 </tr>
 <tr class="row-odd"><td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><strong>Other Features</strong></td>
+<tr class="row-even"><td><strong>Другие функции</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
-<tr class="row-odd"><td>Migrations</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Миграции</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-even"><td>Database creation/deletion APIs</td>
-<td>Yes</td>
-<td>Yes</td>
+<tr class="row-even"><td>API создания/удаления Базы Данных</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>Seed data</td>
-<td>Yes</td>
+<tr class="row-odd"><td>Источник данных</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Connection resiliency</td>
-<td>Yes</td>
+<tr class="row-even"><td>Устойчивость соединения</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Lifecycle hooks (events, command interception, ...)</td>
-<td>Yes</td>
+<tr class="row-odd"><td>События жизненного цикла (события, перехватчики команд, ...)</td>
+<td>Да</td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><strong>Database Providers</strong></td>
+<tr class="row-odd"><td><strong>Провайдеры баз данных</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
 <tr class="row-even"><td>SQL Server</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>MySQL</td>
-<td>Yes</td>
-<td>Paid only, unpaid coming soon <sup>1</sup></td>
+<td>Да</td>
+<td>Только платные, бесплатные позже <sup>1</sup></td>
 </tr>
 <tr class="row-even"><td>PostgreSQL</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>Oracle</td>
-<td>Yes</td>
-<td>Paid only, unpaid coming soon <sup>1</sup></td>
+<td>Да</td>
+<td>Только платные, бесплатные позже <sup>1</sup></td>
 </tr>
 <tr class="row-even"><td>SQLite</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>SQL Compact</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-even"><td>DB2</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
-<tr class="row-odd"><td>InMemory (for testing)</td>
+<tr class="row-odd"><td>InMemory (для тестирования)</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
 <tr class="row-even"><td>Azure Table Storage</td>
 <td>&nbsp;</td>
-<td>Prototype</td>
+<td>Прототип</td>
 </tr>
 <tr class="row-odd"><td>Redis</td>
 <td>&nbsp;</td>
-<td>Prototype</td>
+<td>Прототип</td>
 </tr>
 <tr class="row-even"><td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><strong>Application Models</strong></td>
+<tr class="row-odd"><td><strong>Модели приложений</strong></td>
 <td><strong>EF6.x</strong></td>
 <td><strong>EF Core 1.0.0</strong></td>
 </tr>
 <tr class="row-even"><td>WinForms</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>WPF</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-even"><td>Console</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>ASP.NET</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>Да</td>
+<td>Да</td>
 </tr>
 <tr class="row-even"><td>ASP.NET Core</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
 <tr class="row-odd"><td>Xamarin</td>
 <td>&nbsp;</td>
-<td>Coming soon <sup>2</sup></td>
+<td>Скоро <sup>2</sup></td>
 </tr>
 <tr class="row-even"><td>UWP</td>
 <td>&nbsp;</td>
-<td>Yes</td>
+<td>Да</td>
 </tr>
 </tbody>
 </table>
 <dl class="docutils">
-<dt>Footnotes:</dt>
+<dt>Примечания:</dt>
 <dd><ul class="first last simple">
-<li><sup>1</sup> Paid providers are available, unpaid providers are being worked on. The teams working on the unpaid providers have not shared public details of timeline etc.</li>
-<li><sup>2</sup> EF Core is built to work on Xamarin when support for .NET Standard is enabled in Xamarin.</li>
+<li><sup>1</sup> Доступны платные провайдеры, по бесплатным провайдерам ведутся работы. Команды, работающие над бесплатными провайдерами, не раскрывают детали сроков выпуска и т.д.</li>
+<li><sup>2</sup> EF Core построен для работы на Xamarin, когда поддержка .NET Standard будет включена в Xamarin.</li>
 </ul>
 </dd>
 </dl>
@@ -555,7 +555,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="porting/index.html" class="btn btn-neutral float-right" title="Porting from EF6.x to EF Core" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="porting/index.html" class="btn btn-neutral float-right" title="Портирование с EF6.x на EF Core" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="choosing.html" class="btn btn-neutral" title="Что из этого больше подходит для вас" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -568,7 +568,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 06, 2016.
+      Обновлено: июл. 17, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
