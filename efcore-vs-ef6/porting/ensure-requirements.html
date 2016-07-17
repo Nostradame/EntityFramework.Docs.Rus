@@ -164,24 +164,24 @@
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id4">Недостающие функции</a></li>
-<li><a class="reference internal" href="#id3" id="id5">Изменения поведения</a><ul>
-<li><a class="reference internal" href="#dbset-add-attach" id="id6">DbSet.Add/Attach и поведения графа</a></li>
-<li><a class="reference internal" href="#code-first" id="id7">Инициализация базы данных Code First</a></li>
-<li><a class="reference internal" href="#code-first-table-naming-convention" id="id8">Code First table naming convention</a></li>
+<li><a class="reference internal" href="#id2" id="id5">Недостающие функции</a></li>
+<li><a class="reference internal" href="#id3" id="id6">Изменения поведения</a><ul>
+<li><a class="reference internal" href="#dbset-add-attach" id="id7">DbSet.Add/Attach и поведения графа</a></li>
+<li><a class="reference internal" href="#code-first" id="id8">Инициализация базы данных Code First</a></li>
+<li><a class="reference internal" href="#id4" id="id9">Соглашения наименования таблиц Code First</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id4">Недостающие функции</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Недостающие функции</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Убедитесь, что в EF Core есть все функции, необходимые для использования в приложении. Для детального сравнения набора функций EF Core и EF6.x. смотрите раздел <a class="reference internal" href="../features.html"><span class="doc">Сравнение функций</span></a>. Если какие-либо необходимые функции отсутствуют, убедитесь, что вы можете компенсировать отсутствие этих функций, прежде чем портировать на EF Core.</p>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id5">Изменения поведения</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Изменения поведения</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Это не исчерпывающий перечень некоторых изменений в поведении между EF6.x и EF Core. Важно иметь это в виду при портировании вашего приложения, поскольку после замены на EF Core поведение приложения может измениться, но ошибки компиляции отображаться не будут.</p>
 <div class="section" id="dbset-add-attach">
-<h3><a class="toc-backref" href="#id6">DbSet.Add/Attach и поведения графа</a><a class="headerlink" href="#dbset-add-attach" title="Ссылка на этот заголовок">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">DbSet.Add/Attach и поведения графа</a><a class="headerlink" href="#dbset-add-attach" title="Ссылка на этот заголовок">¶</a></h3>
 <p>В EF6.x, в результате вызова метода <code class="docutils literal"><span class="pre">DbSet.Add()</span></code> сущности, происходит рекурсивный поиск всех сущностей, на которые ссылаются ее навигационные свойства. Любые найденные, но уже не отслеживаемые контекстом сущности, так же будут помечены как добавленные. <code class="docutils literal"><span class="pre">DbSet.Attach()</span></code> ведет себя так же, за исключением того, что все объекты помечаются как без изменений..</p>
 <dl class="docutils">
 <dt>EF Core выполняет аналогичный рекурсивный поиск, но с некоторыми немного различными правилами.</dt>
@@ -211,29 +211,29 @@
 </dl>
 </div>
 <div class="section" id="code-first">
-<h3><a class="toc-backref" href="#id7">Инициализация базы данных Code First</a><a class="headerlink" href="#code-first" title="Ссылка на этот заголовок">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Инициализация базы данных Code First</a><a class="headerlink" href="#code-first" title="Ссылка на этот заголовок">¶</a></h3>
 <dl class="docutils">
-<dt>EF6.x has a significant amount of magic it performs around selecting the database connection and initializing the database. Some of these rules include:</dt>
+<dt>EF6.x имеет значительное количество магии, которую он выполняет вокруг выбора подключения к базе данных и инициализации базы данных. Некоторые из этих правил включают в себя:</dt>
 <dd><ul class="first last simple">
-<li>If no configuration is performed, EF6.x will select a database on SQL Express or LocalDb.</li>
-<li>If a connection string with the same name as the context is in the applications <code class="docutils literal"><span class="pre">App/Web.config</span></code> file, this connection will be used.</li>
-<li>If the database does not exist, it is created.</li>
-<li>If none of the tables from the model exist in the database, the schema for the current model is added to the database. If migrations are enabled, then they are used to create the database.</li>
-<li>If the database exists and EF6.x had previously created the schema, then the schema is checked for compatibility with the current model. An exception is thrown if the model has changed since the schema was created.</li>
+<li>Если настройка не выполнена, EF6.x выберет базу данных на SQL Express или LocalDb.</li>
+<li>Если строка подключения с тем же именем, что и контекст в файле приложения <code class="docutils literal"><span class="pre">App/Web.config</span></code>, будет использоваться это соединение.</li>
+<li>Если базы данных нет, она будет создана.</li>
+<li>Если в базе данных нет таблиц из модели, то в базу данных добавляется схема для текущей модели. Если включены миграций, то они используются для создания базы данных.</li>
+<li>Если база данных существует и ранее EF6.x создал схемы, схема проверяется для совместимости с текущей моделью. Если модель изменилась с момента создания схемы - бросается исключение.</li>
 </ul>
 </dd>
-<dt>EF Core does not perform any of this magic.</dt>
+<dt>EF Core не выполняет такую магию.</dt>
 <dd><ul class="first last simple">
-<li>The database connection must be explicitly configured in code.</li>
-<li>No initialization is performed. You must use <code class="docutils literal"><span class="pre">DbContext.Database.Migrate()</span></code> to apply migrations (or <code class="docutils literal"><span class="pre">DbContext.Database.EnsureCreated()</span></code> and <code class="docutils literal"><span class="pre">EnsureDeleted()</span></code> to create/delete the database without using migrations).</li>
+<li>Подключение к базе данных должно быть явно настроено в коде.</li>
+<li>Не выполняется инициализация. Вы можете использовать <code class="docutils literal"><span class="pre">DbContext.Database.Migrate()</span></code> для применения миграций (или <code class="docutils literal"><span class="pre">DbContext.Database.EnsureCreated()</span></code> и <code class="docutils literal"><span class="pre">EnsureDeleted()</span></code> для создания/удаления базы данных без использования миграций).</li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="code-first-table-naming-convention">
-<h3><a class="toc-backref" href="#id8">Code First table naming convention</a><a class="headerlink" href="#code-first-table-naming-convention" title="Ссылка на этот заголовок">¶</a></h3>
-<p>EF6.x runs the entity class name through a pluralization service to calculate the default table name that the entity is mapped to.</p>
-<p>EF Core uses the name of the <code class="docutils literal"><span class="pre">DbSet</span></code> property that the entity is exposed in on the derived context. If the entity does not have a <code class="docutils literal"><span class="pre">DbSet</span></code> property, then the class name is used.</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id9">Соглашения наименования таблиц Code First</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Для вычисления имени таблицы по умолчанию, которая связана с сущностью, EF6.x работает с именем класса сущности через службу плюрализации.</p>
+<p>EF Core использует имя свойства <code class="docutils literal"><span class="pre">DbSet</span></code>, которое используется сущностью в качестве производного контекста. Если у сущности нет свойства <code class="docutils literal"><span class="pre">DbSet</span></code>, то используется имя класса.</p>
 </div>
 </div>
 </div>
