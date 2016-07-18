@@ -27,7 +27,7 @@
 .. include:: /platforms/_shared/create-blogging-database-vs.txt
 
 Создание нового проекта
--------------------------------
+-----------------------
 
 * Откройте Visual Studio 2015
 	* :menuselection:`File --> New --> Project...`

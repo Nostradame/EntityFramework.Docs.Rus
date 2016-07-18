@@ -1,7 +1,7 @@
-.NET Core Application to New SQLite Database
-============================================
+Приложение .NET Core для новой SQLite базы данных
+=================================================
 
-In this walkthrough, you will build a .NET Core console application that performs basic data access using Entity Framework.
+В этом пошаговом руководстве вы создадите консольное приложение .NET Core, которое выполняет базовый доступ к данным при помощи Entity Framework.
 Вы будете использовать миграции для создания базы данных из модели.
 
 .. contents:: `В этой статье:`
@@ -15,9 +15,9 @@ In this walkthrough, you will build a .NET Core console application that perform
 ---------------------------
 
 Минимальные системные требования
- - An operating system that supports .NET Core
+ - Операционная система, поддерживающая .NET Core
  - `.NET Core SDK Preview 2 <https://www.microsoft.com/net/core>`_
- - A text editor
+ - Текстовый редактор
 
 .. attention::
     **Известные проблеммы**
@@ -25,17 +25,15 @@ In this walkthrough, you will build a .NET Core console application that perform
     - Миграции на SQLite не поддерживают более сложные изменения схемы из-за 
       ограничений в самой СУБД SQLite. Смотрите :doc:`/providers/sqlite/limitations`
 
-Install the .NET Core SDK
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Установка .NET Core SDK
+^^^^^^^^^^^^^^^^^^^^^^^
 
-The .NET Core SDK provides the command-line tool ``dotnet`` which will be used to
-build and run our sample application.
+The .NET Core SDK предоставляет средство командной строки ``dotnet`` который будет использоваться для построения и запуска нашего примера приложения.
 
-See the `.NET Core website <https://www.microsoft.com/net/core>`_ for instructions on installing the SDK
-on your operating system.
+Для получения инструкций по установке SDK на вашей операционной системы смотрите `.NET Core website <https://www.microsoft.com/net/core>`_
 
 Создание нового проекта
--------------------------------
+-----------------------
 
  Создайте для своего проекта новую папку ``ConsoleApp/``. Все файлы для проекта будут в этой папке.
 
@@ -44,7 +42,7 @@ on your operating system.
         mkdir ConsoleApp
         cd ConsoleApp/
 
- - Execute the following .NET Core CLI commands to create a new console application, download dependencies, and run the .NET Core app.
+ - Для создания нового консольного приложения, загрузки зависимостей и запуска приложения .NET Core, выполните следующие команды .NET Core CLI.
 
    .. code-block:: bash
 
@@ -53,7 +51,7 @@ on your operating system.
        dotnet run
 
 Установка Entity Framework
----------------------------------
+--------------------------
 
  - Для того, чтобы добавить EF в свой проект, измените ``project.json`` так, чтобы он соответствовал примеру ниже.
 
@@ -76,7 +74,7 @@ on your operating system.
 
 
 Создание модели
----------------------
+---------------
 
 С этим новым проектом вы готовы начать использование Entity Framework.
 Следующие шаги добавят код для настройки и получения доступа к файлу базы данных SQLite.
@@ -115,7 +113,7 @@ on your operating system.
         dotnet build
 
 Создание базы данных
-----------------------------
+--------------------
 
 Теперь мы можем использовать инструменты командной строки Entity Framework для создания и управления схемой базы данных.
 
@@ -143,7 +141,7 @@ on your operating system.
   поэтому база данных SQLite будет находиться: ``bin/Debug/netcoreapp1.0/blog.db``
 
 Использование модели
------------------------------
+--------------------
 
 Теперь, когда мы настроили нашу модель и созданы схемы базы данных, мы можем использовать BloggingContext для создания, обновления и удаления объектов.
 
@@ -152,7 +150,7 @@ on your operating system.
     :linenos:
 
 Запуск приложения
--------------------------
+-----------------
 
 Запустите приложение из командной строки.
 

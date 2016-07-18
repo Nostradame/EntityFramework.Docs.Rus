@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>.NET Core Application to New SQLite Database &mdash; Документация Entity Framework Core 1.0.0</title>
+  <title>Приложение .NET Core для новой SQLite базы данных &mdash; Документация Entity Framework Core 1.0.0</title>
   
 
   
@@ -91,7 +91,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Приступая к работе</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../full-dotnet/index.html">Приступая к работе на Full .NET (Console, WinForms, WPF, etc.)</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Приступая к работе на .NET Core (Windows, OSX, Linux и т.д.)</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">.NET Core Application to New SQLite Database</a><ul class="simple">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Приложение .NET Core для новой SQLite базы данных</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -140,7 +140,7 @@
       
           <li><a href="index.html">Приступая к работе на .NET Core (Windows, OSX, Linux и т.д.)</a> &raquo;</li>
       
-    <li>.NET Core Application to New SQLite Database</li>
+    <li>Приложение .NET Core для новой SQLite базы данных</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -156,9 +156,9 @@
 <p class="first admonition-title">Внимание</p>
 <p class="last">Эта документация для EF Core. Для EF6.x и более ранних версий смотрите <a class="reference external" href="http://msdn.com/data/ef">http://msdn.com/data/ef</a>.</p>
 </div>
-<div class="section" id="net-core-application-to-new-sqlite-database">
-<h1>.NET Core Application to New SQLite Database<a class="headerlink" href="#net-core-application-to-new-sqlite-database" title="Ссылка на этот заголовок">¶</a></h1>
-<p>In this walkthrough, you will build a .NET Core console application that performs basic data access using Entity Framework.
+<div class="section" id="net-core-sqlite">
+<h1>Приложение .NET Core для новой SQLite базы данных<a class="headerlink" href="#net-core-sqlite" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В этом пошаговом руководстве вы создадите консольное приложение .NET Core, которое выполняет базовый доступ к данным при помощи Entity Framework.
 Вы будете использовать миграции для создания базы данных из модели.</p>
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
@@ -181,9 +181,9 @@
 <dl class="docutils">
 <dt>Минимальные системные требования</dt>
 <dd><ul class="first last simple">
-<li>An operating system that supports .NET Core</li>
+<li>Операционная система, поддерживающая .NET Core</li>
 <li><a class="reference external" href="https://www.microsoft.com/net/core">.NET Core SDK Preview 2</a></li>
-<li>A text editor</li>
+<li>Текстовый редактор</li>
 </ul>
 </dd>
 </dl>
@@ -195,12 +195,10 @@
 ограничений в самой СУБД SQLite. Смотрите <a class="reference internal" href="../../providers/sqlite/limitations.html"><span class="doc">Ограничения SQLite</span></a></li>
 </ul>
 </div>
-<div class="section" id="install-the-net-core-sdk">
-<h3>Install the .NET Core SDK<a class="headerlink" href="#install-the-net-core-sdk" title="Ссылка на этот заголовок">¶</a></h3>
-<p>The .NET Core SDK provides the command-line tool <code class="docutils literal"><span class="pre">dotnet</span></code> which will be used to
-build and run our sample application.</p>
-<p>See the <a class="reference external" href="https://www.microsoft.com/net/core">.NET Core website</a> for instructions on installing the SDK
-on your operating system.</p>
+<div class="section" id="net-core-sdk">
+<h3>Установка .NET Core SDK<a class="headerlink" href="#net-core-sdk" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The .NET Core SDK предоставляет средство командной строки <code class="docutils literal"><span class="pre">dotnet</span></code> который будет использоваться для построения и запуска нашего примера приложения.</p>
+<p>Для получения инструкций по установке SDK на вашей операционной системы смотрите <a class="reference external" href="https://www.microsoft.com/net/core">.NET Core website</a></p>
 </div>
 </div>
 <div class="section" id="id4">
@@ -214,7 +212,7 @@ on your operating system.</p>
 </div>
 </div></blockquote>
 <ul>
-<li><p class="first">Execute the following .NET Core CLI commands to create a new console application, download dependencies, and run the .NET Core app.</p>
+<li><p class="first">Для создания нового консольного приложения, загрузки зависимостей и запуска приложения .NET Core, выполните следующие команды .NET Core CLI.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>dotnet new
 dotnet restore
 dotnet run
@@ -536,7 +534,7 @@ dotnet run
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 17, 2016.
+      Обновлено: июл. 18, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 

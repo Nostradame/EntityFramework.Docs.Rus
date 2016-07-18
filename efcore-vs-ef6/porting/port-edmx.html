@@ -35,9 +35,9 @@
 
   
     <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
-        <link rel="up" title="Porting from EF6.x to EF Core" href="index.html"/>
+        <link rel="up" title="Портирование с EF6.x на EF Core" href="index.html"/>
         <link rel="next" title="Porting a Code-Based Model (Code First &amp; Code First to Existing Database)" href="port-code.html"/>
-        <link rel="prev" title="Ensure EF Core Will Work for Your Application" href="ensure-requirements.html"/> 
+        <link rel="prev" title="Убедитесь, что EF Core будет работать с вашим приложением" href="ensure-requirements.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -95,8 +95,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">EF Core vs. EF6.x</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../choosing.html">Что из этого больше подходит для вас</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../features.html">Сравнение функций</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Porting from EF6.x to EF Core</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ensure-requirements.html">Ensure EF Core Will Work for Your Application</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Портирование с EF6.x на EF Core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ensure-requirements.html">Убедитесь, что EF Core будет работать с вашим приложением</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Портирование модели, основанной на EDMX (Model First &amp; Database First)</a><ul class="simple">
 </ul>
 </li>
@@ -140,7 +140,7 @@
       
           <li><a href="../index.html">EF Core vs. EF6.x</a> &raquo;</li>
       
-          <li><a href="index.html">Porting from EF6.x to EF Core</a> &raquo;</li>
+          <li><a href="index.html">Портирование с EF6.x на EF Core</a> &raquo;</li>
       
     <li>Портирование модели, основанной на EDMX (Model First &amp; Database First)</li>
       <li class="wy-breadcrumbs-aside">
@@ -160,46 +160,46 @@
 </div>
 <div class="section" id="edmx-model-first-database-first">
 <h1>Портирование модели, основанной на EDMX (Model First &amp; Database First)<a class="headerlink" href="#edmx-model-first-database-first" title="Ссылка на этот заголовок">¶</a></h1>
-<p>EF Core does not support the EDMX file format for models. The best option to port these models, is to generate a new code-based model from the database for your application.</p>
+<p>EF Core не поддерживает для моделей формат файла EDMX. Самый лучший вариант для портирования таких моделей это генерирование новой модели, основанной на коде из базы данных вашего приложения.</p>
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#install-ef-core-nuget-packages" id="id2">Install EF Core NuGet packages</a></li>
-<li><a class="reference internal" href="#regenerate-the-model" id="id3">Regenerate the model</a></li>
-<li><a class="reference internal" href="#remove-ef6-x-model" id="id4">Remove EF6.x model</a></li>
-<li><a class="reference internal" href="#update-your-code" id="id5">Update your code</a></li>
-<li><a class="reference internal" href="#test-the-port" id="id6">Test the port</a></li>
+<li><a class="reference internal" href="#ef-core-nuget" id="id5">Установка пакетов EF Core NuGet</a></li>
+<li><a class="reference internal" href="#id2" id="id6">Восстановление модели</a></li>
+<li><a class="reference internal" href="#ef6-x" id="id7">Удаление модели EF6.x</a></li>
+<li><a class="reference internal" href="#id3" id="id8">Обновление кода</a></li>
+<li><a class="reference internal" href="#id4" id="id9">Тестирование портирования</a></li>
 </ul>
 </div>
-<div class="section" id="install-ef-core-nuget-packages">
-<h2><a class="toc-backref" href="#id2">Install EF Core NuGet packages</a><a class="headerlink" href="#install-ef-core-nuget-packages" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Install the <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.Tools</span></code> NuGet package.</p>
-<p>You also need to install the <strong>design time</strong> NuGet package for the database provider you want to use. This is typically the runtime database provider package name with <code class="docutils literal"><span class="pre">.Design</span></code> post-fixed. For example, when targeting SQL Server, you would install <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.SqlServer.Design</span></code>. See <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a> for details.</p>
+<div class="section" id="ef-core-nuget">
+<h2><a class="toc-backref" href="#id5">Установка пакетов EF Core NuGet</a><a class="headerlink" href="#ef-core-nuget" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Установите NuGet пакет <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.Tools</span></code>.</p>
+<p>Вам также нужно установить NuGet <strong>design time</strong> пакет того провайдера базы данных, которого вы хотите использовать. Обычно это имя пакета среды выполнения провайдера базы данных с суффиксом <code class="docutils literal"><span class="pre">.Design</span></code>. Например, когда выбран SQL Server, вы должны установить <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.SqlServer.Design</span></code>. Подробнее смотрите раздел <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a>.</p>
 </div>
-<div class="section" id="regenerate-the-model">
-<h2><a class="toc-backref" href="#id3">Regenerate the model</a><a class="headerlink" href="#regenerate-the-model" title="Ссылка на этот заголовок">¶</a></h2>
-<p>You can now use the reverse engineer functionality to create a model based on your existing database.</p>
-<p>Run the following command in Package Manager Console (<span class="menuselection">Tools –&gt; NuGet Package Manager –&gt; Package Manager Console</span>). See <a class="reference internal" href="../../miscellaneous/cli/powershell.html"><span class="doc">Консоль Package Manager (Visual Studio)</span></a> for command options to scaffold a subset of tables etc.</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id6">Восстановление модели</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь вы можете использовать функционал обратного инжиниринга для создания модели на основе существующей базы данных.</p>
+<p>В консоли Package Manager выполните следующую команду (<span class="menuselection">Tools –&gt; NuGet Package Manager –&gt; Package Manager Console</span>). Параметры команды для скаффолдинга набора таблиц и т.п., смотрите раздел <a class="reference internal" href="../../miscellaneous/cli/powershell.html"><span class="doc">Консоль Package Manager (Visual Studio)</span></a>.</p>
 <div class="highlight-text"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>Scaffold-DbContext &quot;&lt;connection string&gt;&quot; &lt;database provider name&gt;
 </pre></div>
 </td></tr></table></div>
-<p>For example, here is the command to scaffold a model from the Blogging database on your SQL Server LocalDB instance.</p>
+<p>Например, вот команда для скаффолдинга модели из базы данных Blogging экземпляра SQL Server LocalDB.</p>
 <div class="highlight-text"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>Scaffold-DbContext &quot;Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;&quot; Microsoft.EntityFrameworkCore.SqlServer
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="remove-ef6-x-model">
-<h2><a class="toc-backref" href="#id4">Remove EF6.x model</a><a class="headerlink" href="#remove-ef6-x-model" title="Ссылка на этот заголовок">¶</a></h2>
-<p>You would now remove the EF6.x model from your application.</p>
-<p>It is fine to leave the EF6.x NuGet package (EntityFramework) installed, as EF Core and EF6.x can be used side-by-side in the same application. However, if you aren&#8217;t intending to use EF6.x in any areas of your application, then uninstalling the package will help give compile errors on pieces of code that need attention.</p>
+<div class="section" id="ef6-x">
+<h2><a class="toc-backref" href="#id7">Удаление модели EF6.x</a><a class="headerlink" href="#ef6-x" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь вам нужно удалить модель EF6.x из своего приложения.</p>
+<p>Лучше оставить NuGet пакет EF6.x (EntityFramework) установленным, так как EF Core и EF6.x могут использоваться бок-о-бок в одном приложении. Тем не менее, если вы не намерены использовать EF6.x ни в каких областях вашего приложения, то удаление пакета поможет выявить ошибки компиляции в фрагментах кода, которые требуют внимания.</p>
 </div>
-<div class="section" id="update-your-code">
-<h2><a class="toc-backref" href="#id5">Update your code</a><a class="headerlink" href="#update-your-code" title="Ссылка на этот заголовок">¶</a></h2>
-<p>At this point, it&#8217;s a matter of addressing compilation errors and reviewing code to see if the behavior changes between EF6.x and EF Core will impact you.</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">Обновление кода</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>На данный момент вы столкнетесь с вопросом решения ошибок компиляции и анализа кода, чтобы увидеть, есть ли изменения в поведении между EF6.x и EF Core.</p>
 </div>
-<div class="section" id="test-the-port">
-<h2><a class="toc-backref" href="#id6">Test the port</a><a class="headerlink" href="#test-the-port" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Just because your application compiles, does not mean it is successfully ported to EF Core. You will need to test all areas of your application to ensure that none of the behavior changes have adversely impacted your application.</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">Тестирование портирования</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Даже если ваше приложение собирается, это не означает, что оно успешно портировано на EF Core. Вам нужно будет проверить все области вашего приложения, чтобы убедиться, что ни одно из изменений в поведении не воздействует негативно на ваше приложение.</p>
 </div>
 </div>
 
@@ -213,7 +213,7 @@
         <a href="port-code.html" class="btn btn-neutral float-right" title="Porting a Code-Based Model (Code First &amp; Code First to Existing Database)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ensure-requirements.html" class="btn btn-neutral" title="Ensure EF Core Will Work for Your Application" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ensure-requirements.html" class="btn btn-neutral" title="Убедитесь, что EF Core будет работать с вашим приложением" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -223,7 +223,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 17, 2016.
+      Обновлено: июл. 18, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 

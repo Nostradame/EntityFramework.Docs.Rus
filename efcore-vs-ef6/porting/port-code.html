@@ -35,7 +35,7 @@
 
   
     <link rel="top" title="Документация Entity Framework Core 1.0.0" href="../../index.html"/>
-        <link rel="up" title="Porting from EF6.x to EF Core" href="index.html"/>
+        <link rel="up" title="Портирование с EF6.x на EF Core" href="index.html"/>
         <link rel="next" title="EF6.x and EF Core in the Same Application" href="../side-by-side.html"/>
         <link rel="prev" title="Портирование модели, основанной на EDMX (Model First &amp; Database First)" href="port-edmx.html"/> 
 
@@ -95,8 +95,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">EF Core vs. EF6.x</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../choosing.html">Что из этого больше подходит для вас</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../features.html">Сравнение функций</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Porting from EF6.x to EF Core</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ensure-requirements.html">Ensure EF Core Will Work for Your Application</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Портирование с EF6.x на EF Core</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ensure-requirements.html">Убедитесь, что EF Core будет работать с вашим приложением</a></li>
 <li class="toctree-l3"><a class="reference internal" href="port-edmx.html">Портирование модели, основанной на EDMX (Model First &amp; Database First)</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Porting a Code-Based Model (Code First &amp; Code First to Existing Database)</a><ul class="simple">
 </ul>
@@ -140,7 +140,7 @@
       
           <li><a href="../index.html">EF Core vs. EF6.x</a> &raquo;</li>
       
-          <li><a href="index.html">Porting from EF6.x to EF Core</a> &raquo;</li>
+          <li><a href="index.html">Портирование с EF6.x на EF Core</a> &raquo;</li>
       
     <li>Porting a Code-Based Model (Code First &amp; Code First to Existing Database)</li>
       <li class="wy-breadcrumbs-aside">
@@ -164,27 +164,27 @@
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#install-ef-core-nuget-packages" id="id2">Install EF Core NuGet packages</a></li>
-<li><a class="reference internal" href="#swap-namespaces" id="id3">Swap namespaces</a></li>
-<li><a class="reference internal" href="#context-configuration-connection-etc" id="id4">Context configuration (connection etc.)</a></li>
-<li><a class="reference internal" href="#update-your-code" id="id5">Update your code</a></li>
-<li><a class="reference internal" href="#existing-migrations" id="id6">Existing migrations</a></li>
-<li><a class="reference internal" href="#test-the-port" id="id7">Test the port</a></li>
+<li><a class="reference internal" href="#ef-core-nuget" id="id4">Установка пакетов EF Core NuGet</a></li>
+<li><a class="reference internal" href="#swap-namespaces" id="id5">Swap namespaces</a></li>
+<li><a class="reference internal" href="#context-configuration-connection-etc" id="id6">Context configuration (connection etc.)</a></li>
+<li><a class="reference internal" href="#id2" id="id7">Обновление кода</a></li>
+<li><a class="reference internal" href="#existing-migrations" id="id8">Existing migrations</a></li>
+<li><a class="reference internal" href="#id3" id="id9">Тестирование портирования</a></li>
 </ul>
 </div>
-<div class="section" id="install-ef-core-nuget-packages">
-<h2><a class="toc-backref" href="#id2">Install EF Core NuGet packages</a><a class="headerlink" href="#install-ef-core-nuget-packages" title="Ссылка на этот заголовок">¶</a></h2>
-<p>To use EF Core, you install the NuGet package for the database provider you want to use. For example, when targeting SQL Server, you would install <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.SqlServer</span></code>. See <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a> for details.</p>
+<div class="section" id="ef-core-nuget">
+<h2><a class="toc-backref" href="#id4">Установка пакетов EF Core NuGet</a><a class="headerlink" href="#ef-core-nuget" title="Ссылка на этот заголовок">¶</a></h2>
+<p>To use EF Core, you install the NuGet package for the database provider you want to use. For example, when targeting SQL Server, you would install <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.SqlServer</span></code>. Подробнее смотрите раздел <a class="reference internal" href="../../providers/index.html"><span class="doc">Провайдеры баз данных</span></a>.</p>
 <p>If you are planning to use migrations, then you should also install the <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.Tools</span></code> package.</p>
-<p>It is fine to leave the EF6.x NuGet package (EntityFramework) installed, as EF Core and EF6.x can be used side-by-side in the same application. However, if you aren&#8217;t intending to use EF6.x in any areas of your application, then uninstalling the package will help give compile errors on pieces of code that need attention.</p>
+<p>Лучше оставить NuGet пакет EF6.x (EntityFramework) установленным, так как EF Core и EF6.x могут использоваться бок-о-бок в одном приложении. Тем не менее, если вы не намерены использовать EF6.x ни в каких областях вашего приложения, то удаление пакета поможет выявить ошибки компиляции в фрагментах кода, которые требуют внимания.</p>
 </div>
 <div class="section" id="swap-namespaces">
-<h2><a class="toc-backref" href="#id3">Swap namespaces</a><a class="headerlink" href="#swap-namespaces" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Swap namespaces</a><a class="headerlink" href="#swap-namespaces" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Most APIs that you use in EF6.x are in the <code class="docutils literal"><span class="pre">System.Data.Entity</span></code> namespace (and related sub-namespaces). The first code change is to swap to the <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore</span></code> namespace. You would typically start with your derived context code file and then work out from there, addressing compilation errors as they occur.</p>
 </div>
 <div class="section" id="context-configuration-connection-etc">
-<h2><a class="toc-backref" href="#id4">Context configuration (connection etc.)</a><a class="headerlink" href="#context-configuration-connection-etc" title="Ссылка на этот заголовок">¶</a></h2>
-<p>As described in <a class="reference internal" href="ensure-requirements.html"><span class="doc">Ensure EF Core Will Work for Your Application</span></a>, EF Core has less magic around detecting the database to connect to. You will need to override the <code class="docutils literal"><span class="pre">OnConfiguring</span></code> method on your derived context, and use the database provider specific API to setup the connection to the database.</p>
+<h2><a class="toc-backref" href="#id6">Context configuration (connection etc.)</a><a class="headerlink" href="#context-configuration-connection-etc" title="Ссылка на этот заголовок">¶</a></h2>
+<p>As described in <a class="reference internal" href="ensure-requirements.html"><span class="doc">Убедитесь, что EF Core будет работать с вашим приложением</span></a>, EF Core has less magic around detecting the database to connect to. You will need to override the <code class="docutils literal"><span class="pre">OnConfiguring</span></code> method on your derived context, and use the database provider specific API to setup the connection to the database.</p>
 <p>Most EF6.x applications store the connection string in the applications <code class="docutils literal"><span class="pre">App/Web.config</span></code> file. In EF Core, you read this connection string using the <code class="docutils literal"><span class="pre">ConfigurationManager</span></code> API. You may need to add a reference to the <code class="docutils literal"><span class="pre">System.Configuration</span></code> framework assembly to be able to use this API.</p>
 <div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -208,18 +208,18 @@
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="update-your-code">
-<h2><a class="toc-backref" href="#id5">Update your code</a><a class="headerlink" href="#update-your-code" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">Обновление кода</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <p>At this point, it&#8217;s a matter of addressing compilation errors and reviewing code to see if the behavior changes will impact you.</p>
 </div>
 <div class="section" id="existing-migrations">
-<h2><a class="toc-backref" href="#id6">Existing migrations</a><a class="headerlink" href="#existing-migrations" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Existing migrations</a><a class="headerlink" href="#existing-migrations" title="Ссылка на этот заголовок">¶</a></h2>
 <p>There isn&#8217;t really a feasible way to port existing EF6.x migrations to EF Core.</p>
 <p>If possible, it is best to assume that all previous migrations from EF6.x have been applied to the database and then start migrating the schema from that point using EF Core. To do this, you would use the <code class="docutils literal"><span class="pre">Add-Migration</span></code> command to add a migration once the model is ported to EF Core. You would then remove all code from the <code class="docutils literal"><span class="pre">Up</span></code> and <code class="docutils literal"><span class="pre">Down</span></code> methods of the scaffolded migration. Subsequent migrations will compare to the model when that initial migration was scaffolded.</p>
 </div>
-<div class="section" id="test-the-port">
-<h2><a class="toc-backref" href="#id7">Test the port</a><a class="headerlink" href="#test-the-port" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Just because your application compiles, does not mean it is successfully ported to EF Core. You will need to test all areas of your application to ensure that none of the behavior changes have adversely impacted your application.</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">Тестирование портирования</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Даже если ваше приложение собирается, это не означает, что оно успешно портировано на EF Core. Вам нужно будет проверить все области вашего приложения, чтобы убедиться, что ни одно из изменений в поведении не воздействует негативно на ваше приложение.</p>
 </div>
 </div>
 
@@ -243,7 +243,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 17, 2016.
+      Обновлено: июл. 18, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 

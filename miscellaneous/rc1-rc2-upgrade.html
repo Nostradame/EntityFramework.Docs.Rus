@@ -161,22 +161,22 @@
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id8">Имена пакетов и версии</a></li>
-<li><a class="reference internal" href="#id4" id="id9">Пространства имен</a></li>
-<li><a class="reference internal" href="#id5" id="id10">Изменения соглашения именования таблиц</a></li>
-<li><a class="reference internal" href="#adddbcontext-startup-cs-asp-net-core" id="id11">Изменения AddDbContext / Startup.cs (только для проектов ASP.NET Core)</a></li>
-<li><a class="reference internal" href="#iserviceprovider" id="id12">Передача IServiceProvider</a><ul>
-<li><a class="reference internal" href="#id7" id="id13">Тестирование</a></li>
-<li><a class="reference internal" href="#internal-services-application-service-provider-asp-net-core" id="id14">Решение Internal Services для Application Service Provider (только для проектов ASP.NET Core)</a></li>
+<li><a class="reference internal" href="#id2" id="id9">Имена пакетов и версии</a></li>
+<li><a class="reference internal" href="#id4" id="id10">Пространства имен</a></li>
+<li><a class="reference internal" href="#id5" id="id11">Изменения соглашения именования таблиц</a></li>
+<li><a class="reference internal" href="#adddbcontext-startup-cs-asp-net-core" id="id12">Изменения AddDbContext / Startup.cs (только для проектов ASP.NET Core)</a></li>
+<li><a class="reference internal" href="#iserviceprovider" id="id13">Передача IServiceProvider</a><ul>
+<li><a class="reference internal" href="#id7" id="id14">Тестирование</a></li>
+<li><a class="reference internal" href="#internal-services-application-service-provider-asp-net-core" id="id15">Решение Internal Services для Application Service Provider (только для проектов ASP.NET Core)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#dnx-net-cli-asp-net-core" id="id15">Команды DNX =&gt; .NET CLI (только проекты ASP.NET Core)</a></li>
-<li><a class="reference internal" href="#package-manager-powershell-5" id="id16">Командам Package Manager требуется PowerShell 5</a></li>
-<li><a class="reference internal" href="#imports-project-json" id="id17">Использование &#8220;imports&#8221; в project.json</a></li>
+<li><a class="reference internal" href="#dnx-net-cli-asp-net-core" id="id16">Команды DNX =&gt; .NET CLI (только проекты ASP.NET Core)</a></li>
+<li><a class="reference internal" href="#package-manager-powershell-5" id="id17">Командам Package Manager требуется PowerShell 5</a></li>
+<li><a class="reference internal" href="#imports-project-json" id="id18">Использование &#8220;imports&#8221; в project.json</a></li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id8">Имена пакетов и версии</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Имена пакетов и версии</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Разница между RC1 и RC2 в том, что мы изменили &#8220;Entity Framework 7&#8221; на &#8220;Entity Framework Core&#8221;. Вы можете прочитать больше о причинах изменения в <a class="reference external" href="http://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx">этом блоге Скотта Хансельмана</a>. Вследствие этого изменения наши имена пакетов изменены с <code class="docutils literal"><span class="pre">EntityFramework.*</span></code> на <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.*</span></code> и версии с <code class="docutils literal"><span class="pre">7.0.0-rc1-final</span></code> до <code class="docutils literal"><span class="pre">1.0.0-rc2-final</span></code> (или <code class="docutils literal"><span class="pre">1.0.0-preview1-final</span></code> для инструментария).</p>
 <p><strong>Вам будет нужно полностью удалить пакеты RC1 и установить RC2.</strong> Здесь сопоставление для некоторых общих пакетов.</p>
 <table border="1" class="docutils">
@@ -219,11 +219,11 @@
 </table>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id9">Пространства имен</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Пространства имен</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Наряду с именами пакетов, изменились пространства имен с <code class="docutils literal"><span class="pre">Microsoft.Data.Entity.*</span></code> на <code class="docutils literal"><span class="pre">Microsoft.EntityFrameworkCore.*</span></code>. Вы можете обработать это изменение поиском и заменой <code class="docutils literal"><span class="pre">using</span> <span class="pre">Microsoft.Data.Entity</span></code> на <code class="docutils literal"><span class="pre">using</span> <span class="pre">Microsoft.EntityFrameworkCore</span></code>.</p>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id10">Изменения соглашения именования таблиц</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Изменения соглашения именования таблиц</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Значительные функциональные изменения, которые мы приняли в RC2 - было использовать имя свойства <code class="docutils literal"><span class="pre">DbSet&lt;TEntity&gt;</span></code> для данной сущности как имя сопоставляемой таблицы, а не только имя класса. Вы можете прочитать больше об этом изменении <a class="reference external" href="https://github.com/aspnet/Announcements/issues/167">в соответствующем объявлении проблеммы</a>.</p>
 <p>Для существующих приложений, RC1 мы рекомендуем, добавив следующий код в начало метода <code class="docutils literal"><span class="pre">OnModelCreating</span></code> чтобы придерживаться стратегии именования RC1:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">modelBuilder</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">GetEntityTypes</span><span class="p">())</span>
@@ -235,7 +235,7 @@
 <p>Если вы хотите принять в новой стратегии именования, мы рекомендуем успешно завершить остальные шаги обновления и затем удаление кода и создания миграции для применения переименовывания таблицы.</p>
 </div>
 <div class="section" id="adddbcontext-startup-cs-asp-net-core">
-<h2><a class="toc-backref" href="#id11">Изменения AddDbContext / Startup.cs (только для проектов ASP.NET Core)</a><a class="headerlink" href="#adddbcontext-startup-cs-asp-net-core" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Изменения AddDbContext / Startup.cs (только для проектов ASP.NET Core)</a><a class="headerlink" href="#adddbcontext-startup-cs-asp-net-core" title="Ссылка на этот заголовок">¶</a></h2>
 <p>В RC1, вам пришлось бы добавлять сервисы Entity Framework в провайдер сервисов приложения - в <code class="docutils literal"><span class="pre">Startup.ConfigureServices(...)</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">services</span><span class="o">.</span><span class="n">AddEntityFramework</span><span class="p">()</span>
   <span class="o">.</span><span class="n">AddSqlServer</span><span class="p">()</span>
@@ -257,14 +257,14 @@
 </div>
 </div>
 <div class="section" id="iserviceprovider">
-<h2><a class="toc-backref" href="#id12">Передача IServiceProvider</a><a class="headerlink" href="#iserviceprovider" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Передача IServiceProvider</a><a class="headerlink" href="#iserviceprovider" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Если у вас был код RC1 который передавал в контекст <code class="docutils literal"><span class="pre">IServiceProvider</span></code>, то теперь он перемещен в <code class="docutils literal"><span class="pre">DbContextOptions</span></code>, а не в отдельный параметр конструктора. Используйте для настройки провайдера служб <code class="docutils literal"><span class="pre">DbContextOptionsBuilder.UseInternalServiceProvider(...)</span></code>.</p>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id13">Тестирование</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Тестирование</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Для тестирования наиболее распространенным сценарием было контролировать области базы данных InMemory. Как это сделать с RC2 смотрите обновленную статью <a class="reference internal" href="testing.html"><span class="doc">Тестирование InMemory</span></a>.</p>
 </div>
 <div class="section" id="internal-services-application-service-provider-asp-net-core">
-<h3><a class="toc-backref" href="#id14">Решение Internal Services для Application Service Provider (только для проектов ASP.NET Core)</a><a class="headerlink" href="#internal-services-application-service-provider-asp-net-core" title="Ссылка на этот заголовок">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Решение Internal Services для Application Service Provider (только для проектов ASP.NET Core)</a><a class="headerlink" href="#internal-services-application-service-provider-asp-net-core" title="Ссылка на этот заголовок">¶</a></h3>
 <p>Если у вас есть приложение ASP.NET Core и вы хотите разрешить EF внутренние службы из провайдера служб приложения, то есть перегруженный метод <code class="docutils literal"><span class="pre">AddDbContext</span></code> , который позволит вам это настроить:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">services</span><span class="o">.</span><span class="n">AddEntityFrameworkSqlServer</span><span class="p">()</span>
   <span class="o">.</span><span class="n">AddDbContext</span><span class="o">&lt;</span><span class="n">ApplicationDbContext</span><span class="o">&gt;</span><span class="p">((</span><span class="n">serviceProvider</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> <span class="o">=&gt;</span>
@@ -279,7 +279,7 @@
 </div>
 </div>
 <div class="section" id="dnx-net-cli-asp-net-core">
-<h2><a class="toc-backref" href="#id15">Команды DNX =&gt; .NET CLI (только проекты ASP.NET Core)</a><a class="headerlink" href="#dnx-net-cli-asp-net-core" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">Команды DNX =&gt; .NET CLI (только проекты ASP.NET Core)</a><a class="headerlink" href="#dnx-net-cli-asp-net-core" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Если вы ранее для проектов ASP.NET 5 использовали команды <code class="docutils literal"><span class="pre">dnx</span> <span class="pre">ef</span></code>, то теперь они перемещены в команды <code class="docutils literal"><span class="pre">dotnet</span> <span class="pre">ef</span></code>. По-прежнему применяется тот же синтаксис команды. Вы можете использовать <code class="docutils literal"><span class="pre">dotnet</span> <span class="pre">ef</span> <span class="pre">--help</span></code> для получения сведения о синтаксисе.</p>
 <p>Метод регистрации команд в RC2 изменился благодаря тому, что DNX был заменен на .NET CLI. Теперь команды регистрируются в разделе <code class="docutils literal"><span class="pre">tools</span></code> файла <code class="docutils literal"><span class="pre">project.json</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;tools&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -299,11 +299,11 @@
 </div>
 </div>
 <div class="section" id="package-manager-powershell-5">
-<h2><a class="toc-backref" href="#id16">Командам Package Manager требуется PowerShell 5</a><a class="headerlink" href="#package-manager-powershell-5" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Командам Package Manager требуется PowerShell 5</a><a class="headerlink" href="#package-manager-powershell-5" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Если вы используете команды Entity Framework в консоли диспетчера пакетов в Visual Studio, то вам нужно убедиться, что у вас установлена PowerShell 5. Это временное требование, которое будет удалено в следующем выпуске (для получения более подробной информации смотрите <a class="reference external" href="https://github.com/aspnet/EntityFramework/issues/5327">issue #5327</a>).</p>
 </div>
 <div class="section" id="imports-project-json">
-<h2><a class="toc-backref" href="#id17">Использование &#8220;imports&#8221; в project.json</a><a class="headerlink" href="#imports-project-json" title="Ссылка на этот заголовок">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">Использование &#8220;imports&#8221; в project.json</a><a class="headerlink" href="#imports-project-json" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Некоторые из основных зависимостей EF еще не поддерживают .NET Standard. EF Core в проектах .NET Standard и .NET Core может временно потребоваться добавить &#8220;imports&#8221; в project.json.</p>
 <p>Когда добавляется EF, восстановление NuGet будет отображаться такое сообщение об ошибке:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>Package Ix-Async 1.2.5 is not compatible with netcoreapp1.0 (.NETCoreApp,Version=v1.0). Package Ix-Async 1.2.5 supports:
@@ -329,7 +329,7 @@ Package Remotion.Linq 2.0.2 is not compatible with netcoreapp1.0 (.NETCoreApp,Ve
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://github.com/aspnet/EntityFramework/issues/5176">Issue #5176</a>.</p>
+<p>Смотрите <a class="reference external" href="https://github.com/aspnet/EntityFramework/issues/5176">Проблема #5176</a>.</p>
 </div>
 </div>
 
@@ -353,7 +353,7 @@ Package Remotion.Linq 2.0.2 is not compatible with netcoreapp1.0 (.NETCoreApp,Ve
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 17, 2016.
+      Обновлено: июл. 18, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 
