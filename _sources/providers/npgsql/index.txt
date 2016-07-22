@@ -1,33 +1,33 @@
 Npgsql (PostgreSQL)
 ===================
 
-This database provider allows Entity Framework Core to be used with PostgreSQL. The provider is maintained as part of the `Npgsql project <http://www.npgsql.org>`_.
+Этот провайдер базы данных позволяет использование Entity Framework Core вместе с PostgreSQL. Провайдер поддерживается как часть `проекта Npgsql <http://www.npgsql.org>`_.
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Install
--------
+Установка
+---------
 
-Install the `Npgsql.EntityFrameworkCore.PostgreSQL NuGet package <https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL>`_.
+Установите `NuGet пакет Npgsql.EntityFrameworkCore.PostgreSQL <https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL>`_.
 
 .. code-block:: text
 
     PM>  Install-Package Npgsql.EntityFrameworkCore.PostgreSQL
 
-Get Started
------------
+Начало работы
+-------------
 
-See the `Npgsql documentation <http://www.npgsql.org/doc/efcore.html>`_ to get started.
+Для начала работы прочтите `документацию Npgsql <http://www.npgsql.org/doc/efcore.html>`_.
 
 Поддерживаемые движки баз данных
-----------------------------------------------
+--------------------------------
 
   * PostgreSQL
 
 Поддерживаемые платформы
--------------------------------------
+------------------------
 
   * Full .NET (4.5.1 и далее)
   * .NET Core

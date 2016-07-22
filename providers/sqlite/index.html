@@ -92,7 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../modeling/index.html">Создание модели</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../querying/index.html">Запрос данных</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../saving/index.html">Сохранение данных</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core vs. EF6.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../efcore-vs-ef6/index.html">EF Core или EF6.x</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Провайдеры баз данных</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../sql-server/index.html">Microsoft SQL Server</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SQLite</a><ul>
@@ -102,10 +102,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../npgsql/index.html">Npgsql (PostgreSQL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sql-compact/index.html">Microsoft SQL Server Compact Edition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ibm/index.html">Серверы данных IBM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../in-memory/index.html">InMemory (for Testing)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../devart/index.html">Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../in-memory/index.html">InMemory (для тестирования)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../devart/index.html">Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, и другие)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mysql/index.html">MySQL (скоро)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../oracle/index.html">Oracle (Coming Soon)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oracle/index.html">Oracle (скоро)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../miscellaneous/index.html">Разное</a></li>
@@ -159,49 +159,49 @@
 </div>
 <div class="section" id="sqlite">
 <h1>SQLite<a class="headerlink" href="#sqlite" title="Ссылка на этот заголовок">¶</a></h1>
-<p>This database provider allows Entity Framework Core to be used with SQLite. The provider is maintained as part of the <a class="reference external" href="https://github.com/aspnet/EntityFramework">EntityFramework GitHub project</a>.</p>
+<p>Этот провайдер базы данных позволяет использование Entity Framework Core вместе с SQLite. Провайдер поддерживается в рамках <a class="reference external" href="https://github.com/aspnet/EntityFramework">GitHub проекта EntityFramework</a>.</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="contents local topic" id="id1">
 <p class="topic-title first"><cite>В этой статье:</cite></p>
 <ul class="simple">
-<li><a class="reference internal" href="#install" id="id5">Install</a></li>
-<li><a class="reference internal" href="#get-started" id="id6">Get Started</a></li>
-<li><a class="reference internal" href="#id2" id="id7">Поддерживаемые движки баз данных</a></li>
-<li><a class="reference internal" href="#id3" id="id8">Поддерживаемые платформы</a></li>
-<li><a class="reference internal" href="#id4" id="id9">Ограничения</a></li>
+<li><a class="reference internal" href="#id2" id="id7">Установка</a></li>
+<li><a class="reference internal" href="#id3" id="id8">Начало работы</a></li>
+<li><a class="reference internal" href="#id4" id="id9">Поддерживаемые движки баз данных</a></li>
+<li><a class="reference internal" href="#id5" id="id10">Поддерживаемые платформы</a></li>
+<li><a class="reference internal" href="#id6" id="id11">Ограничения</a></li>
 </ul>
 </div>
-<div class="section" id="install">
-<h2><a class="toc-backref" href="#id5">Install</a><a class="headerlink" href="#install" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Install the <a class="reference external" href="hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SQLite/">Microsoft.EntityFrameworkCore.SQLite NuGet package</a>.</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">Установка</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Установите <a class="reference external" href="hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SQLite/">NuGet пакет Microsoft.EntityFrameworkCore.SQLite</a>.</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>PM&gt;  Install-Package Microsoft.EntityFrameworkCore.SQLite
 </pre></div>
 </div>
 </div>
-<div class="section" id="get-started">
-<h2><a class="toc-backref" href="#id6">Get Started</a><a class="headerlink" href="#get-started" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">Начало работы</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
 <dl class="docutils">
-<dt>The following resources will help you get started with this provider.</dt>
+<dt>Следующие ресурсы помогут вам начать работу с этим провайдером.</dt>
 <dd><ul class="first last simple">
 <li><a class="reference internal" href="../../platforms/uwp/getting-started.html"><span class="doc">Локальная SQLite на UWP</span></a></li>
 <li><a class="reference internal" href="../../platforms/netcore/new-db-sqlite.html"><span class="doc">Приложение .NET Core для новой SQLite базы данных</span></a></li>
-<li><a class="reference external" href="https://github.com/rowanmiller/UnicornStore/tree/master/UnicornClicker/UWP">Unicorn Clicker Sample Application</a></li>
-<li><a class="reference external" href="https://github.com/rowanmiller/UnicornStore/tree/master/UnicornPacker">Unicorn Packer Sample Application</a></li>
+<li><a class="reference external" href="https://github.com/rowanmiller/UnicornStore/tree/master/UnicornClicker/UWP">Пример приложения Unicorn Clicker</a></li>
+<li><a class="reference external" href="https://github.com/rowanmiller/UnicornStore/tree/master/UnicornPacker">Пример приложения Unicorn Packer</a></li>
 </ul>
 </dd>
 </dl>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id7">Поддерживаемые движки баз данных</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">Поддерживаемые движки баз данных</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li>SQLite (3.7 onwards)</li>
+<li>SQLite (3.7 и далее)</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id8">Поддерживаемые платформы</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">Поддерживаемые платформы</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li>Full .NET (4.5.1 и далее)</li>
@@ -211,8 +211,8 @@
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id9">Ограничения</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id11">Ограничения</a><a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Смотрите <a class="reference internal" href="limitations.html"><span class="doc">Ограничения SQLite</span></a> о некоторых важных ограничениях провадера SQLite.</p>
 </div>
 </div>
@@ -237,7 +237,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016 Microsoft.
-      Обновлено: июл. 18, 2016.
+      Обновлено: июл. 23, 2016.
 
     </p>
   </div> Документация лицензирована под <a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0</a>. 

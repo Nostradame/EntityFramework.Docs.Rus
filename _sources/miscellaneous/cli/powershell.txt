@@ -212,7 +212,7 @@ Update-Database
 
 Use-DbContext
 ~~~~~~~~~~~~~
-Sets the default DbContext to use.
+Устанавливает DbContext для использования по умолчанию.
 
 .. code-block:: text
 
@@ -234,26 +234,22 @@ Sets the default DbContext to use.
           Задает среду для использования. Если этот параметр опущен, используется "Development".
 
 
-Using EF Core commands and EF 6 commands side-by-side
------------------------------------------------------
+Совместное использование команд EF Core и EF 6
+----------------------------------------------
 
-EF Core commands do not work on EF 6 or earlier version of EF. However, EF Core re-uses some of the same
-command names from these earlier versions. These commands can be installed side-by-side, however, EF does 
-not automatically know which version of the command to use. This is solved by prefixing the command
-with the module name. The EF 6 commands PowerShell module is named "EntityFramework", and the EF Core module
-is named "EntityFrameworkCore". Without the prefix, PowerShell may call the wrong version of the command.
+Команды EF Core не работают на EF 6 или более ранних версиях EF. Однако, EF Core использует некоторые имена команд из этих более ранних версий. Эти команды могут быть установлены совместно, однако, EF не может автоматически определить, какую версию команд использовать. Эта проблема решается добавлением имени модуля как префикса команды. Команды модуля PowerShell каркаса EF называтся "EntityFramework", а команды модуля EF Core называются "EntityFrameworkCore". Без такого префикса PowerShell может вызвать неправильную версию команды.
 
 .. code-block:: PowerShell
 
-  # Invokes the EF Core command
+  # Вызов команды EF Core 
   PS> EntityFrameworkCore\Add-Migration
 
-  # Invokes the EF 6 command
+  # Вызов команды EF 6
   PS> EntityFramework\Add-Migration
 
 
 Распространенные ошибки
----------------------------------
+-----------------------
 
 .. include:: _common_errors.txt
 

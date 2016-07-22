@@ -1,36 +1,36 @@
 Microsoft SQL Server
 ====================
 
-This database provider allows Entity Framework Core to be used with Microsoft SQL Server (including SQL Azure). The provider is maintained as part of the `EntityFramework GitHub project <https://github.com/aspnet/EntityFramework>`_.
+Этот провайдер базы данных позволяет использование Entity Framework Core вместе с Microsoft SQL Server (включая SQL Azure). Провайдер поддерживается в рамках `GitHub проекта EntityFramework <https://github.com/aspnet/EntityFramework>`_.
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Install
--------
+Установка
+---------
 
-Install the `Microsoft.EntityFrameworkCore.SqlServer NuGet package <hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/>`_.
+Установите `NuGet пакет Microsoft.EntityFrameworkCore.SqlServer <hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/>`_.
 
 .. code-block:: text
 
     PM>  Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
-Get Started
------------
+Начало работы
+-------------
 
-The following resources will help you get started with this provider.
+Следующие ресурсы помогут вам начать работу с этим провайдером.
   * :doc:`/platforms/full-dotnet/index`
   * :doc:`/platforms/aspnetcore/index`
-  * `UnicornStore Sample Application <https://github.com/rowanmiller/UnicornStore/tree/master/UnicornStore>`_
+  * `Пример приложения UnicornStore <https://github.com/rowanmiller/UnicornStore/tree/master/UnicornStore>`_
 
 Поддерживаемые движки баз данных
-----------------------------------------------
+--------------------------------
 
-  * Microsoft SQL Server (2008 onwards)
+  * Microsoft SQL Server (2008 и далее)
 
 Поддерживаемые платформы
--------------------------------------
+------------------------
 
   * Full .NET (4.5.1 и далее)
   * .NET Core

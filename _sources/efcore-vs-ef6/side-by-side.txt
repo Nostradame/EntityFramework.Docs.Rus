@@ -1,6 +1,6 @@
-EF6.x and EF Core in the Same Application
-=========================================
+EF6.x и EF Core в одном приложении
+==================================
 
-It is possible to use EF Core and EF6.x in the same application. EF Core and EF6.x have the same type names that differ only by namespace, so this may complicate code that attempts to use both EF Core and EF6.x in the same code file.
+Возможно использование EF Core и EF6.x в одном и том же приложении. Как в EF Core так и в EF6.x есть одни и те же типы имен которые различаются только по пространству имен, так что можно скомпилировать код, который будет пытаться использовать как EF Core так и EF6.x в одном и том же файле кода.
 
-If you are porting an existing application that has multiple EF models, then you can selectively port some of them to EF Core, and continue using EF6.x for the others.
+Если вы портируете существующее приложение, в котором есть несколько моделей EF, то вы можете выборочно портировать некоторые из них на EF Core, а для других продолжать использовать EF6.x.

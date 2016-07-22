@@ -1,30 +1,30 @@
-Upgrading from RC2 to RTM
-=========================
+Обновление от RC2 до RTM
+========================
 
-This article provides guidance for moving an application built with the RC2 packages to 1.0.0 RTM.
+Эта статья содержит указания для перенесения построения приложения с пакета RC2 в 1.0.0 RTM.
 
 .. contents:: `В этой статье:`
     :local:
 
-Package Versions
-----------------
+Версии пакетов
+--------------
 
-The names of the top level packages that you would typically install into an application did not change between RC2 and RTM.
+Имена пакетов верхнего уровня, которые вы обычно должны устанавливать в приложение, не изменились в RTM.
 
-You need to upgrade the installed packages to the RTM versions:
-  * Runtime packages (e.g. ``Microsoft.EntityFrameworkCore.SqlServer``) changed from ``1.0.0-rc2-final`` to ``1.0.0``.
-  * The ``Microsoft.EntityFrameworkCore.Tools`` package changed from ``1.0.0-preview1-final`` to ``1.0.0-preview2-final``. Note that tooling is still pre-release.
+Вам необходимо обновить пакеты, установленные в RTM-версии:
+  * Пакеты времени выполнения (например ``Microsoft.EntityFrameworkCore.SqlServer``) изменен с ``1.0.0-rc2-final`` на ``1.0.0``.
+  * Пакет ``Microsoft.EntityFrameworkCore.Tools`` изменен с ``1.0.0-preview1-final`` на ``1.0.0-preview2-final``. Обратите внимание, что инструментарий все еще pre-release.
 
-Existing migrations may need maxLength added
---------------------------------------------
+В существующие миграции возможно понадобится добавление maxLength
+-----------------------------------------------------------------
 
-In RC2, the column definition in a migration looked like ``table.Column<string>(nullable: true)`` and the length of the column was looked up in some metadata we store in the code behind the migration. In RTM, the length is now included in the scaffolded code ``table.Column<string>(maxLength: 450, nullable: true)``.
+В RC2, определение столбца в миграции выглядит типа как ``table.Column<string>(nullable: true)`` а размер столбца берется из некоторых метаданных, которые мы храним в коде, стоящем за миграцией. В RTM, длина теперь включена в генерируемый код ``table.Column<string>(maxLength: 450, nullable: true)``.
 
-Any existing migrations that were scaffolded prior to using RTM will not have the ``maxLength`` argument specified. This means the maximum length supported by the database will be used (``nvarchar(max)`` on SQL Server). This may be fine for some columns, but columns that are part of a key, foreign key, or index need to be updated to include a maximum length. By convention, 450 is the maximum length used for keys, foreign keys, and indexed columns. If you have explicitly configured a length in the model, then you should use that length instead.
+В существующих миграциях, которые были сгенерированы перед использованием RTM, нет определенного аргумента ``maxLength``. Это означает, что будет использоваться максимальная длина, поддерживаемая базой данных (``nvarchar(max)`` для SQL Server). Это может быть нормально для некоторых столбцов, но столбцам, которые являются частью ключа, внешнего ключа, или индекса потребуется обновление, для включения максимальной длины. По соглашению, максимальная длина столбца для ключей, внешних ключей и индексов = 450. Если в вашей модели есть явно настроенная длина, то вы должны использовать это значение вместо нее.
 
 **ASP.NET Identity**
 
-This change impacts projects that use ASP.NET Identity and were created from a pre-RTM project template. The project template includes a migration used to create the database. This migration must be edited to specify a maximum length of ``256`` for the following columns.
+Это иземнение касается проектов, которые используют ASP.NET Identity и были созданы с помощью шаблонов проектов pre-RTM. Шаблон проекта включает в себя миграцию, используемую для создания базы данных. Эту миграцию необходимо отредактировать для указания максимальной длины ``256`` для следующих столбцов.
 
     * AspNetRoles
         * Name
@@ -35,15 +35,15 @@ This change impacts projects that use ASP.NET Identity and were created from a p
         * NormalizedUserName
         * UserName
 
-Failure to make this change will result in the following exception when the initial migration is applied to a database.
+Отказ от этого изменения при применении миграции для создания базы данных приведет к следующей ошибке.
 
     System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
 
 
-.NET Core: Remove "imports" in project.json
--------------------------------------------
+.NET Core: удаление "imports" из project.json
+---------------------------------------------
 
-If you were targeting .NET Core with RC2, you needed to add ``imports`` to project.json as a temporary workaround for some of EF Core's dependencies not supporting .NET Standard. These can now be removed.
+Если вы когда-то выбирали .NET Core с RC2, вам необходимо было добавлять ``imports`` в project.json в качестве временного решения для некоторых зависимостей EF Core, не поддерживающих .NET Standard. Теперь они могут быть удалены.
 
 .. code-block:: json
     :emphasize-lines: 4
@@ -55,14 +55,14 @@ If you were targeting .NET Core with RC2, you needed to add ``imports`` to proje
         }
     }
 
-UWP: Add binding redirects
---------------------------
+UWP: Добавление привязки перенаправления
+----------------------------------------
 
-Attempting to run EF commands on Universal Windows Platform (UWP) projects results in the following error:
+Попытка запустить команды EF в проекте универсальной платформе Windows (UWP) выдаст следующую ошибку:
 
-    System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+    System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. Расположение определения манифеста сборки не соответствует ссылке на сборку.
 
-You need to manually add binding redirects to the UWP project. Create a file named ``App.config`` in the project root folder and add redirects to the correct assembly versions.
+Вам нужно вручную добавить привязку перенаправления UWP проекта. В корневой папке проекта создайте файл с именем ``App.config``  добавьте перенаправление для правильной версии сборки.
 
 .. code-block:: xml
 

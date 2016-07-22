@@ -1,35 +1,35 @@
-InMemory (for Testing)
-======================
+InMemory (для тестирования)
+===========================
 
-This database provider allows Entity Framework Core to be used with an in-memory database. This is useful when testing code that uses Entity Framework Core. The provider is maintained as part of the `EntityFramework GitHub project <https://github.com/aspnet/EntityFramework>`_.
+Этот провайдер базы данных позволяет использование Entity Framework Core вместе с базой данных в памяти. Это полезно при тестировании кода, который использует Entity Framework Core. Провайдер поддерживается в рамках `GitHub проекта EntityFramework <https://github.com/aspnet/EntityFramework>`_.
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Install
--------
+Установка
+---------
 
-Install the `Microsoft.EntityFrameworkCore.InMemory NuGet package <hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/>`_.
+Установите `NuGet пакет Microsoft.EntityFrameworkCore.InMemory <hhttps://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/>`_.
 
 .. code-block:: text
 
     PM>  Install-Package Microsoft.EntityFrameworkCore.InMemory
 
-Get Started
------------
+Начало работы
+-------------
 
-The following resources will help you get started with this provider.
+Следующие ресурсы помогут вам начать работу с этим провайдером.
   * :doc:`/miscellaneous/testing`
-  * `UnicornStore Sample Application Tests <https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore.Tests/Controllers/ShippingControllerTests.cs>`_
+  * `Пример тестирования приложения UnicornStore <https://github.com/rowanmiller/UnicornStore/blob/master/UnicornStore/src/UnicornStore.Tests/Controllers/ShippingControllerTests.cs>`_
 
 Поддерживаемые движки баз данных
-----------------------------------------------
+--------------------------------
 
-  * Built-in in-memory database (designed for testing purposes only)
+  * Встроенная база данных в памяти (разработана только для целей тестирования)
 
 Поддерживаемые платформы
--------------------------------------
+------------------------
 
   * Full .NET (4.5.1 и далее)
   * .NET Core

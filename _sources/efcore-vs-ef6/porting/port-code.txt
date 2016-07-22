@@ -1,7 +1,7 @@
-Porting a Code-Based Model (Code First & Code First to Existing Database)
-=========================================================================
+Портирование модели, основанной на коде (Code First & Code First для существующей базы данных)
+==============================================================================================
 
-If you've read all the caveats and you are ready to port, then here are some guidelines to help you get started.
+Если вы читали все предостережения и готовы к портмрованию, то здесь некоторые руководящие принципы, чтобы помочь вам начать работу.
 
 .. contents:: `В этой статье:`
     :depth: 2
@@ -10,23 +10,23 @@ If you've read all the caveats and you are ready to port, then here are some gui
 Установка пакетов EF Core NuGet
 -------------------------------
 
-To use EF Core, you install the NuGet package for the database provider you want to use. For example, when targeting SQL Server, you would install ``Microsoft.EntityFrameworkCore.SqlServer``. Подробнее смотрите раздел :doc:`/providers/index`.
+Чтобы использовать EF Core, установите the NuGet пакет того провайдера базы данных, которого вы хотите использоавть. Например, если выбран SQL Server, вы должны установить ``Microsoft.EntityFrameworkCore.SqlServer``. Подробнее смотрите раздел :doc:`/providers/index`.
 
-If you are planning to use migrations, then you should also install the ``Microsoft.EntityFrameworkCore.Tools`` package.
+Если вы планируете использовать миграций, то вы также должны установить пакет ``Microsoft.EntityFrameworkCore.Tools``.
 
 Лучше оставить NuGet пакет EF6.x (EntityFramework) установленным, так как EF Core и EF6.x могут использоваться бок-о-бок в одном приложении. Тем не менее, если вы не намерены использовать EF6.x ни в каких областях вашего приложения, то удаление пакета поможет выявить ошибки компиляции в фрагментах кода, которые требуют внимания.
 
-Swap namespaces
----------------
+Присваивание пространств имен
+-----------------------------
 
-Most APIs that you use in EF6.x are in the ``System.Data.Entity`` namespace (and related sub-namespaces). The first code change is to swap to the ``Microsoft.EntityFrameworkCore`` namespace. You would typically start with your derived context code file and then work out from there, addressing compilation errors as they occur.
+Большинство API, которые вы использовали в EF6.x находятся в пространстве имен ``System.Data.Entity`` (и соответствующих под-пространствах). Первое изменение кода - это присваивание пространства имен ``Microsoft.EntityFrameworkCore``. Обычно вы должны начать с файла кода вашего производного контекста, а затем работать от него, обращаясь к ошибкам компиляции по мере их возникновения.
 
-Context configuration (connection etc.)
----------------------------------------
+Настройка контекста (подключение и т.д.)
+----------------------------------------
 
-As described in :doc:`ensure-requirements`, EF Core has less magic around detecting the database to connect to. You will need to override the ``OnConfiguring`` method on your derived context, and use the database provider specific API to setup the connection to the database.
+Как описано в разделе :doc:`ensure-requirements`, EF Core имеет меньше магии для обнаружения базы данных, к которой нужно подключится. Вы должны будете переопределить метод ``OnConfiguring`` вашего производного контекста, и использовать API провайдера базы данных для настройки подключения к базе данных.
 
-Most EF6.x applications store the connection string in the applications ``App/Web.config`` file. In EF Core, you read this connection string using the ``ConfigurationManager`` API. You may need to add a reference to the ``System.Configuration`` framework assembly to be able to use this API.
+Болььшинство приложений EF6.x хранят строку подключения в файле приложения ``App/Web.config``. В EF Core, вы читаете эту строку подключения при помощи ``ConfigurationManager`` API. Вам может понадобиться добавить ссылку на сборку каркаса ``System.Configuration`` чтобы получить возможность использовать эти API.
 
 .. code-block:: c#
     :linenos:
@@ -45,14 +45,14 @@ Most EF6.x applications store the connection string in the applications ``App/We
 Обновление кода
 ---------------
 
-At this point, it's a matter of addressing compilation errors and reviewing code to see if the behavior changes will impact you.
+На данный момент вы столкнетесь с вопросом решения ошибок компиляции и анализа кода, чтобы увидеть, как ведет себя изменение поведения.
 
-Existing migrations
--------------------
+Существующие миграции
+---------------------
 
-There isn't really a feasible way to port existing EF6.x migrations to EF Core.
+Не существует действительно возможного пути портировать существующие миграции EF6.x на EF Core.
 
-If possible, it is best to assume that all previous migrations from EF6.x have been applied to the database and then start migrating the schema from that point using EF Core. To do this, you would use the ``Add-Migration`` command to add a migration once the model is ported to EF Core. You would then remove all code from the ``Up`` and ``Down`` methods of the scaffolded migration. Subsequent migrations will compare to the model when that initial migration was scaffolded.
+Если возможно, лучше всего предположить, что все предыдущие миграции из EF6.x должны быть применены к базе данных, а затем выполнить миграцию схемы из этой точки при помощи EF Core. Для этого вы должны использовать команду ``Add-Migration`` для добавления миграции после того, как модель портирована на  EF Core. Затем вы должны удалить весь код из методов ``Up`` и ``Down`` сгенерированных миграций. Последующие миграции будут сравнивать с моделью, если такая начальная миграция была сгенерирована.
 
 Тестирование портирования
 -------------------------

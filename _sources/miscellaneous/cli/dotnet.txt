@@ -8,18 +8,18 @@
     :local:
 
 .. note::
-    Известные проблемы для средства командной строки .NET Core CLI. See `Preview 2 Known Issues`_ for more details.
+    Известные проблемы для средства командной строки .NET Core CLI. Подробнее смотрите `Известные проблеммы Preview 2`_.
 
 Установка
 ------------------
 
 Необходимые условия
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
-EF command-line tools requires .NET Core CLI Preview 2 or newer. Чтобы получить инструкции по установке, смотрите веб-сайт `.NET Core <https://www.microsoft.com/net/core>`_.
+Инструментам командной строки EF требуется .NET Core CLI Preview 2 или новее. Чтобы получить инструкции по установке, смотрите веб-сайт `.NET Core <https://www.microsoft.com/net/core>`_.
 
 Поддерживаемые каркасы
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 EF поддерживает команды .NET Core CLI этих фреймворков:
 
@@ -27,11 +27,11 @@ EF поддерживает команды .NET Core CLI этих фреймво
  - .NET Core App 1.0. ("netcoreapp1.0")
 
 Установка редактированием project.json
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Средства командной строки EF для .NET Core CLI устанавливаются вручную редактированием ``project.json``.
 
-1. Add ``Microsoft.EntityFrameworkCore.Tools`` as a "tool" and ``Microsoft.EntityFrameworkCore.Design`` as a build-only dependency under "dependencies". Смотрите пример project.json ниже.
+1. Добавьте ``Microsoft.EntityFrameworkCore.Tools`` как "tool", а ``Microsoft.EntityFrameworkCore.Design`` как встроенную зависимость в "dependencies". Смотрите пример project.json ниже.
 2. Выполните команду ``dotnet restore``. Если не удается восстановить, то может быть средства командной строки не установлены правильно.
 
 Полученный project.json должен включать эти элементы (помимо других зависимостей проекта).
@@ -56,10 +56,10 @@ EF поддерживает команды .NET Core CLI этих фреймво
     }
 
 .. tip::
-    build-only dependency (``"type": "build"``) означает, что эта зависимость является локальной для текущего проекта. Например, если в проекте A есть build only dependency, а проект B зависит от A, то команда ``dotnet restore`` не добавит build-only dependencies проекта А в проект B.
+    Встоенная зависимость (``"type": "build"``) означает, что эта зависимость является локальной для текущего проекта. Например, если в проекте A есть build only dependency, а проект B зависит от A, то команда ``dotnet restore`` не добавит build-only dependencies проекта А в проект B.
 
 Применение
-----------------
+----------
 Команды можно запускать из командной строки, перейдя в каталог проекта и выполнив ``dotnet ef [субкоманда]``. Чтобы посмотреть информацию об использовании, получить подробную информацию о параметрах и субкомандах, добавьте к любой команде ``--help``.
 
 dotnet-ef
@@ -69,13 +69,13 @@ dotnet-ef
     Применение: dotnet ef [опции] [команда]
 
     Опции:
-      -h|--help                           Show help information
-      -p|--project <PROJECT>              The project to target (defaults to the project in the current directory). Can be a path to a project.json or a project directory.
-      -s|--startup-project <PROJECT>      The path to the project containing Startup (defaults to the target project). Can be a path to a project.json or a project directory.
-      -c|--configuration <CONFIGURATION>  Configuration under which to load (defaults to Debug)
-      -f|--framework <FRAMEWORK>          Target framework to load from the startup project (defaults to the framework most compatible with .NETCoreApp,Version=v1.0).
-      -b|--build-base-path <OUTPUT_DIR>   Directory in which to find temporary outputs.
-      -o|--output <OUTPUT_DIR>            Directory in which to find outputs
+      -h|--help                           Показывает справочную информацию
+      -p|--project <PROJECT>              Выбраннй проект (по умолчанию это проект в текущей директории). Может быть путем до project.json или директории проекта.
+      -s|--startup-project <PROJECT>      Путь к проекту, содержащий Startup (по умолчанию выбранный проект). Может быть путем до project.json или директории проекта.
+      -c|--configuration <CONFIGURATION>  Конфигурация, под которой будет загрузка (по умолчанию - Debug)
+      -f|--framework <FRAMEWORK>          Выбор загружаемого из запуска проекта каркаса (по умолчанию- каркас, максимально совместимый с .NETCoreApp,Version=v1.0).
+      -b|--build-base-path <OUTPUT_DIR>   Директория поиска временного вывода.
+      -o|--output <OUTPUT_DIR>            Директория поиска вывода
 
     Команды:
       database    Команды для управления базой данных
@@ -151,7 +151,7 @@ dotnet-ef-dbcontext-list
 
     Опции:
       -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
-      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      --json                          Используется вывод json. JSON находится между '//BEGIN' и '//END'
       -h|--help                       Показать справочную информацию
       -v|--verbose                    Включить подробный вывод
 
@@ -164,7 +164,7 @@ dotnet-ef-dbcontext-scaffold
 
     Аргументы:
       [connection]  Строка подключения базы данных
-      [provider]    Используемый провайдер. For example, Microsoft.EntityFrameworkCore.SqlServer
+      [provider]    Используемый провайдер. Например, Microsoft.EntityFrameworkCore.SqlServer
 
     Опции:
       -a|--data-annotations           Использовать атрибуты DataAnnotation для настройки модели, где это возможно. Если опущены, выводимый код будет использовать только Fluent API.
@@ -205,10 +205,10 @@ dotnet-ef-migrations-add
       [name]  Имя миграции
 
     Опции:
-      -o|--output-dir <path>          Используемая директория (под-директория) Если этот параметр опущен, используется "Миграции". Relative paths are relative the directory in which the command is executed.
+      -o|--output-dir <path>          Используемая директория (под-директория) Если этот параметр опущен, используется "Миграции". Относительные пути задаются относительно каталога, в котором выполняется команда.
       -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
       -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
-      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      --json                          Используется вывод json. JSON находится между '//BEGIN' и '//END'
       -h|--help                       Показать справочную информацию
       -v|--verbose                    Включить подробный вывод
 
@@ -222,7 +222,7 @@ dotnet-ef-migrations-list
     Опции:
       -c|--context <context>          Используемый DbContext. Если этот параметр опущен, используется значение DbContext по умолчанию
       -e|--environment <environment>  Используемая среда. Если этот параметр опущен, используется "Development".
-      --json                          Use json output. JSON is wrapped by '//BEGIN' and '//END'
+      --json                          Используется вывод json. JSON находится между '//BEGIN' и '//END'
       -h|--help                       Показать справочную информацию
       -v|--verbose                    Включить подробный вывод
 
@@ -261,19 +261,19 @@ dotnet-ef-migrations-script
 
 
 Распространенные ошибки
----------------------------------
+-----------------------
 
 .. include:: _common_errors.txt
 
 .. _dotnet_cli_issues:
 
-Preview 2 Known Issues
-----------------------
+Известные проблеммы Preview 2
+-----------------------------
 
-Таргетинг библиотеки классов проекта не поддерживается
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Выбор библиотеки классов проекта не поддерживается
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.NET Core CLI does not support running commands on class libraries as of Preview 2.
+По состоянию на Preview 2 .NET Core CLI не поддерживает выполнение команд из классов библиотек.
 Несмотря на возможность установить инструменты EF, выполнение команд может вызвать следующую ошибку.
 
 .. code-block:: text
@@ -282,21 +282,18 @@ Preview 2 Known Issues
 
 Смотрите о проблемме https://github.com/dotnet/cli/issues/2645.
 
-Explanation
-^^^^^^^^^^^
-If ``dotnet run`` does not work in the startup project, then ``dotnet ef`` cannot run either.
+Пояснение
+^^^^^^^^^
+Если команда ``dotnet run`` не запускает проект, то ``dotnet ef`` так же не будет работать.
 
-"dotnet ef" is invoked as an alternate entry point into an application. If the "startup" project
-is not an application, then it is not currently possible to run the project
-as an application with the "dotnet ef" alternate entry point.
+"dotnet ef" вызывается как альтернативная точка входа в приложение. В настоящее время, если "startup" проект не является приложением, то невозможно запустить проект как приложение с альтернативной точкой входа "dotnet ef".
 
-The "startup" project defaults to the current project, unless specified differently with the
-parameter ``--startup-project``.
+Проект "startup"  является умолчательным для текущего проекта, если не указан другой с параметром ``--startup-project``.
 
-Workaround 1
-^^^^^^^^^^^^
+Временное решение 1
+^^^^^^^^^^^^^^^^^^^
 
-Specify a startup project that is a "runnable app".
+Определите запуск проекта, который будет "runnable app".
 
 Пример:
 
@@ -304,9 +301,9 @@ Specify a startup project that is a "runnable app".
 
     dotnet ef --startup-project ../MyConsoleApplication/ migrations list
 
-Workaround 2
-^^^^^^^^^^^^
-Convert the class library project into an "app" project. Это может быть или приложение .NET Core или desktop .NET.
+Временное решение 2
+^^^^^^^^^^^^^^^^^^^
+Преобразовать проект библиотеки классов в проект "app". Это может быть или приложение .NET Core или desktop .NET.
 
 Чтобы создать проект .NET Core App, добавьте каркас "netcoreapp1.0" в project.json вместе с другими параметрами как в примере ниже:
 

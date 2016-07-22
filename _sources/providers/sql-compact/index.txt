@@ -1,40 +1,40 @@
 Microsoft SQL Server Compact Edition
 ====================================
 
-This database provider allows Entity Framework Core to be used with SQL Server Compact Edition. The provider is maintained as part of the `ErikEJ/EntityFramework.SqlServerCompact GitHub Project <https://github.com/ErikEJ/EntityFramework.SqlServerCompact>`_.
+Этот провайдер базы данных позволяет использование Entity Framework Core вместе с SQL Server Compact Edition. Провайдер поддерживается как часть `проекта GitHub ErikEJ/EntityFramework.SqlServerCompact <https://github.com/ErikEJ/EntityFramework.SqlServerCompact>`_.
 
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Install
--------
+Установка
+---------
 
-To work with SQL Server Compact Edition 4.0, install the `EntityFrameworkCore.SqlServerCompact40 NuGet package <https://www.nuget.org/packages/EntityFrameworkCore.SqlServerCompact40>`_.
+Для работы с SQL Server Compact Edition 4.0, установите `NuGet пакет EntityFrameworkCore.SqlServerCompact40 <https://www.nuget.org/packages/EntityFrameworkCore.SqlServerCompact40>`_.
 
 .. code-block:: text
 
     PM>  Install-Package EntityFrameworkCore.SqlServerCompact40
 
-To work with SQL Server Compact Edition 3.5, install the `EntityFrameworkCore.SqlServerCompact35 <https://www.nuget.org/packages/EntityFrameworkCore.SqlServerCompact35>`_.
+Для работы с SQL Server Compact Edition 3.5, установите `NuGet пакет EntityFrameworkCore.SqlServerCompact35 <https://www.nuget.org/packages/EntityFrameworkCore.SqlServerCompact35>`_.
 
 .. code-block:: text
 
     PM>  Install-Package EntityFrameworkCore.SqlServerCompact35
 
-Get Started
------------
+Начало работы
+-------------
 
 Смотрите `документацию как начать работать на сайте проекта <https://github.com/ErikEJ/EntityFramework.SqlServerCompact/wiki/Using-EF-Core-with-SQL-Server-Compact-in-Traditional-.NET-Applications>`_
 
 Поддерживаемые движки баз данных
-----------------------------------------------
+--------------------------------
 
   * SQL Server Compact Edition 3.5
   * SQL Server Compact Edition 4.0
 
 Поддерживаемые платформы
--------------------------------------
+------------------------
 
   * Full .NET (4.5.1 и далее)

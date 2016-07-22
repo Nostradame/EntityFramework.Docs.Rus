@@ -1,32 +1,32 @@
-Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, and more)
+Devart (MySQL, Oracle, PostgreSQL, SQLite, DB2, SQL Server, и другие)
 =====================================================================
 
-Devart is a third party provider writer that offers database providers for a wide range of databases. Find out more at `devart.com/dotconnect <https://www.devart.com/dotconnect/>`_.
+Devart это провайдер сторонних разработчиков, которые предлагают провайдеров для многих баз данных. Узнайте больше на `devart.com/dotconnect <https://www.devart.com/dotconnect/>`_.
 
 .. attention::
-    Devart dotConnect currently only supports the Entity Framework Core RC2 pre-release.
+    В настоящее время Devart dotConnect поддерживает только Entity Framework Core RC2 pre-release.
 
 .. contents:: `В этой статье:`
     :depth: 2
     :local:
 
-Paid Versions Only
-------------------
+Только платные версии
+---------------------
 
-Devart dotConnect is a commercial third party provider. Entity Framework support is only available in paid versions of dotConnect.
+Devart dotConnect это сторонний коммерческий провайдер. Поддержка Entity Framework доступна только в платной версии dotConnect.
 
-Install
--------
+Установка
+---------
 
-See the `Devart dotConnect documentation <https://www.devart.com/dotconnect/>`_ for installation instructions.
+Инструкцию по установке смотрите в `документации Devart dotConnect <https://www.devart.com/dotconnect/>`_.
 
-Get Started
------------
+Начало работы
+-------------
 
-See the `Devart dotConnect Entity Framework documentation <https://www.devart.com/dotconnect/entityframework.html>`_ to get started.
+Для начала работы смотрите `документацию Devart dotConnect Entity Framework <https://www.devart.com/dotconnect/entityframework.html>`_.
 
 Поддерживаемые движки баз данных
-----------------------------------------------
+--------------------------------
 
   * MySQL
   * Oracle
@@ -34,9 +34,9 @@ See the `Devart dotConnect Entity Framework documentation <https://www.devart.co
   * SQLite
   * DB2
   * SQL Server
-  * and more...
+  * и более...
 
 Поддерживаемые платформы
--------------------------------------
+------------------------
 
   * Full .NET (4.5.1 и далее)
